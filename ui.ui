@@ -17,10 +17,13 @@
    <string>MainWindow</string>
   </property>
   <property name="windowOpacity">
-   <double>0.500000000000000</double>
+   <double>1.000000000000000</double>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: #2a2a2a;</string>
   </property>
   <widget class="QWidget" name="centralwidget">
-   <widget class="QLabel" name="thumbnail1">
+   <widget class="QLabel" name="thumbnail">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -38,218 +41,94 @@
     <property name="toolTip">
      <string notr="true"/>
     </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="text">
-     <string notr="true"/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../Pictures/images.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="thumbnail2">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>214</y>
-      <width>256</width>
-      <height>144</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
+    <property name="styleSheet">
+     <string notr="true">color: rgb(0, 0, 0);
+border: 1px solid black;
+border-radius: 25px;
+border-color: white;
+width: 144px;
+height: 256px;
+border-image: url(&quot;C:/Users/danie/Downloads/marisad.jpg&quot;) 0 0 0 0 stretch stretch;</string>
     </property>
     <property name="text">
      <string notr="true"/>
     </property>
     <property name="pixmap">
-     <pixmap>../../Pictures/images.png</pixmap>
+     <pixmap>https:/files.catbox.moe/8l782z.jpg</pixmap>
     </property>
     <property name="scaledContents">
      <bool>true</bool>
     </property>
-   </widget>
-   <widget class="QLabel" name="thumbnail3">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>368</y>
-      <width>256</width>
-      <height>144</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="text">
-     <string notr="true"/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../Pictures/images.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
+    <property name="openExternalLinks">
+     <bool>false</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="thumbnail4">
+   <widget class="QLabel" name="title">
     <property name="geometry">
      <rect>
-      <x>10</x>
-      <y>522</y>
-      <width>256</width>
-      <height>144</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="text">
-     <string notr="true"/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../Pictures/images.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="thumbnail5">
-    <property name="geometry">
-     <rect>
-      <x>10</x>
-      <y>676</y>
-      <width>256</width>
-      <height>144</height>
-     </rect>
-    </property>
-    <property name="sizePolicy">
-     <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-      <horstretch>0</horstretch>
-      <verstretch>0</verstretch>
-     </sizepolicy>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="frameShape">
-     <enum>QFrame::NoFrame</enum>
-    </property>
-    <property name="frameShadow">
-     <enum>QFrame::Plain</enum>
-    </property>
-    <property name="text">
-     <string notr="true"/>
-    </property>
-    <property name="pixmap">
-     <pixmap>../../Pictures/images.png</pixmap>
-    </property>
-    <property name="scaledContents">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="title1">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>54</y>
-      <width>354</width>
-      <height>40</height>
+      <x>280</x>
+      <y>60</y>
+      <width>350</width>
+      <height>36</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string notr="true">new video</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="user1">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>94</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
+      <family>Noto Sans</family>
+      <pointsize>18</pointsize>
      </font>
     </property>
     <property name="toolTip">
      <string notr="true"/>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(128, 128, 128);</string>
+     <string notr="true">color: rgb(255, 255, 255);</string>
     </property>
     <property name="text">
-     <string notr="true">untitled user</string>
+     <string notr="true">Marisad.jpg</string>
+    </property>
+    <property name="wordWrap">
+     <bool>true</bool>
     </property>
    </widget>
-   <widget class="QLabel" name="meta1">
+   <widget class="QLabel" name="user">
     <property name="geometry">
      <rect>
-      <x>276</x>
-      <y>134</y>
-      <width>354</width>
-      <height>40</height>
+      <x>280</x>
+      <y>100</y>
+      <width>350</width>
+      <height>36</height>
      </rect>
     </property>
     <property name="font">
      <font>
-      <pointsize>20</pointsize>
+      <family>Noto Sans</family>
+      <pointsize>18</pointsize>
+     </font>
+    </property>
+    <property name="toolTip">
+     <string notr="true"/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">color: #c0c0c0;</string>
+    </property>
+    <property name="text">
+     <string notr="true">2hu</string>
+    </property>
+   </widget>
+   <widget class="QLabel" name="meta">
+    <property name="geometry">
+     <rect>
+      <x>280</x>
+      <y>140</y>
+      <width>350</width>
+      <height>36</height>
+     </rect>
+    </property>
+    <property name="font">
+     <font>
+      <family>Noto Sans</family>
+      <pointsize>18</pointsize>
       <weight>50</weight>
       <bold>false</bold>
      </font>
@@ -258,309 +137,13 @@
      <string notr="true"/>
     </property>
     <property name="styleSheet">
-     <string notr="true">color: rgb(128, 128, 128);</string>
+     <string notr="true">color: #c0c0c0;</string>
     </property>
     <property name="lineWidth">
      <number>1</number>
     </property>
     <property name="text">
-     <string notr="true">x views / x time ago</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="user2">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>248</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(128, 128, 128);</string>
-    </property>
-    <property name="text">
-     <string notr="true">untitled user</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="meta2">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>288</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(128, 128, 128);</string>
-    </property>
-    <property name="text">
-     <string notr="true">x views / x time ago</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="title2">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>208</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string notr="true">new video</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="meta3">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>442</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(128, 128, 128);</string>
-    </property>
-    <property name="text">
-     <string notr="true">x views / x time ago</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="user3">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>402</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(128, 128, 128);</string>
-    </property>
-    <property name="text">
-     <string notr="true">untitled user</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="title3">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>362</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string notr="true">new video</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="user4">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>556</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(128, 128, 128);</string>
-    </property>
-    <property name="text">
-     <string notr="true">untitled user</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="meta4">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>596</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(128, 128, 128);</string>
-    </property>
-    <property name="text">
-     <string notr="true">x views / x time ago</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="title4">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>516</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string notr="true">new video</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="title5">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>670</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string notr="true">new video</string>
-    </property>
-    <property name="wordWrap">
-     <bool>true</bool>
-    </property>
-   </widget>
-   <widget class="QLabel" name="user5">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>710</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(128, 128, 128);</string>
-    </property>
-    <property name="text">
-     <string notr="true">untitled user</string>
-    </property>
-   </widget>
-   <widget class="QLabel" name="meta5">
-    <property name="geometry">
-     <rect>
-      <x>276</x>
-      <y>750</y>
-      <width>354</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="font">
-     <font>
-      <pointsize>20</pointsize>
-      <weight>50</weight>
-      <bold>false</bold>
-     </font>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="styleSheet">
-     <string notr="true">color: rgb(128, 128, 128);</string>
-    </property>
-    <property name="text">
-     <string notr="true">x views / x time ago</string>
+     <string notr="true">420K views / 69 weeks ago</string>
     </property>
    </widget>
    <widget class="QPushButton" name="previous">
@@ -568,12 +151,27 @@
      <rect>
       <x>10</x>
       <y>830</y>
-      <width>100</width>
+      <width>130</width>
       <height>40</height>
      </rect>
     </property>
     <property name="toolTip">
      <string notr="true"/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	color: #000000;
+	background-color: #74cbfc;
+	border: 1px solid black;
+	border-radius: 20px;
+	border-color: #74cbfc;
+}
+QPushButton:hover {
+	border-radius: 5px;
+}
+QPushButton:pressed {
+}
+</string>
     </property>
     <property name="text">
      <string notr="true">previous</string>
@@ -582,39 +180,35 @@
    <widget class="QPushButton" name="next">
     <property name="geometry">
      <rect>
-      <x>166</x>
+      <x>150</x>
       <y>830</y>
-      <width>100</width>
+      <width>140</width>
       <height>40</height>
      </rect>
     </property>
     <property name="toolTip">
      <string notr="true"/>
+    </property>
+    <property name="styleSheet">
+     <string notr="true">QPushButton {
+	color: #000000;
+	background-color: #74cbfc;
+	border: 1px solid black;
+	border-radius: 20px;
+	border-color: #74cbfc;
+}
+QPushButton:hover {
+	border-radius: 5px;
+}
+QPushButton:pressed {
+}
+</string>
     </property>
     <property name="text">
      <string notr="true">next</string>
     </property>
    </widget>
-   <widget class="QPushButton" name="returntop">
-    <property name="geometry">
-     <rect>
-      <x>113</x>
-      <y>830</y>
-      <width>50</width>
-      <height>40</height>
-     </rect>
-    </property>
-    <property name="cursor">
-     <cursorShape>PointingHandCursor</cursorShape>
-    </property>
-    <property name="toolTip">
-     <string notr="true"/>
-    </property>
-    <property name="text">
-     <string notr="true">top</string>
-    </property>
-   </widget>
-   <widget class="QLineEdit" name="lineEdit">
+   <widget class="QLineEdit" name="searchbar">
     <property name="geometry">
      <rect>
       <x>10</x>
@@ -622,6 +216,11 @@
       <width>620</width>
       <height>40</height>
      </rect>
+    </property>
+    <property name="font">
+     <font>
+      <pointsize>12</pointsize>
+     </font>
     </property>
     <property name="toolTip">
      <string notr="true">The searchbar dumbass.</string>
@@ -633,13 +232,33 @@
      <string/>
     </property>
     <property name="styleSheet">
-     <string notr="true">selection-color: rgb(0, 255, 255);</string>
+     <string notr="true">QLineEdit {
+	color: #a8a8a8;
+	background-color: #4d4d4d;
+	border: 2px solid #36393e;
+	border-radius: 20px;
+	padding-right: 20px;
+	padding-left: 20px;
+}
+QLineEdit:hover {
+	border: 2px solid #74cbfc;
+}
+QLineEdit:focus {
+	border-radius: 5px;
+	border: 2px solid #74cbfc;
+}</string>
+    </property>
+    <property name="inputMask">
+     <string notr="true"/>
     </property>
     <property name="text">
      <string notr="true"/>
     </property>
     <property name="placeholderText">
      <string>Search YouTube...</string>
+    </property>
+    <property name="clearButtonEnabled">
+     <bool>true</bool>
     </property>
    </widget>
   </widget>
