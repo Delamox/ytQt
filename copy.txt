@@ -1,18 +1,78 @@
 pyuic6.exe -x -o ui.py ui.ui
-
 .venv/Scripts/pyuic6.exe -x -o uit.py ui.ui
 
-
+#
+from PyQt6 import QtCore, QtGui, QtWidgets
 from PIL import Image
 import requests
 from io import BytesIO
 import tempfile
 from pathlib import Path
+import json
 import os
+#key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
+key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
+baseurl = "https://youtube.googleapis.com/"
+basethumbstyle = ("QPushButton:hover{\n"
+                  "border-radius: 12px;\n"
+                  "border-width: 3px;\n"
+                  "border-color: #74cbfc}\n"
+                  "QPushButton:pressed{\n"
+                  "border-width: 3px;\n"
+                  "border-color: #e974fc;}\n"
+                  "QPushButton{\n"
+                  "color: rgb(0, 0, 0);\n"
+                  "border-width: 1px;\n"
+                  "border-style: solid;\n"
+                  "border-radius: 25px;\n"
+                  "border-color: #2b2b2b;\n"
+                  "width: 144px;\n"
+                  "height: 256px;\n"
+                  "background-position: center;\n")
+#
+#
+def searchyt(self):
+    ytquery = self.searchbar.text()
+    params = {'part': 'snippet', 'key': key, "q": ytquery, "maxResults": "5"}
+    searchResponse = requests.get(baseurl + 'youtube/v3/search', params=params)
+    obj = json.loads(searchResponse.text)
 
-url = 'https://files.catbox.moe/vdzsjq.jpg'
+    for i in range(0, 5):
+        title = obj['items'][i]['snippet'].get('title')
+        user = obj['items'][i]['snippet'].get('channelTitle')
+        thumbnail = obj['items'][i]['snippet']['thumbnails']['medium'].get('url')
+        temp = tempfile.TemporaryFile()
+        (Image.open(BytesIO(requests.get(thumbnail).content))).resize((256, 144)).save(f"{temp.name}.bmp")
+        path = Path(f'{temp.name}.bmp').as_posix()
+        if (i==0):
+            self.thumbnail.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+            self.title.setText(title)
+            self.user.setText(user)
+        elif (i==1):
+            self.thumbnail_2.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+            self.title_2.setText(title)
+            self.user_2.setText(user)
+        elif (i==2):
+            self.thumbnail_3.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+            self.title_3.setText(title)
+            self.user_3.setText(user)
+        elif (i==3):
+            self.thumbnail_4.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+            self.title_4.setText(title)
+            self.user_4.setText(user)
+        elif (i==4):
+            self.thumbnail_5.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+            self.title_5.setText(title)
+        self.user_5.setText(user)
+#
+#
+self.search.clicked.connect(self.searchyt)
+url = 'https://img.youtube.com/vi/Y2gTSjoEExc/mqdefault.jpg'
 temp = tempfile.TemporaryFile()
 (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
-f"background-image: url({Path(f'{temp.name}.bmp').as_posix()}) 0 0 0 0 stretch stretch;"
-
-os.remove(Path(f'{temp.name}.bmp').as_posix())
+path = Path(f'{temp.name}.bmp').as_posix()
+self.thumbnail.setStyleSheet(basethumbstyle+f"background-image: url({path}) 0 0 0 0 stretch stretch;"+"}")
+#
+#
+self.thumbnail_2.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+#
