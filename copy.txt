@@ -1,5 +1,8 @@
 pyuic6.exe -x -o ui.py ui.ui
 
+.venv/bin/pyuic6 -x -o uit.py ui.ui
+
+
 from PIL import Image
 import requests
 from io import BytesIO
