@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>1040</width>
-    <height>880</height>
+    <height>864</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -113,7 +113,7 @@
     <property name="geometry">
      <rect>
       <x>10</x>
-      <y>830</y>
+      <y>814</y>
       <width>130</width>
       <height>40</height>
      </rect>
@@ -149,7 +149,7 @@ border-width: 3px
     <property name="geometry">
      <rect>
       <x>150</x>
-      <y>830</y>
+      <y>814</y>
       <width>140</width>
       <height>40</height>
      </rect>
