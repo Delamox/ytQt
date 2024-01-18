@@ -1,6 +1,6 @@
 pyuic6.exe -x -o ui.py ui.ui
 
-.venv/bin/pyuic6 -x -o uit.py ui.ui
+.venv/Scripts/pyuic6.exe -x -o uit.py ui.ui
 
 
 from PIL import Image
@@ -12,8 +12,7 @@ import os
 
 url = 'https://files.catbox.moe/vdzsjq.jpg'
 temp = tempfile.TemporaryFile()
-Image.open(BytesIO(requests.get(url).content)).save(f"{temp.name}.bmp")
-
-f"border-image: url({Path(f'{temp.name}.bmp').as_posix()}) 0 0 0 0 stretch stretch;"
+(Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
+f"background-image: url({Path(f'{temp.name}.bmp').as_posix()}) 0 0 0 0 stretch stretch;"
 
 os.remove(Path(f'{temp.name}.bmp').as_posix())

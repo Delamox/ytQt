@@ -126,19 +126,20 @@
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
-	color: #000000;
-	background-color: #74cbfc;
-	border: 1px solid black;
-	border-radius: 20px;
-	border-color: #74cbfc;
+color: #000000;
+background-color: #74cbfc;
+border-width: 1px;
+border-style: solid black;
+border-radius: 20px;
+border-color: #74cbfc;
 }
 QPushButton:hover {
-	border-radius: 5px;
+border-radius: 5px;
 }
 QPushButton:pressed {
-	background-color: #e974fc;
-}
-</string>
+border-color: #e974fc;
+border-width: 3px
+}</string>
     </property>
     <property name="text">
      <string notr="true">previous</string>
@@ -161,19 +162,20 @@ QPushButton:pressed {
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
-	color: #000000;
-	background-color: #74cbfc;
-	border: 1px solid black;
-	border-radius: 20px;
-	border-color: #74cbfc;
+color: #000000;
+background-color: #74cbfc;
+border-width: 1px;
+border-style: solid black;
+border-radius: 20px;
+border-color: #74cbfc;
 }
 QPushButton:hover {
-	border-radius: 5px;
+border-radius: 5px;
 }
 QPushButton:pressed {
-	background-color: #e974fc;
-}
-</string>
+border-color: #e974fc;
+border-width: 3px
+}</string>
     </property>
     <property name="text">
      <string notr="true">next</string>
@@ -204,20 +206,17 @@ QPushButton:pressed {
     </property>
     <property name="styleSheet">
      <string notr="true">QLineEdit {
-	color: #a8a8a8;
-	background-color: #4d4d4d;
-	border: 2px solid #36393e;
-	border-radius: 20px;
-	padding-right: 20px;
-	padding-left: 20px;
-}
+color: #a8a8a8;
+background-color: #4d4d4d;
+border: 2px solid #36393e;
+border-radius: 20px;
+padding-right: 20px;
+padding-left: 20px;}
 QLineEdit:hover {
-	border: 2px solid #74cbfc;
-}
+border-color: #74cbfc;}
 QLineEdit:focus {
-	border-radius: 5px;
-	border: 2px solid #74cbfc;
-}</string>
+border-radius: 5px;
+border-color: #e974fc;}</string>
     </property>
     <property name="inputMask">
      <string notr="true"/>
@@ -591,20 +590,18 @@ QLineEdit:focus {
     </property>
     <property name="styleSheet">
      <string notr="true">QPushButton {
-	color: #000000;
-	background-color: #74cbfc;
-	border: 1px solid black;
-	border-radius: 20px;
-	border-color: #74cbfc;
-	padding-bottom: 10px;
-}
+color: #000000;
+background-color: #74cbfc;
+border: 1px solid black;
+border-radius: 20px;
+border-color: #74cbfc;
+text-align: center;
+padding-bottom: 4px;}
 QPushButton:hover {
-	border-radius: 5px;
-}
+border-radius: 5px;}
 QPushButton:pressed {
-	background-color: #e974fc;
-}
-</string>
+border-color: #e974fc;
+border-width: 3px}</string>
     </property>
     <property name="text">
      <string notr="true">⌕</string>
@@ -619,22 +616,29 @@ QPushButton:pressed {
       <height>144</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <stylestrategy>PreferAntialias</stylestrategy>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	color: rgb(0, 0, 0);
-	border: 1px solid;
-	border-radius: 25px;
-	border-color: #ffffff;
-	width: 144px;
-	height: 256px;
-	border-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;
-}
-QPushButton:hover {
-	border-radius: 12px;
-}
-QPushButton:pressed {
-	border-color: red;
-}</string>
+color: rgb(0, 0, 0);
+border-width: 1px;
+border-style: solid;
+border-radius: 25px;
+border-color: #2b2b2b;
+width: 144px;
+height: 256px;
+background-image: url(&quot;C:/Users/danie/Downloads/GD961MLXwAAeujI(1).jpg&quot;) 0 0 0 0 stretch stretch;
+background-position: center;}
+QPushButton:hover{
+border-radius: 12px;
+border-width: 3px;
+border-color: #74cbfc}
+QPushButton:pressed{
+border-width: 3px;
+border-color: #e974fc;}</string>
     </property>
     <property name="text">
      <string/>
@@ -649,22 +653,29 @@ QPushButton:pressed {
       <height>144</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <stylestrategy>PreferAntialias</stylestrategy>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	color: rgb(0, 0, 0);
-	border: 1px solid;
-	border-radius: 25px;
-	border-color: #ffffff;
-	width: 144px;
-	height: 256px;
-	border-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;
-}
-QPushButton:hover {
-	border-radius: 12px;
-}
-QPushButton:pressed {
-	border-color: red;
-}</string>
+color: rgb(0, 0, 0);
+border-width: 1px;
+border-style: solid;
+border-radius: 25px;
+border-color: #2b2b2b;
+width: 144px;
+height: 256px;
+background-image: url(&quot;C:/Users/danie/Downloads/GD961MLXwAAeujI(1).jpg&quot;) 0 0 0 0 stretch stretch;
+background-position: center;}
+QPushButton:hover{
+border-radius: 12px;
+border-width: 3px;
+border-color: #74cbfc}
+QPushButton:pressed{
+border-width: 3px;
+border-color: #e974fc;}</string>
     </property>
     <property name="text">
      <string/>
@@ -679,22 +690,29 @@ QPushButton:pressed {
       <height>144</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <stylestrategy>PreferAntialias</stylestrategy>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	color: rgb(0, 0, 0);
-	border: 1px solid;
-	border-radius: 25px;
-	border-color: #ffffff;
-	width: 144px;
-	height: 256px;
-	border-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;
-}
-QPushButton:hover {
-	border-radius: 12px;
-}
-QPushButton:pressed {
-	border-color: red;
-}</string>
+color: rgb(0, 0, 0);
+border-width: 1px;
+border-style: solid;
+border-radius: 25px;
+border-color: #2b2b2b;
+width: 144px;
+height: 256px;
+background-image: url(&quot;C:/Users/danie/Downloads/GD961MLXwAAeujI(1).jpg&quot;) 0 0 0 0 stretch stretch;
+background-position: center;}
+QPushButton:hover{
+border-radius: 12px;
+border-width: 3px;
+border-color: #74cbfc}
+QPushButton:pressed{
+border-width: 3px;
+border-color: #e974fc;}</string>
     </property>
     <property name="text">
      <string/>
@@ -709,22 +727,29 @@ QPushButton:pressed {
       <height>144</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <stylestrategy>PreferAntialias</stylestrategy>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	color: rgb(0, 0, 0);
-	border: 1px solid;
-	border-radius: 25px;
-	border-color: #ffffff;
-	width: 144px;
-	height: 256px;
-	border-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;
-}
-QPushButton:hover {
-	border-radius: 12px;
-}
-QPushButton:pressed {
-	border-color: red;
-}</string>
+color: rgb(0, 0, 0);
+border-width: 1px;
+border-style: solid;
+border-radius: 25px;
+border-color: #2b2b2b;
+width: 144px;
+height: 256px;
+background-image: url(&quot;C:/Users/danie/Downloads/GD961MLXwAAeujI(1).jpg&quot;) 0 0 0 0 stretch stretch;
+background-position: center;}
+QPushButton:hover{
+border-radius: 12px;
+border-width: 3px;
+border-color: #74cbfc}
+QPushButton:pressed{
+border-width: 3px;
+border-color: #e974fc;}</string>
     </property>
     <property name="text">
      <string/>
@@ -739,22 +764,29 @@ QPushButton:pressed {
       <height>144</height>
      </rect>
     </property>
+    <property name="font">
+     <font>
+      <stylestrategy>PreferAntialias</stylestrategy>
+     </font>
+    </property>
     <property name="styleSheet">
      <string notr="true">QPushButton{
-	color: rgb(0, 0, 0);
-	border: 1px solid;
-	border-radius: 25px;
-	border-color: #ffffff;
-	width: 144px;
-	height: 256px;
-	border-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;
-}
-QPushButton:hover {
-	border-radius: 12px;
-}
-QPushButton:pressed {
-	border-color: red;
-}</string>
+color: rgb(0, 0, 0);
+border-width: 1px;
+border-style: solid;
+border-radius: 25px;
+border-color: #2b2b2b;
+width: 144px;
+height: 256px;
+background-image: url(&quot;C:/Users/danie/Downloads/GD961MLXwAAeujI(1).jpg&quot;) 0 0 0 0 stretch stretch;
+background-position: center;}
+QPushButton:hover{
+border-radius: 12px;
+border-width: 3px;
+border-color: #74cbfc}
+QPushButton:pressed{
+border-width: 3px;
+border-color: #e974fc;}</string>
     </property>
     <property name="text">
      <string/>
