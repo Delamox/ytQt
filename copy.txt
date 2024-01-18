@@ -1,16 +1,16 @@
 pyuic6.exe -x -o ui.py ui.ui
 
+from PIL import Image
+import requests
+from io import BytesIO
+import tempfile
+from pathlib import Path
+import os
+
+url = 'https://files.catbox.moe/vdzsjq.jpg'
 temp = tempfile.TemporaryFile()
-        Image.open(BytesIO(requests.get("https://files.catbox.moe/qe6gc6.jpg").content)).save(f"{temp.name}.bmp")
+Image.open(BytesIO(requests.get(url).content)).save(f"{temp.name}.bmp")
 
-        self.thumbnail.setStyleSheet(f"color: rgb(0, 0, 0);\n"
-                                     f"border: 1px solid black;\n"
-                                     f"border-radius: 25px;\n"
-                                     f"border-color: white;\n"
-                                     f"width: 144px;\n"
-                                     f"height: 256px;\n"
-                                     f"border-image: url({Path(f'{temp.name}.bmp').as_posix()}) 0 0 0 0 stretch stretch;")
+f"border-image: url({Path(f'{temp.name}.bmp').as_posix()}) 0 0 0 0 stretch stretch;"
 
-
-        print(f"border-image: url({Path(f'{temp.name}.bmp').as_posix()}) 0 0 0 0 stretch stretch;")
-        self.thumbnail.setText("")
+os.remove(Path(f'{temp.name}.bmp').as_posix())
