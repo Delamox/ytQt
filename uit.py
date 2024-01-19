@@ -14,6 +14,7 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PIL import Image
 import requests
@@ -21,7 +22,9 @@ from io import BytesIO
 import tempfile
 from pathlib import Path
 import json
-import os
+import vlc
+from pytube import YouTube
+import time
 #key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
 key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
 baseurl = "https://youtube.googleapis.com/"
@@ -41,43 +44,61 @@ basethumbstyle = ("QPushButton:hover{\n"
                   "width: 144px;\n"
                   "height: 256px;\n"
                   "background-position: center;\n")
-
+global title
+global user
+global thumbnail
+global kind
+global id
+global videostreamlink
+id = [None, None, None, None, None]
 
 class Ui_ytQt(object):
-    #
+    #66
     def searchyt(self):
         ytquery = self.searchbar.text()
         params = {'part': 'snippet', 'key': key, "q": ytquery, "maxResults": "5"}
         searchResponse = requests.get(baseurl + 'youtube/v3/search', params=params)
         obj = json.loads(searchResponse.text)
-
         for i in range(0, 5):
+            global title
+            global user
+            global thumbnail
+            global kind
+            global id
+            global videostreamlink
             title = obj['items'][i]['snippet'].get('title')
             user = obj['items'][i]['snippet'].get('channelTitle')
             thumbnail = obj['items'][i]['snippet']['thumbnails']['medium'].get('url')
+            kind = obj['items'][i]['id'].get('kind')
+            id[i] = obj['items'][i]['id'].get('videoId')
             temp = tempfile.TemporaryFile()
-            (Image.open(BytesIO(requests.get(thumbnail).content))).resize((256, 144)).save(f"{temp.name}.bmp")
+            if kind == 'youtube#channel':
+                self.thumbnaillist[i].setFixedWidth(144)
+                (Image.open(BytesIO(requests.get(thumbnail).content))).resize((144, 144)).save(f"{temp.name}.bmp")
+            elif kind == 'youtube#video':
+                self.thumbnaillist[i].setFixedWidth(256)
+                (Image.open(BytesIO(requests.get(thumbnail).content))).resize((256, 144)).save(f"{temp.name}.bmp")
             path = Path(f'{temp.name}.bmp').as_posix()
-            if (i==0):
-                self.thumbnail.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-                self.title.setText(title)
-                self.user.setText(user)
-            elif (i==1):
-                self.thumbnail_2.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-                self.title_2.setText(title)
-                self.user_2.setText(user)
-            elif (i==2):
-                self.thumbnail_3.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-                self.title_3.setText(title)
-                self.user_3.setText(user)
-            elif (i==3):
-                self.thumbnail_4.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-                self.title_4.setText(title)
-                self.user_4.setText(user)
-            elif (i==4):
-                self.thumbnail_5.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-                self.title_5.setText(title)
-                self.user_5.setText(user)
+            self.thumbnaillist[i].setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+            self.titlelist[i].setText(title)
+            self.userlist[i].setText(user)
+    def openbutton(self, index):
+        global kind
+        global id
+        if kind == 'youtube#video':
+            link = 'https://youtube.com/watch?v='+id[index]
+            print(link)
+            idstream = YouTube(link)
+            idstream = idstream.streams.get_highest_resolution()
+            try:
+                idstream.download(filename='0.mp4')
+                vlc_instance = vlc.Instance()
+                player = vlc_instance.media_player_new()
+                media = vlc_instance.media_new('0.mp4')
+                player.set_media(media)
+                player.play()
+            except:
+                print("An error has occurred")
     #
     def setupUi(self, ytQt):
         ytQt.setObjectName("ytQt")
@@ -229,6 +250,7 @@ class Ui_ytQt(object):
         (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
         path = Path(f'{temp.name}.bmp').as_posix()
         self.thumbnail.setStyleSheet(basethumbstyle+f"background-image: url({path}) 0 0 0 0 stretch stretch;"+"}")
+        self.thumbnail.clicked.connect(lambda: self.openbutton(0))
         #
         self.thumbnail.setText("")
         self.thumbnail.setObjectName("thumbnail")
@@ -383,6 +405,7 @@ class Ui_ytQt(object):
         self.thumbnail_2.setFont(font)
         #
         self.thumbnail_2.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+        #self.thumbnail.clicked.connect(lambda: self.openbutton(1))
         #
         self.thumbnail_2.setText("")
         self.thumbnail_2.setObjectName("thumbnail_2")
@@ -393,6 +416,7 @@ class Ui_ytQt(object):
         self.thumbnail_3.setFont(font)
         #
         self.thumbnail_3.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+        #self.thumbnail.clicked.connect(lambda: self.openbutton(2))
         #
         self.thumbnail_3.setText("")
         self.thumbnail_3.setObjectName("thumbnail_3")
@@ -403,6 +427,7 @@ class Ui_ytQt(object):
         self.thumbnail_4.setFont(font)
         #
         self.thumbnail_4.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+        #self.thumbnail.clicked.connect(lambda: self.openbutton(3))
         #
         self.thumbnail_4.setText("")
         self.thumbnail_4.setObjectName("thumbnail_4")
@@ -413,6 +438,11 @@ class Ui_ytQt(object):
         self.thumbnail_5.setFont(font)
         #
         self.thumbnail_5.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+        #self.thumbnail.clicked.connect(lambda: self.openbutton(4))
+        self.thumbnaillist = [self.thumbnail, self.thumbnail_2, self.thumbnail_3, self.thumbnail_4, self.thumbnail_5, ]
+        self.titlelist = [self.title, self.title_2, self.title_3, self.title_4, self.title_5, ]
+        self.userlist = [self.user, self.user_2, self.user_3, self.user_4, self.user_5, ]
+        self.metalist = [self.meta, self.meta_2, self.meta_3, self.meta_4, self.meta_5]
         #
         self.thumbnail_5.setText("")
         self.thumbnail_5.setObjectName("thumbnail_5")
