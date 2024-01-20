@@ -21,19 +21,19 @@ import vlc
 from PyQt6 import QtCore, QtGui, QtWidgets
 
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.setWindowTitle('ytQt video playback')
-        MainWindow.resize(1280, 810)
+class Ui_ytQt(object):
+    def setupUi(self, ytQt):
+        ytQt.setObjectName("ytQt video playback")
+        ytQt.setWindowTitle('ytQt video playback')
+        ytQt.resize(1280, 810)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(MainWindow.sizePolicy().hasHeightForWidth())
-        MainWindow.setSizePolicy(sizePolicy)
-        MainWindow.setStyleSheet("background-color: #2a2a2a;")
-        MainWindow.setDocumentMode(False)
-        self.centralwidget = QtWidgets.QWidget(parent=MainWindow)
+        sizePolicy.setHeightForWidth(ytQt.sizePolicy().hasHeightForWidth())
+        ytQt.setSizePolicy(sizePolicy)
+        ytQt.setStyleSheet("background-color: #2a2a2a;")
+        ytQt.setDocumentMode(False)
+        self.centralwidget = QtWidgets.QWidget(parent=ytQt)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(0, 0, 1280, 720))
@@ -281,9 +281,10 @@ class Ui_MainWindow(object):
         self.videoslider.setTickPosition(QtWidgets.QSlider.TickPosition.NoTicks)
         self.videoslider.setTickInterval(1)
         self.videoslider.setObjectName("videoslider")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        #self.videoslider.setFocusPolicy(Qt.NoFocus)
+        ytQt.setCentralWidget(self.centralwidget)
+        self.retranslateUi(ytQt)
+        QtCore.QMetaObject.connectSlotsByName(ytQt)
         #
         print(sys.argv[1])
         self.vlc_instance = vlc.Instance()
@@ -297,14 +298,27 @@ class Ui_MainWindow(object):
         self.media.get_mrl()
         self.mediaplayer.set_media(self.media)
         self.mediaplayer.play()
+        self.fullscreen.clicked.connect(self.fullscreentoggle)
+        self.wind.clicked.connect(self.skip)
+        self.rewind.clicked.connect(self.reskip)
         self.pause.clicked.connect(self.playpause)
         self.videoslider.sliderMoved.connect(self.videoprogress)
         self.volumeslider.setValue(self.mediaplayer.audio_get_volume())
         self.volumeslider.valueChanged.connect(self.audiolevel)
         self.timer = QtCore.QTimer()
-        self.timer.setInterval(1000)
+        self.timer.setInterval(500)
         self.timer.timeout.connect(self.updateslider)
         self.timer.start()
+
+    def skip(self):
+        self.mediaplayer.set_time(self.mediaplayer.get_time() + 5000)
+
+    def reskip(self):
+        self.mediaplayer.set_time(self.mediaplayer.get_time() - 5000)
+
+    def fullscreentoggle(self):
+        print('noinplementation')
+
     def playpause(self):
         if self.mediaplayer.is_playing():
             self.mediaplayer.pause()
@@ -327,18 +341,20 @@ class Ui_MainWindow(object):
     def updateslider(self):
         self.videoslider.setValue(int(self.mediaplayer.get_position() * 1000))
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self, ytQt):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        ytQt.setWindowTitle(_translate("ytQt", "ytQt"))
+
     def audiolevel(self):
         self.mediaplayer.audio_set_volume(self.volumeslider.value())
+
 
 if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
+    ytQt = QtWidgets.QMainWindow()
+    ui = Ui_ytQt()
+    ui.setupUi(ytQt)
+    ytQt.show()
     sys.exit(app.exec())

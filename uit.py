@@ -17,7 +17,6 @@
 
 import json
 import os
-import subprocess
 import tempfile
 from io import BytesIO
 from pathlib import Path
@@ -27,8 +26,8 @@ from PIL import Image
 from PyQt6 import QtCore, QtGui, QtWidgets
 from pytube import YouTube
 
-# key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
-key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
+key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
+# key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
 baseurl = "https://youtube.googleapis.com/"
 basethumbstyle = ("QPushButton:hover{\n"
                   "border-radius: 12px;\n"
@@ -53,6 +52,7 @@ global kind
 global id
 global videostreamlink
 id = [None, None, None, None, None]
+kind = [None, None, None, None, None]
 
 
 class Ui_ytQt(object):
@@ -71,8 +71,7 @@ class Ui_ytQt(object):
         font.setFamily("Noto Sans")
         font.setPointSize(18)
         self.title.setFont(font)
-        self.title.setToolTip(
-            "This title is too long to be displayed properly on yt, look at tooltip! Hello tooltip user!")
+        self.title.setToolTip("")
         self.title.setStyleSheet("color: rgb(255, 255, 255);")
         self.title.setText("")
         self.title.setScaledContents(False)
@@ -383,10 +382,11 @@ class Ui_ytQt(object):
         self.userlist = [self.user, self.user_2, self.user_3, self.user_4, self.user_5, ]
         self.metalist = [self.meta, self.meta_2, self.meta_3, self.meta_4, self.meta_5]
         self.search.clicked.connect(self.searchyt)
-        url = 'https://img.youtube.com/vi/Y2gTSjoEExc/mqdefault.jpg'
-        temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
-        (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
-        path = Path(f'{temp.name}.bmp').as_posix()
+        # url = 'https://img.youtube.com/vi/Y2gTSjoEExc/mqdefault.jpg'
+        # temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
+        # (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
+        # path = Path(f'{temp.name}.bmp').as_posix()
+        path = None
         self.thumbnail_5.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
         self.thumbnail_5.clicked.connect(lambda: self.openbutton(4))
         self.thumbnail_4.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
@@ -397,6 +397,14 @@ class Ui_ytQt(object):
         self.thumbnail_2.clicked.connect(lambda: self.openbutton(1))
         self.thumbnail.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
         self.thumbnail.clicked.connect(lambda: self.openbutton(0))
+        # self.next.clicked.connect(self.next)
+        # self.previous.clicked.connect(self.previous)
+
+    def next(self):
+        print("Next clicked")
+
+    def previous(self):
+        print("Previous clicked")
 
     def searchyt(self):
         self.searchbar.clearFocus()
@@ -417,13 +425,13 @@ class Ui_ytQt(object):
             title = obj['items'][i]['snippet'].get('title')
             user = obj['items'][i]['snippet'].get('channelTitle')
             thumbnail = obj['items'][i]['snippet']['thumbnails']['medium'].get('url')
-            kind = obj['items'][i]['id'].get('kind')
+            kind[i] = obj['items'][i]['id'].get('kind')
             id[i] = obj['items'][i]['id'].get('videoId')
             temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
-            if kind == 'youtube#channel':
+            if kind[i] == 'youtube#channel':
                 self.thumbnaillist[i].setFixedWidth(144)
                 (Image.open(BytesIO(requests.get(thumbnail).content))).resize((144, 144)).save(f"{temp.name}.bmp")
-            elif kind == 'youtube#video':
+            elif kind[i] == 'youtube#video':
                 self.thumbnaillist[i].setFixedWidth(256)
                 (Image.open(BytesIO(requests.get(thumbnail).content))).resize((256, 144)).save(f"{temp.name}.bmp")
             path = Path(f'{temp.name}.bmp').as_posix()
@@ -435,19 +443,24 @@ class Ui_ytQt(object):
     def openbutton(self, index):
         global kind
         global id
-        if kind == 'youtube#video':
-            try:
-                print('opening video stream')
-                print('creating temp file')
-                temp = tempfile.TemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
-                print('temp file created @ '+Path(temp.name).as_posix())
-                print('downloading video steam to temp file')
-                YouTube('https://youtube.com/watch?v=' + id[index]).streams.get_highest_resolution().download(filename=Path(temp.name).as_posix())
-                print('launching video player with video file @ '+Path(temp.name).as_posix())
-                os.system('python player.py ' + Path(temp.name).as_posix())
-                #subprocess.call('python player.py '+Path(temp.name).as_posix())
-            except:
-                print("An error has occurred")
+        if kind[index] == 'youtube#video':
+            # try:
+            print('opening type ' + str(kind[index]))
+            print('creating temp file')
+            temp = tempfile.TemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
+            print('temp file created @ ' + Path(temp.name).as_posix())
+            print('downloading video steam to temp file')
+            YouTube('https://youtube.com/watch?v=' + str(id[index])).streams.get_highest_resolution().download(
+                filename=Path(temp.name).as_posix())
+            print('launching video player with video file @ ' + Path(temp.name).as_posix())
+            temp.close()
+            os.system('python player.py ' + Path(temp.name).as_posix())
+            # temp.close()
+            os.remove(temp.name)
+            print('removed temp file @ ' + Path(temp.name).as_posix())
+
+        # except:
+        #    print("An error has occurred")
 
     def retranslateUi(self, ytQt):
         _translate = QtCore.QCoreApplication.translate
