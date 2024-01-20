@@ -15,18 +15,18 @@
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
 
-from PyQt6 import QtCore, QtGui, QtWidgets
-from PIL import Image
-import requests
-from io import BytesIO
-import tempfile
-from pathlib import Path
 import json
-import vlc
-from pytube import YouTube
-from os import startfile
 import os
-#key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
+import tempfile
+from io import BytesIO
+from pathlib import Path
+
+import requests
+from PIL import Image
+from PyQt6 import QtCore, QtGui, QtWidgets
+from pytube import YouTube
+
+# key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
 key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
 baseurl = "https://youtube.googleapis.com/"
 basethumbstyle = ("QPushButton:hover{\n"
@@ -53,57 +53,8 @@ global id
 global videostreamlink
 id = [None, None, None, None, None]
 
+
 class Ui_ytQt(object):
-    #66
-    def searchyt(self):
-        ytquery = self.searchbar.text()
-        params = {'part': 'snippet', 'key': key, "q": ytquery, "maxResults": "5"}
-        #searchResponse = requests.get(baseurl + 'youtube/v3/search', params=params)
-        searchResponse = requests.get('https://files.catbox.moe/7j4a26.json')
-        obj = json.loads(searchResponse.text)
-        for i in range(0, 5):
-            global title
-            global user
-            global thumbnail
-            global kind
-            global id
-            global videostreamlink
-            title = obj['items'][i]['snippet'].get('title')
-            user = obj['items'][i]['snippet'].get('channelTitle')
-            thumbnail = obj['items'][i]['snippet']['thumbnails']['medium'].get('url')
-            kind = obj['items'][i]['id'].get('kind')
-            id[i] = obj['items'][i]['id'].get('videoId')
-            temp = tempfile.TemporaryFile()
-            if kind == 'youtube#channel':
-                self.thumbnaillist[i].setFixedWidth(144)
-                (Image.open(BytesIO(requests.get(thumbnail).content))).resize((144, 144)).save(f"{temp.name}.bmp")
-            elif kind == 'youtube#video':
-                self.thumbnaillist[i].setFixedWidth(256)
-                (Image.open(BytesIO(requests.get(thumbnail).content))).resize((256, 144)).save(f"{temp.name}.bmp")
-            path = Path(f'{temp.name}.bmp').as_posix()
-            self.thumbnaillist[i].setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-            self.titlelist[i].setText(title)
-            self.userlist[i].setText(user)
-    def openbutton(self, index):
-        global kind
-        global id
-        if kind == 'youtube#video':
-            #try:
-                temp = tempfile.TemporaryFile(suffix='.mp4', delete=False)
-                YouTube('https://youtube.com/watch?v='+id[2]).streams.get_highest_resolution().download(filename=Path(temp.name).as_posix())
-                startfile(Path(temp.name).as_posix())
-                # vlc_instance = vlc.Instance()
-                # player = vlc_instance.media_player_new()
-                # media = vlc_instance.media_new(Path(temp.name).as_posix())
-                # player.set_media(media)
-                # player.play()
-                # temp.close()
-                # os.unlink(temp.name)
-            #except:
-                #print("An error has occurred")
-    def vlcinstance(self):
-        print()
-    #
     def setupUi(self, ytQt):
         ytQt.setObjectName("ytQt")
         ytQt.setEnabled(True)
@@ -247,15 +198,6 @@ class Ui_ytQt(object):
         font = QtGui.QFont()
         font.setStyleStrategy(QtGui.QFont.StyleStrategy.PreferAntialias)
         self.thumbnail.setFont(font)
-        #
-        self.search.clicked.connect(self.searchyt)
-        url = 'https://img.youtube.com/vi/Y2gTSjoEExc/mqdefault.jpg'
-        temp = tempfile.TemporaryFile()
-        (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
-        path = Path(f'{temp.name}.bmp').as_posix()
-        self.thumbnail.setStyleSheet(basethumbstyle+f"background-image: url({path}) 0 0 0 0 stretch stretch;"+"}")
-        self.thumbnail.clicked.connect(lambda: self.openbutton(0))
-        #
         self.thumbnail.setText("")
         self.thumbnail.setObjectName("thumbnail")
         self.meta_2 = QtWidgets.QLabel(parent=self.centralwidget)
@@ -407,10 +349,6 @@ class Ui_ytQt(object):
         font = QtGui.QFont()
         font.setStyleStrategy(QtGui.QFont.StyleStrategy.PreferAntialias)
         self.thumbnail_2.setFont(font)
-        #
-        self.thumbnail_2.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-        #self.thumbnail.clicked.connect(lambda: self.openbutton(1))
-        #
         self.thumbnail_2.setText("")
         self.thumbnail_2.setObjectName("thumbnail_2")
         self.thumbnail_3 = QtWidgets.QPushButton(parent=self.centralwidget)
@@ -418,10 +356,6 @@ class Ui_ytQt(object):
         font = QtGui.QFont()
         font.setStyleStrategy(QtGui.QFont.StyleStrategy.PreferAntialias)
         self.thumbnail_3.setFont(font)
-        #
-        self.thumbnail_3.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-        #self.thumbnail.clicked.connect(lambda: self.openbutton(2))
-        #
         self.thumbnail_3.setText("")
         self.thumbnail_3.setObjectName("thumbnail_3")
         self.thumbnail_4 = QtWidgets.QPushButton(parent=self.centralwidget)
@@ -429,10 +363,6 @@ class Ui_ytQt(object):
         font = QtGui.QFont()
         font.setStyleStrategy(QtGui.QFont.StyleStrategy.PreferAntialias)
         self.thumbnail_4.setFont(font)
-        #
-        self.thumbnail_4.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-        #self.thumbnail.clicked.connect(lambda: self.openbutton(3))
-        #
         self.thumbnail_4.setText("")
         self.thumbnail_4.setObjectName("thumbnail_4")
         self.thumbnail_5 = QtWidgets.QPushButton(parent=self.centralwidget)
@@ -440,20 +370,75 @@ class Ui_ytQt(object):
         font = QtGui.QFont()
         font.setStyleStrategy(QtGui.QFont.StyleStrategy.PreferAntialias)
         self.thumbnail_5.setFont(font)
+        self.thumbnail_5.setText("")
+        self.thumbnail_5.setObjectName("thumbnail_5")
+        ytQt.setCentralWidget(self.centralwidget)
+        self.retranslateUi(ytQt)
+        QtCore.QMetaObject.connectSlotsByName(ytQt)
         #
-        self.thumbnail_5.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-        #self.thumbnail.clicked.connect(lambda: self.openbutton(4))
         self.thumbnaillist = [self.thumbnail, self.thumbnail_2, self.thumbnail_3, self.thumbnail_4, self.thumbnail_5, ]
         self.titlelist = [self.title, self.title_2, self.title_3, self.title_4, self.title_5, ]
         self.userlist = [self.user, self.user_2, self.user_3, self.user_4, self.user_5, ]
         self.metalist = [self.meta, self.meta_2, self.meta_3, self.meta_4, self.meta_5]
-        #
-        self.thumbnail_5.setText("")
-        self.thumbnail_5.setObjectName("thumbnail_5")
-        ytQt.setCentralWidget(self.centralwidget)
+        self.search.clicked.connect(self.searchyt)
+        url = 'https://img.youtube.com/vi/Y2gTSjoEExc/mqdefault.jpg'
+        temp = tempfile.TemporaryFile()
+        (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
+        path = Path(f'{temp.name}.bmp').as_posix()
+        self.thumbnail_5.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+        self.thumbnail_5.clicked.connect(lambda: self.openbutton(4))
+        self.thumbnail_4.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+        self.thumbnail_4.clicked.connect(lambda: self.openbutton(3))
+        self.thumbnail_3.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+        self.thumbnail_3.clicked.connect(lambda: self.openbutton(2))
+        self.thumbnail_2.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+        self.thumbnail_2.clicked.connect(lambda: self.openbutton(1))
+        self.thumbnail.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+        self.thumbnail.clicked.connect(lambda: self.openbutton(0))
 
-        self.retranslateUi(ytQt)
-        QtCore.QMetaObject.connectSlotsByName(ytQt)
+    def searchyt(self):
+        ytquery = self.searchbar.text()
+        params = {'part': 'snippet', 'key': key, "q": ytquery, "maxResults": "5"}
+        searchResponse = requests.get(baseurl + 'youtube/v3/search', params=params)
+        # searchResponse = requests.get('https://files.catbox.moe/7j4a26.json')
+        obj = json.loads(searchResponse.text)
+        for i in range(0, 5):
+            global title
+            global user
+            global thumbnail
+            global kind
+            global id
+            global videostreamlink
+            title = obj['items'][i]['snippet'].get('title')
+            user = obj['items'][i]['snippet'].get('channelTitle')
+            thumbnail = obj['items'][i]['snippet']['thumbnails']['medium'].get('url')
+            kind = obj['items'][i]['id'].get('kind')
+            id[i] = obj['items'][i]['id'].get('videoId')
+            temp = tempfile.TemporaryFile()
+            if kind == 'youtube#channel':
+                self.thumbnaillist[i].setFixedWidth(144)
+                (Image.open(BytesIO(requests.get(thumbnail).content))).resize((144, 144)).save(f"{temp.name}.bmp")
+            elif kind == 'youtube#video':
+                self.thumbnaillist[i].setFixedWidth(256)
+                (Image.open(BytesIO(requests.get(thumbnail).content))).resize((256, 144)).save(f"{temp.name}.bmp")
+            path = Path(f'{temp.name}.bmp').as_posix()
+            self.thumbnaillist[i].setStyleSheet(
+                basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+            self.titlelist[i].setText(title)
+            self.userlist[i].setText(user)
+
+    def openbutton(self, index):
+        global kind
+        global id
+        if kind == 'youtube#video':
+            try:
+                temp = tempfile.TemporaryFile(suffix='.mp4', delete=False)
+                YouTube('https://youtube.com/watch?v=' + id[index]).streams.get_highest_resolution().download(
+                    filename=Path(temp.name).as_posix())
+                print('player.py ' + Path(temp.name).as_posix())
+                os.system('python player.py ' + Path(temp.name).as_posix())
+            except:
+                print("An error has occurred")
 
     def retranslateUi(self, ytQt):
         _translate = QtCore.QCoreApplication.translate
