@@ -24,6 +24,7 @@ from PyQt6 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
+        MainWindow.setWindowTitle('ytQt video playback')
         MainWindow.resize(1280, 810)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
@@ -141,9 +142,9 @@ class Ui_MainWindow(object):
                                         "}\n"
                                         "")
         self.volumeslider.setMinimum(1)
-        self.volumeslider.setMaximum(10)
-        self.volumeslider.setSingleStep(1)
-        self.volumeslider.setPageStep(1)
+        self.volumeslider.setMaximum(100)
+        self.volumeslider.setSingleStep(10)
+        self.volumeslider.setPageStep(10)
         self.volumeslider.setOrientation(QtCore.Qt.Orientation.Horizontal)
         self.volumeslider.setInvertedControls(False)
         self.volumeslider.setTickPosition(QtWidgets.QSlider.TickPosition.TicksBothSides)
@@ -262,8 +263,6 @@ class Ui_MainWindow(object):
                                        "background: #4d4d4d;\n"
                                        "border: 1px solid #4d4d4d;\n"
                                        "width: 13px;\n"
-                                       "margin-top: -2px;\n"
-                                       "margin-bottom: -2px;\n"
                                        "border-radius: 4px;\n"
                                        "}\n"
                                        "\n"
@@ -283,6 +282,8 @@ class Ui_MainWindow(object):
         self.videoslider.setTickInterval(1)
         self.videoslider.setObjectName("videoslider")
         MainWindow.setCentralWidget(self.centralwidget)
+        self.retranslateUi(MainWindow)
+        QtCore.QMetaObject.connectSlotsByName(MainWindow)
         #
         print(sys.argv[1])
         self.vlc_instance = vlc.Instance()
@@ -298,14 +299,12 @@ class Ui_MainWindow(object):
         self.mediaplayer.play()
         self.pause.clicked.connect(self.playpause)
         self.videoslider.sliderMoved.connect(self.videoprogress)
+        self.volumeslider.setValue(self.mediaplayer.audio_get_volume())
+        self.volumeslider.valueChanged.connect(self.audiolevel)
         self.timer = QtCore.QTimer()
         self.timer.setInterval(1000)
         self.timer.timeout.connect(self.updateslider)
         self.timer.start()
-        #
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
-
     def playpause(self):
         if self.mediaplayer.is_playing():
             self.mediaplayer.pause()
@@ -327,13 +326,12 @@ class Ui_MainWindow(object):
 
     def updateslider(self):
         self.videoslider.setValue(int(self.mediaplayer.get_position() * 1000))
-        if not self.mediaplayer.is_playing():
-            self.timer.stop()
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-
+    def audiolevel(self):
+        self.mediaplayer.audio_set_volume(self.volumeslider.value())
 
 if __name__ == "__main__":
     import sys

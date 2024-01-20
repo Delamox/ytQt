@@ -17,6 +17,7 @@
 
 import json
 import os
+import subprocess
 import tempfile
 from io import BytesIO
 from pathlib import Path
@@ -376,13 +377,14 @@ class Ui_ytQt(object):
         self.retranslateUi(ytQt)
         QtCore.QMetaObject.connectSlotsByName(ytQt)
         #
+        self.searchbar.returnPressed.connect(self.searchyt)
         self.thumbnaillist = [self.thumbnail, self.thumbnail_2, self.thumbnail_3, self.thumbnail_4, self.thumbnail_5, ]
         self.titlelist = [self.title, self.title_2, self.title_3, self.title_4, self.title_5, ]
         self.userlist = [self.user, self.user_2, self.user_3, self.user_4, self.user_5, ]
         self.metalist = [self.meta, self.meta_2, self.meta_3, self.meta_4, self.meta_5]
         self.search.clicked.connect(self.searchyt)
         url = 'https://img.youtube.com/vi/Y2gTSjoEExc/mqdefault.jpg'
-        temp = tempfile.TemporaryFile()
+        temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
         (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
         path = Path(f'{temp.name}.bmp').as_posix()
         self.thumbnail_5.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
@@ -397,11 +399,14 @@ class Ui_ytQt(object):
         self.thumbnail.clicked.connect(lambda: self.openbutton(0))
 
     def searchyt(self):
+        self.searchbar.clearFocus()
         ytquery = self.searchbar.text()
         params = {'part': 'snippet', 'key': key, "q": ytquery, "maxResults": "5"}
+        print('requesting api data')
         searchResponse = requests.get(baseurl + 'youtube/v3/search', params=params)
         # searchResponse = requests.get('https://files.catbox.moe/7j4a26.json')
         obj = json.loads(searchResponse.text)
+        print('api data loaded')
         for i in range(0, 5):
             global title
             global user
@@ -414,7 +419,7 @@ class Ui_ytQt(object):
             thumbnail = obj['items'][i]['snippet']['thumbnails']['medium'].get('url')
             kind = obj['items'][i]['id'].get('kind')
             id[i] = obj['items'][i]['id'].get('videoId')
-            temp = tempfile.TemporaryFile()
+            temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
             if kind == 'youtube#channel':
                 self.thumbnaillist[i].setFixedWidth(144)
                 (Image.open(BytesIO(requests.get(thumbnail).content))).resize((144, 144)).save(f"{temp.name}.bmp")
@@ -432,11 +437,15 @@ class Ui_ytQt(object):
         global id
         if kind == 'youtube#video':
             try:
-                temp = tempfile.TemporaryFile(suffix='.mp4', delete=False)
-                YouTube('https://youtube.com/watch?v=' + id[index]).streams.get_highest_resolution().download(
-                    filename=Path(temp.name).as_posix())
-                print('player.py ' + Path(temp.name).as_posix())
+                print('opening video stream')
+                print('creating temp file')
+                temp = tempfile.TemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
+                print('temp file created @ '+Path(temp.name).as_posix())
+                print('downloading video steam to temp file')
+                YouTube('https://youtube.com/watch?v=' + id[index]).streams.get_highest_resolution().download(filename=Path(temp.name).as_posix())
+                print('launching video player with video file @ '+Path(temp.name).as_posix())
                 os.system('python player.py ' + Path(temp.name).as_posix())
+                #subprocess.call('python player.py '+Path(temp.name).as_posix())
             except:
                 print("An error has occurred")
 
