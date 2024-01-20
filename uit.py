@@ -24,7 +24,8 @@ from pathlib import Path
 import json
 import vlc
 from pytube import YouTube
-import time
+from os import startfile
+import os
 #key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
 key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
 baseurl = "https://youtube.googleapis.com/"
@@ -57,7 +58,8 @@ class Ui_ytQt(object):
     def searchyt(self):
         ytquery = self.searchbar.text()
         params = {'part': 'snippet', 'key': key, "q": ytquery, "maxResults": "5"}
-        searchResponse = requests.get(baseurl + 'youtube/v3/search', params=params)
+        #searchResponse = requests.get(baseurl + 'youtube/v3/search', params=params)
+        searchResponse = requests.get('https://files.catbox.moe/7j4a26.json')
         obj = json.loads(searchResponse.text)
         for i in range(0, 5):
             global title
@@ -86,19 +88,21 @@ class Ui_ytQt(object):
         global kind
         global id
         if kind == 'youtube#video':
-            link = 'https://youtube.com/watch?v='+id[index]
-            print(link)
-            idstream = YouTube(link)
-            idstream = idstream.streams.get_highest_resolution()
-            try:
-                idstream.download(filename='0.mp4')
-                vlc_instance = vlc.Instance()
-                player = vlc_instance.media_player_new()
-                media = vlc_instance.media_new('0.mp4')
-                player.set_media(media)
-                player.play()
-            except:
-                print("An error has occurred")
+            #try:
+                temp = tempfile.TemporaryFile(suffix='.mp4', delete=False)
+                YouTube('https://youtube.com/watch?v='+id[2]).streams.get_highest_resolution().download(filename=Path(temp.name).as_posix())
+                startfile(Path(temp.name).as_posix())
+                # vlc_instance = vlc.Instance()
+                # player = vlc_instance.media_player_new()
+                # media = vlc_instance.media_new(Path(temp.name).as_posix())
+                # player.set_media(media)
+                # player.play()
+                # temp.close()
+                # os.unlink(temp.name)
+            #except:
+                #print("An error has occurred")
+    def vlcinstance(self):
+        print()
     #
     def setupUi(self, ytQt):
         ytQt.setObjectName("ytQt")
