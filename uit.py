@@ -432,7 +432,7 @@ class Ui_ytQt(object):
         if kind[index] == 'youtube#video':
             print('opening type ' + str(kind[index]) + ' with url ' + 'https://youtube.com/watch?v=' + str(id[index]))
             print('creating temp file')
-            temp = tempfile.TemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
+            temp = tempfile.NamedTemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
             print('temp file created @ ' + Path(temp.name).as_posix())
             print('writing video steam to temp file')
             YouTube('https://youtube.com/watch?v=' + str(id[index])).streams.get_highest_resolution().download(
@@ -493,7 +493,7 @@ class Ui_ytQt(object):
                 kind[p] = obj['items'][i]['id'].get('kind')
                 id[p] = obj['items'][i]['id'].get('videoId')
 
-            temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
+            temp = tempfile.NamedTemporaryFile(prefix='ytQtthumbnail')
             if kind[p] == 'youtube#channel':
                 self.thumbnaillist[p].setFixedWidth(144)
                 (Image.open(BytesIO(requests.get(thumbnail).content))).resize((144, 144)).save(f"{temp.name}.bmp")
