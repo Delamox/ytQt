@@ -19,21 +19,23 @@ import platform
 
 import vlc
 from PyQt6 import QtCore, QtGui, QtWidgets
+from PyQt6.QtWidgets import QWidget
 
 
-class Ui_ytQt(object):
-    def setupUi(self, ytQt):
-        ytQt.setObjectName("ytQt video playback")
-        ytQt.setWindowTitle('ytQt video playback')
-        ytQt.resize(1280, 810)
+class Ui_ytQt(QWidget):
+
+    def setupUi(self):
+        self.setObjectName("ytQt video playback")
+        self.setWindowTitle('ytQt video playback')
+        self.resize(1280, 810)
         sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Policy.Fixed, QtWidgets.QSizePolicy.Policy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
-        sizePolicy.setHeightForWidth(ytQt.sizePolicy().hasHeightForWidth())
-        ytQt.setSizePolicy(sizePolicy)
-        ytQt.setStyleSheet("background-color: #2a2a2a;")
-        ytQt.setDocumentMode(False)
-        self.centralwidget = QtWidgets.QWidget(parent=ytQt)
+        sizePolicy.setHeightForWidth(self.sizePolicy().hasHeightForWidth())
+        self.setSizePolicy(sizePolicy)
+        self.setStyleSheet("background-color: #2a2a2a;")
+        # self.setDocumentMode(False)
+        self.centralwidget = QtWidgets.QWidget(parent=self)
         self.centralwidget.setObjectName("centralwidget")
         self.frame = QtWidgets.QFrame(parent=self.centralwidget)
         self.frame.setGeometry(QtCore.QRect(0, 0, 1280, 720))
@@ -171,28 +173,28 @@ class Ui_ytQt(object):
                                       "}")
         self.fullscreen.setText("fullscreen")
         self.fullscreen.setObjectName("fullscreen")
-        self.wind_2 = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.wind_2.setGeometry(QtCore.QRect(100, 760, 40, 40))
-        self.wind_2.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.wind_2.setToolTip("")
-        self.wind_2.setStyleSheet("QPushButton {\n"
-                                  "color: #000000;\n"
-                                  "background-color: #74cbfc;\n"
-                                  "border-width: 1px;\n"
-                                  "border-style: solid black;\n"
-                                  "border-radius: 20px;\n"
-                                  "border-color: #74cbfc;\n"
-                                  "}\n"
-                                  "QPushButton:hover {\n"
-                                  "border-radius: 5px;\n"
-                                  "background-color: #EE9090;\n"
-                                  "}\n"
-                                  "QPushButton:pressed {\n"
-                                  "border-color: #e974fc;\n"
-                                  "border-width: 3px\n"
-                                  "}")
-        self.wind_2.setText("dislike")
-        self.wind_2.setObjectName("wind_2")
+        self.dislike = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.dislike.setGeometry(QtCore.QRect(100, 760, 40, 40))
+        self.dislike.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.dislike.setToolTip("")
+        self.dislike.setStyleSheet("QPushButton {\n"
+                                   "color: #000000;\n"
+                                   "background-color: #74cbfc;\n"
+                                   "border-width: 1px;\n"
+                                   "border-style: solid black;\n"
+                                   "border-radius: 20px;\n"
+                                   "border-color: #74cbfc;\n"
+                                   "}\n"
+                                   "QPushButton:hover {\n"
+                                   "border-radius: 5px;\n"
+                                   "background-color: #EE9090;\n"
+                                   "}\n"
+                                   "QPushButton:pressed {\n"
+                                   "border-color: #e974fc;\n"
+                                   "border-width: 3px\n"
+                                   "}")
+        self.dislike.setText("dislike")
+        self.dislike.setObjectName("dislike")
         self.like = QtWidgets.QPushButton(parent=self.centralwidget)
         self.like.setGeometry(QtCore.QRect(150, 760, 40, 40))
         self.like.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
@@ -215,27 +217,27 @@ class Ui_ytQt(object):
                                 "}")
         self.like.setText("like")
         self.like.setObjectName("like")
-        self.wind_4 = QtWidgets.QPushButton(parent=self.centralwidget)
-        self.wind_4.setGeometry(QtCore.QRect(10, 760, 80, 40))
-        self.wind_4.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
-        self.wind_4.setToolTip("")
-        self.wind_4.setStyleSheet("QPushButton {\n"
-                                  "color: #000000;\n"
-                                  "background-color: #74cbfc;\n"
-                                  "border-width: 1px;\n"
-                                  "border-style: solid black;\n"
-                                  "border-radius: 20px;\n"
-                                  "border-color: #74cbfc;\n"
-                                  "}\n"
-                                  "QPushButton:hover {\n"
-                                  "border-radius: 5px;\n"
-                                  "}\n"
-                                  "QPushButton:pressed {\n"
-                                  "border-color: #e974fc;\n"
-                                  "border-width: 3px\n"
-                                  "}")
-        self.wind_4.setText("comments")
-        self.wind_4.setObjectName("wind_4")
+        self.comments = QtWidgets.QPushButton(parent=self.centralwidget)
+        self.comments.setGeometry(QtCore.QRect(10, 760, 80, 40))
+        self.comments.setCursor(QtGui.QCursor(QtCore.Qt.CursorShape.PointingHandCursor))
+        self.comments.setToolTip("")
+        self.comments.setStyleSheet("QPushButton {\n"
+                                    "color: #000000;\n"
+                                    "background-color: #74cbfc;\n"
+                                    "border-width: 1px;\n"
+                                    "border-style: solid black;\n"
+                                    "border-radius: 20px;\n"
+                                    "border-color: #74cbfc;\n"
+                                    "}\n"
+                                    "QPushButton:hover {\n"
+                                    "border-radius: 5px;\n"
+                                    "}\n"
+                                    "QPushButton:pressed {\n"
+                                    "border-color: #e974fc;\n"
+                                    "border-width: 3px\n"
+                                    "}")
+        self.comments.setText("comments")
+        self.comments.setObjectName("comments")
         self.videoslider = QtWidgets.QSlider(parent=self.centralwidget)
         self.videoslider.setGeometry(QtCore.QRect(10, 730, 1260, 20))
         self.videoslider.setStyleSheet("QSlider::groove:horizontal {\n"
@@ -281,10 +283,8 @@ class Ui_ytQt(object):
         self.videoslider.setTickPosition(QtWidgets.QSlider.TickPosition.NoTicks)
         self.videoslider.setTickInterval(1)
         self.videoslider.setObjectName("videoslider")
-        #self.videoslider.setFocusPolicy(Qt.NoFocus)
-        ytQt.setCentralWidget(self.centralwidget)
-        self.retranslateUi(ytQt)
-        QtCore.QMetaObject.connectSlotsByName(ytQt)
+        self.retranslateUi(self)
+        QtCore.QMetaObject.connectSlotsByName(self)
         #
         self.vlc_instance = vlc.Instance()
         self.mediaplayer = self.vlc_instance.media_player_new()
@@ -308,12 +308,51 @@ class Ui_ytQt(object):
         self.timer.setInterval(500)
         self.timer.timeout.connect(self.updateslider)
         self.timer.start()
+        self.videoslider.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+        self.volumeslider.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+        self.frame.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+        self.fullscreen.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+        self.pause.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+        self.like.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+        self.dislike.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+        self.comments.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+        self.wind.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+        self.rewind.setFocusPolicy(QtCore.Qt.FocusPolicy.NoFocus)
+
+    def __init__(self):
+        super().__init__()
+        self.setupUi()
+
+    def keyPressEvent(self, e):
+        # print(str(e.key()))
+        if e.isAutoRepeat():
+            return
+        if str(e.key()) == '32':
+            self.playpause()
+        elif str(e.key()) == '16777235':
+            if self.volumeslider.value() <= 90:
+                self.volumeslider.setValue(self.volumeslider.value() + 10)
+            else:
+                self.volumeslider.setValue(100)
+            self.mediaplayer.audio_set_volume(self.volumeslider.value())
+        elif str(e.key()) == '16777237':
+            if self.volumeslider.value() >= 10:
+                self.volumeslider.setValue(self.volumeslider.value() - 10)
+            else:
+                self.volumeslider.setValue(0)
+            self.mediaplayer.audio_set_volume(self.volumeslider.value())
+        elif str(e.key()) == '16777236':
+            self.skip()
+        elif str(e.key()) == '16777234':
+            self.reskip()
 
     def skip(self):
         self.mediaplayer.set_time(self.mediaplayer.get_time() + 5000)
+        self.updateslider()
 
     def reskip(self):
         self.mediaplayer.set_time(self.mediaplayer.get_time() - 5000)
+        self.updateslider()
 
     def fullscreentoggle(self):
         print('noinplementation')
@@ -333,6 +372,7 @@ class Ui_ytQt(object):
             self.mediaplayer.play()
             self.pause.setText('pause')
             self.is_paused = False
+        self.updateslider()
 
     def videoprogress(self):
         self.mediaplayer.set_position(self.videoslider.value() / 1000)
@@ -352,8 +392,10 @@ if __name__ == "__main__":
     import sys
 
     app = QtWidgets.QApplication(sys.argv)
-    ytQt = QtWidgets.QMainWindow()
-    ui = Ui_ytQt()
-    ui.setupUi(ytQt)
-    ytQt.show()
+    # ytQt = QtWidgets.QMainWindow()
+    # ui = Ui_ytQt()
+    # ui.setupUi(ytQt)
+    # ytQt.show()
+    ex = Ui_ytQt()
+    ex.show()
     sys.exit(app.exec())

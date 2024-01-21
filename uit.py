@@ -467,10 +467,10 @@ class Ui_ytQt(object):
             self.loadvideos()
 
     def loadvideos(self):
+        print('switching to page ' + str(page))
         print('loading item json')
         global obj
         global page
-        print('switching to page ' + str(page))
         for i in range(0 + (page * 5), 5 + (page * 5)):
             global title
             global user
