@@ -80,7 +80,7 @@ class Ui_ytQt(object):
                                   "border-color: #e974fc;\n"
                                   "border-width: 3px\n"
                                   "}")
-        self.rewind.setText("-10")
+        self.rewind.setText("-5")
         self.rewind.setObjectName("rewind")
         self.wind = QtWidgets.QPushButton(parent=self.centralwidget)
         self.wind.setGeometry(QtCore.QRect(690, 760, 40, 40))
@@ -101,7 +101,7 @@ class Ui_ytQt(object):
                                 "border-color: #e974fc;\n"
                                 "border-width: 3px\n"
                                 "}")
-        self.wind.setText("+10")
+        self.wind.setText("+5")
         self.wind.setObjectName("wind")
         self.volumeslider = QtWidgets.QSlider(parent=self.centralwidget)
         self.volumeslider.setGeometry(QtCore.QRect(1090, 759, 90, 40))
@@ -286,7 +286,6 @@ class Ui_ytQt(object):
         self.retranslateUi(ytQt)
         QtCore.QMetaObject.connectSlotsByName(ytQt)
         #
-        print(sys.argv[1])
         self.vlc_instance = vlc.Instance()
         self.mediaplayer = self.vlc_instance.media_player_new()
         if platform.system() == "Linux":

@@ -26,8 +26,8 @@ from PIL import Image
 from PyQt6 import QtCore, QtGui, QtWidgets
 from pytube import YouTube
 
-key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
-# key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
+# key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
+key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
 baseurl = "https://youtube.googleapis.com/"
 basethumbstyle = ("QPushButton:hover{\n"
                   "border-radius: 12px;\n"
@@ -52,9 +52,11 @@ global kind
 global id
 global videostreamlink
 global channelid
+global page
 channelid = [None, None, None, None, None]
 id = [None, None, None, None, None]
 kind = [None, None, None, None, None]
+page = 0
 
 
 class Ui_ytQt(object):
@@ -384,11 +386,11 @@ class Ui_ytQt(object):
         self.userlist = [self.user, self.user_2, self.user_3, self.user_4, self.user_5, ]
         self.metalist = [self.meta, self.meta_2, self.meta_3, self.meta_4, self.meta_5]
         self.search.clicked.connect(self.searchyt)
-        # url = 'https://img.youtube.com/vi/Y2gTSjoEExc/mqdefault.jpg'
-        # temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
-        # (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
-        # path = Path(f'{temp.name}.bmp').as_posix()
-        path = None
+        url = 'https://img.youtube.com/vi/Y2gTSjoEExc/mqdefault.jpg'
+        temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
+        (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
+        path = Path(f'{temp.name}.bmp').as_posix()
+        # path = None
         self.thumbnail_5.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
         self.thumbnail_5.clicked.connect(lambda: self.openbutton(4))
         self.thumbnail_4.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
@@ -399,36 +401,43 @@ class Ui_ytQt(object):
         self.thumbnail_2.clicked.connect(lambda: self.openbutton(1))
         self.thumbnail.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
         self.thumbnail.clicked.connect(lambda: self.openbutton(0))
-        # self.next.clicked.connect(self.next)
-        # self.previous.clicked.connect(self.previous)
+        self.next.clicked.connect(self.nextpage)
+        self.previous.clicked.connect(self.previouspage)
 
-    def next(self):
-        print("Next clicked")
+    def nextpage(self):
+        global page
+        if page < 4:
+            page = page + 1
+            self.loadvideos()
 
-    def previous(self):
-        print("Previous clicked")
+    def previouspage(self):
+        global page
+        if page > 0:
+            page = page - 1
+            self.loadvideos()
 
     def searchyt(self):
+        global obj
         self.searchbar.clearFocus()
         ytquery = self.searchbar.text()
-        params = {'part': 'snippet', 'key': key, "q": ytquery, "maxResults": "5"}
+        params = {'part': 'snippet', 'key': key, "q": ytquery, "maxResults": "25"}
         print('requesting search api data')
         searchResponse = requests.get(baseurl + 'youtube/v3/search', params=params)
-        #searchResponse = requests.get('https://files.catbox.moe/7j4a26.json')
+        # searchResponse = requests.get('https://files.catbox.moe/7j4a26.json')
         obj = json.loads(searchResponse.text)
         print('search api data loaded')
-        self.loadvideos(obj)
-
+        self.loadvideos()
 
     def openbutton(self, index):
         global kind
         global id
+        global obj
         if kind[index] == 'youtube#video':
             print('opening type ' + str(kind[index]) + ' with url ' + 'https://youtube.com/watch?v=' + str(id[index]))
             print('creating temp file')
             temp = tempfile.TemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
             print('temp file created @ ' + Path(temp.name).as_posix())
-            print('downloading video steam to temp file')
+            print('writing video steam to temp file')
             YouTube('https://youtube.com/watch?v=' + str(id[index])).streams.get_highest_resolution().download(
                 filename=Path(temp.name).as_posix())
             print('launching video player with video file @ ' + Path(temp.name).as_posix())
@@ -443,45 +452,62 @@ class Ui_ytQt(object):
             obj = json.loads(searchResponse.text)
             print('channel api data loaded')
             plid = obj['items'][0]['contentDetails']['relatedPlaylists'].get('uploads')
-            params = {'part': 'snippet', 'key': key, "playlistId": plid, 'maxResults': '5'}
+            params = {'part': 'snippet', 'key': key, "playlistId": plid, 'maxResults': '25'}
             print('requesting uploads api data')
             searchResponse = requests.get(baseurl + 'youtube/v3/playlistItems', params=params)
             obj = json.loads(searchResponse.text)
             print('uploads api data loaded')
-            print(searchResponse.text)
-            self.loadvideos(obj)
-    def loadvideos(self, obj):
+            self.loadvideos()
+        elif kind[index] == 'youtube#playlist':
+            params = {'part': 'snippet', 'key': key, "playlistId": id[index], 'maxResults': '25'}
+            print('requesting uploads api data')
+            searchResponse = requests.get(baseurl + 'youtube/v3/playlistItems', params=params)
+            obj = json.loads(searchResponse.text)
+            print('uploads api data loaded')
+            self.loadvideos()
+
+    def loadvideos(self):
         print('loading item json')
-        for i in range(0, 5):
+        global obj
+        global page
+        print('switching to page ' + str(page))
+        for i in range(0 + (page * 5), 5 + (page * 5)):
             global title
             global user
             global thumbnail
             global kind
             global id
             global videostreamlink
+            p = i - (page * 5)
             title = obj['items'][i]['snippet'].get('title')
             user = obj['items'][i]['snippet'].get('channelTitle')
-            channelid[i] = obj['items'][i]['snippet'].get('channelId')
             thumbnail = obj['items'][i]['snippet']['thumbnails']['medium'].get('url')
-            if not obj['items'][i].get('kind') == 'youtube#playlistItem':
-                kind[i] = obj['items'][i]['id'].get('kind')
-                id[i] = obj['items'][i]['id'].get('videoId')
+            channelid[p] = obj['items'][i]['snippet'].get('channelId')
+            # video maar uit playlist
+            if obj['items'][i].get('kind') == 'youtube#playlistItem':
+                kind[p] = 'youtube#video'
+                id[p] = obj['items'][i]['snippet']['resourceId'].get('videoId')
+            # playlist
+            elif obj['items'][i]['id'].get('kind') == 'youtube#playlist':
+                kind[p] = obj['items'][i]['id'].get('kind')
+                id[p] = obj['items'][i]['id'].get('playlistId')
+            # video
             else:
-                kind[i] = 'youtube#video'
-                id[i] = obj['items'][i]['snippet']['resourceId'].get('videoId')
+                kind[p] = obj['items'][i]['id'].get('kind')
+                id[p] = obj['items'][i]['id'].get('videoId')
 
             temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
-            if kind[i] == 'youtube#channel':
-                self.thumbnaillist[i].setFixedWidth(144)
+            if kind[p] == 'youtube#channel':
+                self.thumbnaillist[p].setFixedWidth(144)
                 (Image.open(BytesIO(requests.get(thumbnail).content))).resize((144, 144)).save(f"{temp.name}.bmp")
-            elif kind[i] == 'youtube#video':
-                self.thumbnaillist[i].setFixedWidth(256)
+            else:
+                self.thumbnaillist[p].setFixedWidth(256)
                 (Image.open(BytesIO(requests.get(thumbnail).content))).resize((256, 144)).save(f"{temp.name}.bmp")
             path = Path(f'{temp.name}.bmp').as_posix()
-            self.thumbnaillist[i].setStyleSheet(
+            self.thumbnaillist[p].setStyleSheet(
                 basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-            self.titlelist[i].setText(title)
-            self.userlist[i].setText(user)
+            self.titlelist[p].setText(title)
+            self.userlist[p].setText(user)
         print('item json loaded')
 
     def retranslateUi(self, ytQt):
