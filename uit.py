@@ -51,6 +51,8 @@ global thumbnail
 global kind
 global id
 global videostreamlink
+global channelid
+channelid = [None, None, None, None, None]
 id = [None, None, None, None, None]
 kind = [None, None, None, None, None]
 
@@ -410,11 +412,46 @@ class Ui_ytQt(object):
         self.searchbar.clearFocus()
         ytquery = self.searchbar.text()
         params = {'part': 'snippet', 'key': key, "q": ytquery, "maxResults": "5"}
-        print('requesting api data')
+        print('requesting search api data')
         searchResponse = requests.get(baseurl + 'youtube/v3/search', params=params)
-        # searchResponse = requests.get('https://files.catbox.moe/7j4a26.json')
+        #searchResponse = requests.get('https://files.catbox.moe/7j4a26.json')
         obj = json.loads(searchResponse.text)
-        print('api data loaded')
+        print('search api data loaded')
+        self.loadvideos(obj)
+
+
+    def openbutton(self, index):
+        global kind
+        global id
+        if kind[index] == 'youtube#video':
+            print('opening type ' + str(kind[index]) + ' with url ' + 'https://youtube.com/watch?v=' + str(id[index]))
+            print('creating temp file')
+            temp = tempfile.TemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
+            print('temp file created @ ' + Path(temp.name).as_posix())
+            print('downloading video steam to temp file')
+            YouTube('https://youtube.com/watch?v=' + str(id[index])).streams.get_highest_resolution().download(
+                filename=Path(temp.name).as_posix())
+            print('launching video player with video file @ ' + Path(temp.name).as_posix())
+            temp.close()
+            os.system('python player.py ' + Path(temp.name).as_posix())
+            os.remove(temp.name)
+            print('removed temp file @ ' + Path(temp.name).as_posix())
+        elif kind[index] == 'youtube#channel':
+            params = {'part': 'contentDetails', 'key': key, "id": channelid[index]}
+            print('requesting channel api data')
+            searchResponse = requests.get(baseurl + 'youtube/v3/channels', params=params)
+            obj = json.loads(searchResponse.text)
+            print('channel api data loaded')
+            plid = obj['items'][0]['contentDetails']['relatedPlaylists'].get('uploads')
+            params = {'part': 'snippet', 'key': key, "playlistId": plid, 'maxResults': '5'}
+            print('requesting uploads api data')
+            searchResponse = requests.get(baseurl + 'youtube/v3/playlistItems', params=params)
+            obj = json.loads(searchResponse.text)
+            print('uploads api data loaded')
+            print(searchResponse.text)
+            self.loadvideos(obj)
+    def loadvideos(self, obj):
+        print('loading item json')
         for i in range(0, 5):
             global title
             global user
@@ -424,9 +461,15 @@ class Ui_ytQt(object):
             global videostreamlink
             title = obj['items'][i]['snippet'].get('title')
             user = obj['items'][i]['snippet'].get('channelTitle')
+            channelid[i] = obj['items'][i]['snippet'].get('channelId')
             thumbnail = obj['items'][i]['snippet']['thumbnails']['medium'].get('url')
-            kind[i] = obj['items'][i]['id'].get('kind')
-            id[i] = obj['items'][i]['id'].get('videoId')
+            if not obj['items'][i].get('kind') == 'youtube#playlistItem':
+                kind[i] = obj['items'][i]['id'].get('kind')
+                id[i] = obj['items'][i]['id'].get('videoId')
+            else:
+                kind[i] = 'youtube#video'
+                id[i] = obj['items'][i]['snippet']['resourceId'].get('videoId')
+
             temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
             if kind[i] == 'youtube#channel':
                 self.thumbnaillist[i].setFixedWidth(144)
@@ -439,28 +482,7 @@ class Ui_ytQt(object):
                 basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
             self.titlelist[i].setText(title)
             self.userlist[i].setText(user)
-
-    def openbutton(self, index):
-        global kind
-        global id
-        if kind[index] == 'youtube#video':
-            # try:
-            print('opening type ' + str(kind[index]))
-            print('creating temp file')
-            temp = tempfile.TemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
-            print('temp file created @ ' + Path(temp.name).as_posix())
-            print('downloading video steam to temp file')
-            YouTube('https://youtube.com/watch?v=' + str(id[index])).streams.get_highest_resolution().download(
-                filename=Path(temp.name).as_posix())
-            print('launching video player with video file @ ' + Path(temp.name).as_posix())
-            temp.close()
-            os.system('python player.py ' + Path(temp.name).as_posix())
-            # temp.close()
-            os.remove(temp.name)
-            print('removed temp file @ ' + Path(temp.name).as_posix())
-
-        # except:
-        #    print("An error has occurred")
+        print('item json loaded')
 
     def retranslateUi(self, ytQt):
         _translate = QtCore.QCoreApplication.translate
