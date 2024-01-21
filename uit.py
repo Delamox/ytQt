@@ -269,8 +269,7 @@ class Ui_ytQt(object):
         font.setFamily("Noto Sans")
         font.setPointSize(18)
         self.title_3.setFont(font)
-        self.title_3.setToolTip(
-            "This title is too long to be displayed properly on yt, look at tooltip! Hello tooltip user!")
+        self.title_3.setToolTip("")
         self.title_3.setStyleSheet("color: rgb(255, 255, 255);")
         self.title_3.setText("")
         self.title_3.setScaledContents(False)
@@ -305,8 +304,7 @@ class Ui_ytQt(object):
         font.setFamily("Noto Sans")
         font.setPointSize(18)
         self.title_4.setFont(font)
-        self.title_4.setToolTip(
-            "This title is too long to be displayed properly on yt, look at tooltip! Hello tooltip user!")
+        self.title_4.setToolTip("")
         self.title_4.setStyleSheet("color: rgb(255, 255, 255);")
         self.title_4.setText("")
         self.title_4.setScaledContents(False)
@@ -341,8 +339,7 @@ class Ui_ytQt(object):
         font.setFamily("Noto Sans")
         font.setPointSize(18)
         self.title_5.setFont(font)
-        self.title_5.setToolTip(
-            "This title is too long to be displayed properly on yt, look at tooltip! Hello tooltip user!")
+        self.title_5.setToolTip("")
         self.title_5.setStyleSheet("color: rgb(255, 255, 255);")
         self.title_5.setText("")
         self.title_5.setScaledContents(False)
@@ -386,11 +383,11 @@ class Ui_ytQt(object):
         self.userlist = [self.user, self.user_2, self.user_3, self.user_4, self.user_5, ]
         self.metalist = [self.meta, self.meta_2, self.meta_3, self.meta_4, self.meta_5]
         self.search.clicked.connect(self.searchyt)
-        url = 'https://img.youtube.com/vi/Y2gTSjoEExc/mqdefault.jpg'
-        temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
-        (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
-        path = Path(f'{temp.name}.bmp').as_posix()
-        # path = None
+        # url = 'https://img.youtube.com/vi/Y2gTSjoEExc/mqdefault.jpg'
+        # temp = tempfile.TemporaryFile(prefix='ytQtthumbnail')
+        # (Image.open(BytesIO(requests.get(url).content))).resize((256, 144)).save(f"{temp.name}.bmp")
+        # path = Path(f'{temp.name}.bmp').as_posix()
+        path = ''
         self.thumbnail_5.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
         self.thumbnail_5.clicked.connect(lambda: self.openbutton(4))
         self.thumbnail_4.setStyleSheet(basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
@@ -467,10 +464,10 @@ class Ui_ytQt(object):
             self.loadvideos()
 
     def loadvideos(self):
+        global page
         print('switching to page ' + str(page))
         print('loading item json')
         global obj
-        global page
         for i in range(0 + (page * 5), 5 + (page * 5)):
             global title
             global user
@@ -508,6 +505,8 @@ class Ui_ytQt(object):
                 basethumbstyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
             self.titlelist[p].setText(title)
             self.userlist[p].setText(user)
+            self.titlelist[p].setToolTip(title)
+            self.titlelist[p].setToolTipDuration(-1)
         print('item json loaded')
 
     def retranslateUi(self, ytQt):
