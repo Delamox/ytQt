@@ -365,6 +365,7 @@ class Ui_ytQt(QWidget):
             self.is_paused = True
         else:
             if self.mediaplayer.play() == -1:
+                print('calamiteit')
                 self.media_path = sys.argv[1]
                 self.media = self.vlc_instance.media_new(self.media_path)
                 self.media.get_mrl()

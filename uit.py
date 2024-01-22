@@ -442,13 +442,17 @@ class Ui_ytQt(object):
                     filename=Path(temp.name).as_posix())
                 print('launching video player with video file @ ' + Path(temp.name).as_posix())
                 temp.close()
+                ytQt.hide()
                 os.system('python player.py ' + base64.b64encode(Path(temp.name).as_posix().encode()).decode())
+                ytQt.show()
                 os.remove(temp.name)
                 print('removed temp file @ ' + Path(temp.name).as_posix())
             elif mode == 'stream':
                 url = str(YouTube('https://youtube.com/watch?v=' + str(id[index])).streams.get_highest_resolution().url)
                 print('launching video player with video stream from url @ ' + url)
+                ytQt.hide()
                 os.system('python player.py ' + base64.b64encode(url.encode()).decode())
+                ytQt.show()
                 print('closing video stream')
 
 
