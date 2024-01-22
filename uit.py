@@ -13,10 +13,10 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
+import base64
 import json
 import os
+import shlex
 import tempfile
 from io import BytesIO
 from pathlib import Path
@@ -24,6 +24,7 @@ from pathlib import Path
 import requests
 from PIL import Image
 from PyQt6 import QtCore, QtGui, QtWidgets
+import vlc
 from pytube import YouTube
 
 # key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
@@ -233,8 +234,7 @@ class Ui_ytQt(object):
         font.setFamily("Noto Sans")
         font.setPointSize(18)
         self.title_2.setFont(font)
-        self.title_2.setToolTip(
-            "This title is too long to be displayed properly on yt, look at tooltip! Hello tooltip user!")
+        self.title_2.setToolTip("")
         self.title_2.setStyleSheet("color: rgb(255, 255, 255);")
         self.title_2.setText("")
         self.title_2.setScaledContents(False)
@@ -429,19 +429,29 @@ class Ui_ytQt(object):
         global kind
         global id
         global obj
+        mode = 'stream'
+
         if kind[index] == 'youtube#video':
             print('opening type ' + str(kind[index]) + ' with url ' + 'https://youtube.com/watch?v=' + str(id[index]))
-            print('creating temp file')
-            temp = tempfile.NamedTemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
-            print('temp file created @ ' + Path(temp.name).as_posix())
-            print('writing video steam to temp file')
-            YouTube('https://youtube.com/watch?v=' + str(id[index])).streams.get_highest_resolution().download(
-                filename=Path(temp.name).as_posix())
-            print('launching video player with video file @ ' + Path(temp.name).as_posix())
-            temp.close()
-            os.system('python player.py ' + Path(temp.name).as_posix())
-            os.remove(temp.name)
-            print('removed temp file @ ' + Path(temp.name).as_posix())
+            if mode == 'download':
+                print('creating temp file')
+                temp = tempfile.NamedTemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
+                print('temp file created @ ' + Path(temp.name).as_posix())
+                print('writing video steam to temp file')
+                YouTube('https://youtube.com/watch?v=' + str(id[index])).streams.get_highest_resolution().download(
+                    filename=Path(temp.name).as_posix())
+                print('launching video player with video file @ ' + Path(temp.name).as_posix())
+                temp.close()
+                os.system('python player.py ' + base64.b64encode(Path(temp.name).as_posix().encode()).decode())
+                os.remove(temp.name)
+                print('removed temp file @ ' + Path(temp.name).as_posix())
+            elif mode == 'stream':
+                url = str(YouTube('https://youtube.com/watch?v=' + str(id[index])).streams.get_highest_resolution().url)
+                print('launching video player with video stream from url @ ' + url)
+                os.system('python player.py ' + base64.b64encode(url.encode()).decode())
+                print('closing video stream')
+
+
         elif kind[index] == 'youtube#channel':
             params = {'part': 'contentDetails', 'key': key, "id": channelid[index]}
             print('requesting channel api data')

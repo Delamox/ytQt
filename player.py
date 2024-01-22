@@ -13,10 +13,10 @@
 #
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
-
-
+import base64
 import platform
 
+import base64
 import vlc
 from PyQt6 import QtCore, QtGui, QtWidgets
 from PyQt6.QtWidgets import QWidget
@@ -286,6 +286,7 @@ class Ui_ytQt(QWidget):
         self.retranslateUi(self)
         QtCore.QMetaObject.connectSlotsByName(self)
         #
+        sys.argv[1] = base64.b64decode(sys.argv[1]).decode()
         self.vlc_instance = vlc.Instance()
         self.mediaplayer = self.vlc_instance.media_player_new()
         if platform.system() == "Linux":
@@ -355,7 +356,7 @@ class Ui_ytQt(QWidget):
         self.updateslider()
 
     def fullscreentoggle(self):
-        print('noinplementation')
+        self.frame.showMaximized()
 
     def playpause(self):
         if self.mediaplayer.is_playing():
