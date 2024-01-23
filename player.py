@@ -287,7 +287,7 @@ class Ui_ytQt(QWidget):
         QtCore.QMetaObject.connectSlotsByName(self)
         #
         sys.argv[1] = base64.b64decode(sys.argv[1]).decode()
-        self.vlc_instance = vlc.Instance()
+        self.vlc_instance = vlc.Instance(['--video-on-top'])
         self.mediaplayer = self.vlc_instance.media_player_new()
         if platform.system() == "Linux":
             self.mediaplayer.set_xwindow(int(self.frame.winId()))
@@ -325,11 +325,12 @@ class Ui_ytQt(QWidget):
         self.setupUi()
 
     def keyPressEvent(self, e):
-        # print(str(e.key()))
+        print(str(e.key()))
         if e.isAutoRepeat():
             return
         if str(e.key()) == '32':
             self.playpause()
+            self.fullscreentoggle()
         elif str(e.key()) == '16777235':
             if self.volumeslider.value() <= 90:
                 self.volumeslider.setValue(self.volumeslider.value() + 10)
@@ -356,7 +357,17 @@ class Ui_ytQt(QWidget):
         self.updateslider()
 
     def fullscreentoggle(self):
-        self.frame.showMaximized()
+        if self.frame.parent() == self.centralwidget:
+            print('setting frame to fullscreen view')
+            self.frame.setParent(None)
+            self.frame.showFullScreen()
+            self.hide()
+            #self.frame.show()
+        else:
+            print('setting frame to regular view')
+            #self.show()
+            self.frame.showNormal()
+            self.frame.setParent(self.centralwidget)
 
     def playpause(self):
         if self.mediaplayer.is_playing():
