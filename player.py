@@ -362,6 +362,7 @@ class Ui_ytQt(QWidget):
             self.frame.setParent(None)
             self.frame.showFullScreen()
             self.hide()
+            self.setFocus()
             #self.frame.show()
         else:
             print('setting frame to regular view')
