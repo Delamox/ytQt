@@ -254,7 +254,6 @@ class player(QtWidgets.QMainWindow):
         super(player, self).__init__(parent)
         uic.loadUi('assets/player.ui', self)
         global videoStreamURL
-        print(videoStreamURL)
         self.startVideoStream()
 
     def startVideoStream(self):
@@ -317,8 +316,6 @@ class player(QtWidgets.QMainWindow):
         self.videoSlider.setValue(int(self.vlcMediaPlayer.get_position() * 1000))
 
     def keyPressEvent(self, e):
-        print(e.key())
-        print(str(QtCore.Qt.Key_Right))
         if e.isAutoRepeat():
             return
         if str(e.key()) == '32':
