@@ -67,45 +67,6 @@ border-width: 3px}</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="3" colspan="2">
-     <widget class="QLineEdit" name="searchBar">
-      <property name="minimumSize">
-       <size>
-        <width>0</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>16777215</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="toolTip">
-       <string notr="true"/>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QLineEdit {
-color: #a8a8a8;
-background-color: #4d4d4d;
-border: 2px solid #36393e;
-border-radius: 20px;
-padding-right: 10px;
-padding-left: 10px;}
-QLineEdit:hover {
-border-color: #74cbfc;}
-QLineEdit:focus {
-border-radius: 5px;
-border-color: #e974fc;}</string>
-      </property>
-      <property name="frame">
-       <bool>true</bool>
-      </property>
-      <property name="placeholderText">
-       <string>Search YouTube...</string>
-      </property>
-     </widget>
-    </item>
     <item row="1" column="1" colspan="5">
      <layout class="QGridLayout" name="baselayout">
       <property name="spacing">
@@ -1059,6 +1020,45 @@ border-width: 3px}</string>
       </property>
       <property name="text">
        <string notr="true">🠬</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="2" colspan="3">
+     <widget class="QLineEdit" name="searchBar">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+color: #a8a8a8;
+background-color: #4d4d4d;
+border: 2px solid #36393e;
+border-radius: 20px;
+padding-right: 10px;
+padding-left: 10px;}
+QLineEdit:hover {
+border-color: #74cbfc;}
+QLineEdit:focus {
+border-radius: 5px;
+border-color: #e974fc;}</string>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <property name="placeholderText">
+       <string>Search YouTube...</string>
       </property>
      </widget>
     </item>
