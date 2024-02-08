@@ -1,4 +1,4 @@
-# ytQt 🚧 INDEV 🚧
+# ytQt 🚧 INDEV 🚧 (development paused until i regain motivation)
 Alternative youtube frontend using Python and Qt
 
 ## Installation
