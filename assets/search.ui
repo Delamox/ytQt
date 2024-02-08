@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>1213</width>
-    <height>872</height>
+    <height>904</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -19,7 +19,7 @@
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
     <item row="0" column="1">
-     <spacer name="verticalSpacer_2">
+     <spacer name="topClearanceSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>
@@ -1029,7 +1029,7 @@ padding-left: 5px;</string>
      </layout>
     </item>
     <item row="1" column="6">
-     <spacer name="horizontalSpacer_2">
+     <spacer name="rightClearanceSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -1045,7 +1045,7 @@ padding-left: 5px;</string>
      </spacer>
     </item>
     <item row="1" column="0">
-     <spacer name="horizontalSpacer">
+     <spacer name="leftClearanceSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -1061,7 +1061,7 @@ padding-left: 5px;</string>
      </spacer>
     </item>
     <item row="3" column="1">
-     <widget class="QPushButton" name="pushButton_2">
+     <widget class="QPushButton" name="prevPageButton">
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -1133,7 +1133,7 @@ border-width: 3px}</string>
      </widget>
     </item>
     <item row="3" column="2">
-     <widget class="QPushButton" name="pushButton_3">
+     <widget class="QPushButton" name="nextPageButton">
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -1180,7 +1180,7 @@ border-width: 3px}</string>
      </widget>
     </item>
     <item row="1" column="1">
-     <widget class="QPushButton" name="pushButton">
+     <widget class="QPushButton" name="homeButton">
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -1227,7 +1227,7 @@ border-width: 3px}</string>
      </widget>
     </item>
     <item row="4" column="1">
-     <spacer name="verticalSpacer_3">
+     <spacer name="bottomClearanceSpacer">
       <property name="orientation">
        <enum>Qt::Vertical</enum>
       </property>

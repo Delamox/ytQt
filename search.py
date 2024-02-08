@@ -2,6 +2,7 @@ import sys
 import base64
 import json
 import os
+import platform
 import tempfile
 from io import BytesIO
 from pathlib import Path
@@ -17,7 +18,7 @@ key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
 youtubeURLRoot = "https://youtube.googleapis.com/"
 baseThumbnailStyle = ("QPushButton:hover{\n"
                       "border-radius: 12px;\n"
-                      "border-width: 3px;\n"
+                      "border-width: 2px;\n"
                       "border-color: #74cbfc}\n"
                       "QPushButton:pressed{\n"
                       "border-width: 3px;\n"
@@ -27,13 +28,16 @@ baseThumbnailStyle = ("QPushButton:hover{\n"
                       "border-width: 1px;\n"
                       "border-style: solid;\n"
                       "border-radius: 25px;\n"
-                      "border-color: #2b2b2b;\n"
+                      "border-color: #1E2126;\n"
                       "width: 144px;\n"
                       "height: 256px;\n"
                       "background-position: center;\n")
+
 global title
 global user
 global thumbnail
+global searchResponseJSON
+global videoStreamURL
 channelId = [None, None, None, None, None]
 Id = [None, None, None, None, None]
 kind = [None, None, None, None, None]
@@ -58,8 +62,11 @@ class Ui(QtWidgets.QMainWindow):
         self.userObjectList = [
             self.userLabel1, self.userLabel2, self.userLabel3, self.userLabel4, self.userLabel5]
 
+        # set up links
         self.searchButton.clicked.connect(self.searchYoutubeFunction)
         self.searchBar.returnPressed.connect(self.searchYoutubeFunction)
+        self.nextPageButton.clicked.connect(self.nextPageFunction)
+        self.prevPageButton.clicked.connect(self.prevPageFunction)
 
         # set the thumbnail background to init style
         path = ''
@@ -165,8 +172,9 @@ class Ui(QtWidgets.QMainWindow):
     def openVideoFunction(self, videoIndex):
         # init
         global kind
-        global Ida
+        global Id
         global seachResponseJSON
+        global videoStreamURL
         mode = 'stream'
 
         if kind[videoIndex] == 'youtube#video':
@@ -174,13 +182,11 @@ class Ui(QtWidgets.QMainWindow):
             if mode == 'stream':
 
                 # get stream link
-                videoStreamLink = str(YouTube('https://youtube.com/watch?v=' + str(Id[videoIndex])).streams.get_highest_resolution().url)
+                videoStreamURL = str(YouTube('https://youtube.com/watch?v=' + str(Id[videoIndex])).streams.get_highest_resolution().url)
 
                 # launch video player
-                print('launching video player with video stream from url @ ' + videoStreamLink)
-                self.hide()
-                os.system('python deprecated/player.py ' + base64.b64encode(videoStreamLink.encode()).decode())
-                self.show()
+                print('launching video player with video stream from url @ ' + videoStreamURL)
+                player(self).show()
                 print('closing video stream')
 
             # DOWNLOAD FEATURE DEPRECATED AND ARCHIVED
@@ -231,7 +237,113 @@ class Ui(QtWidgets.QMainWindow):
             print('uploads api data loaded')
             self.loadJSONFunction()
 
+    def nextPageFunction(self):
+        global currentPage
+        if currentPage < 4:
+            currentPage = currentPage + 1
+            self.loadJSONFunction()
 
-app = QtWidgets.QApplication(sys.argv)
-window = Ui()
-app.exec()
+    def prevPageFunction(self):
+        global currentPage
+        if currentPage > 0:
+            currentPage = currentPage - 1
+            self.loadJSONFunction()
+
+class player(QtWidgets.QMainWindow):
+    def __init__(self, parent=None):
+        super(player, self).__init__(parent)
+        uic.loadUi('assets/player.ui', self)
+        global videoStreamURL
+        print(videoStreamURL)
+        self.startVideoStream()
+
+    def startVideoStream(self):
+        self.vlcInstance = vlc.Instance(['--video-on-top', '--verbose=-1'])
+        self.vlcMediaPlayer = self.vlcInstance.media_player_new()
+        if platform.system() == "Linux":
+            self.vlcMediaPlayer.set_xwindow(int(self.vlcContainerFrame.winId()))
+        elif platform.system() == "Windows":
+            self.vlcMediaPlayer.set_hwnd(int(self.vlcContainerFrame.winId()))
+        self.media_path = videoStreamURL
+        self.media = self.vlcInstance.media_new(self.media_path)
+        self.media.get_mrl()
+        self.vlcMediaPlayer.set_media(self.media)
+        self.vlcMediaPlayer.play()
+        self.fastforwardButton.clicked.connect(self.fastforward)
+        self.rewindButton.clicked.connect(self.rewind)
+        self.pauseButton.clicked.connect(self.pausePlay)
+        self.fullscreenButton.clicked.connect(self.fullscreenToggle)
+        self.videoSlider.sliderMoved.connect(self.setVideoProgress)
+        self.volumeSlider.setValue(self.vlcMediaPlayer.audio_get_volume())
+        self.volumeSlider.valueChanged.connect(self.setAudioLevel)
+        self.timer = QtCore.QTimer()
+        self.timer.setInterval(500)
+        self.timer.timeout.connect(self.updateVideoSlider)
+        self.timer.start()
+
+    def pausePlay(self):
+        if self.vlcMediaPlayer.is_playing():
+            self.vlcMediaPlayer.pause()
+            self.pauseButton.setText('⏵')
+            self.is_paused = True
+        else:
+            self.vlcMediaPlayer.play()
+            self.pauseButton.setText('⏸︎')
+            self.is_paused = False
+        self.updateVideoSlider()
+
+    def fullscreenToggle(self):
+        if self.isFullScreen() == True:
+            self.showNormal()
+        else:
+            self.showFullScreen()
+
+    def fastforward(self):
+        self.vlcMediaPlayer.set_time(self.vlcMediaPlayer.get_time() + 5000)
+        self.updateVideoSlider()
+
+    def rewind(self):
+        self.vlcMediaPlayer.set_time(self.vlcMediaPlayer.get_time() - 5000)
+        self.updateVideoSlider()
+
+    def setVideoProgress(self):
+        self.vlcMediaPlayer.set_position(self.videoSlider.value() / 1000)
+
+    def setAudioLevel(self):
+        self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value() * 10)
+        print(self.volumeSlider.value())
+
+    def updateVideoSlider(self):
+        self.videoSlider.setValue(int(self.vlcMediaPlayer.get_position() * 1000))
+
+    def keyPressEvent(self, e):
+        print(e.key())
+        print(str(QtCore.Qt.Key_Right))
+        if e.isAutoRepeat():
+            return
+        if str(e.key()) == '32':
+            self.pausePlay()
+            # self.fullscreentoggle()
+        elif str(e.key()) == '16777235':
+            if self.volumeSlider.value() <= 9:
+                self.volumeSlider.setValue(self.volumeSlider.value() + 1)
+            else:
+                self.volumeSlider.setValue(10)
+            self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value())
+        elif str(e.key()) == '16777237':
+            if self.volumeSlider.value() >= 10:
+                self.volumeSlider.setValue(self.volumeSlider.value() - 1)
+            else:
+                self.volumeSlider.setValue(0)
+            self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value())
+        elif str(e.key()) == '16777236':
+            self.fastforward()
+        elif str(e.key()) == '16777234':
+            self.rewind()
+
+
+
+if __name__ == '__main__':
+    app = QtWidgets.QApplication(sys.argv)
+    window = Ui()
+    app.exec()
