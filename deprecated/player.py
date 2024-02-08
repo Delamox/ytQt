@@ -287,7 +287,7 @@ class Ui_ytQt(QWidget):
         QtCore.QMetaObject.connectSlotsByName(self)
         #
         sys.argv[1] = base64.b64decode(sys.argv[1]).decode()
-        self.vlc_instance = vlc.Instance(['--video-on-top'])
+        self.vlc_instance = vlc.Instance(['--video-on-top', '--verbose=-1'])
         self.mediaplayer = self.vlc_instance.media_player_new()
         if platform.system() == "Linux":
             self.mediaplayer.set_xwindow(int(self.frame.winId()))
@@ -298,7 +298,7 @@ class Ui_ytQt(QWidget):
         self.media.get_mrl()
         self.mediaplayer.set_media(self.media)
         self.mediaplayer.play()
-        self.fullscreen.clicked.connect(self.fullscreentoggle)
+        # self.fullscreen.clicked.connect(self.fullscreentoggle)
         self.wind.clicked.connect(self.skip)
         self.rewind.clicked.connect(self.reskip)
         self.pause.clicked.connect(self.playpause)
@@ -356,21 +356,21 @@ class Ui_ytQt(QWidget):
         self.mediaplayer.set_time(self.mediaplayer.get_time() - 5000)
         self.updateslider()
 
-    @QtCore.pyqtSlot("QWebEngineFullScreenRequest")
+    # @QtCore.pyqtSlot("QWebEngineFullScreenRequest")
     def fullscreentoggle(self):
         print('a')
-        if str(self.frame.parent()) == str(self.centralwidget):
-            print('setting frame to fullscreen view')
-            self.frame.setParent(None)
-            self.frame.showFullScreen()
-            # self.hide()
-            # self.setFocus()
-            # self.frame.show()
-        else:
-            print('setting frame to regular view')
-            #self.show()
-            self.frame.setParent(self.centralwidget)
-            self.frame.showNormal()
+    #     if str(self.frame.parent()) == str(self.centralwidget):
+    #         print('setting frame to fullscreen view')
+    #         self.frame.setParent(None)
+    #         self.frame.showFullScreen()
+    #         # self.hide()
+    #         # self.setFocus()
+    #         # self.frame.show()
+    #     else:
+    #         print('setting frame to regular view')
+    #         #self.show()
+    #         self.frame.setParent(self.centralwidget)
+    #         self.frame.showNormal()
 
 
         # if request.toggleOn():
