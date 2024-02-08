@@ -1,0 +1,515 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ui version="4.0">
+ <class>ytQtplayer</class>
+ <widget class="QMainWindow" name="ytQtplayer">
+  <property name="geometry">
+   <rect>
+    <x>0</x>
+    <y>0</y>
+    <width>911</width>
+    <height>583</height>
+   </rect>
+  </property>
+  <property name="windowTitle">
+   <string notr="true">ytQt player</string>
+  </property>
+  <widget class="QWidget" name="centralwidget">
+   <layout class="QGridLayout" name="gridLayout">
+    <item row="2" column="4">
+     <spacer name="leftMediaSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="6">
+     <widget class="QPushButton" name="pauseButton">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: -2px;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="text">
+       <string notr="true">⏸</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="5">
+     <widget class="QPushButton" name="rewindButton">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: -2px;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="text">
+       <string notr="true">⏪</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="8">
+     <spacer name="rightMediaSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>40</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="2" column="10">
+     <widget class="QPushButton" name="fullscreenButton">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: 2px;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="text">
+       <string notr="true">⛶</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="2">
+     <widget class="QPushButton" name="dislikeButton">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: -2px;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="text">
+       <string notr="true">🠯</string>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="0" colspan="11">
+     <widget class="QFrame" name="vlcContainerFrame">
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="frameShape">
+       <enum>QFrame::NoFrame</enum>
+      </property>
+      <property name="frameShadow">
+       <enum>QFrame::Raised</enum>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="0">
+     <widget class="QPushButton" name="commentButton">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: -2px;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="text">
+       <string notr="true">🗨</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="0" colspan="11">
+     <widget class="QSlider" name="videoSlider">
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSlider::groove:horizontal {
+border: 1px solid #74cbfc;
+background: #2b2b2b;
+height: 10px;
+border-radius: 4px;
+}
+
+QSlider::sub-page:horizontal {
+background: #2b2b2b;
+border: 1px solid #e974fc;
+height: 10px;
+border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+background: #2b2b2b;
+border: 1px solid #74cbfc;
+height: 10px;
+border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+background: #4d4d4d;
+border: 1px solid #4d4d4d;
+width: 13px;
+margin-top: -2px;
+margin-bottom: -2px;
+border-radius: 4px;
+}
+
+QSlider::handle:horizontal:hover {
+background: #a8a8a8;
+border: 1px solid #a8a8a8;
+border-radius: 4px;
+}
+</string>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>1000</number>
+      </property>
+      <property name="singleStep">
+       <number>10</number>
+      </property>
+      <property name="pageStep">
+       <number>1</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="invertedControls">
+       <bool>false</bool>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::NoTicks</enum>
+      </property>
+      <property name="tickInterval">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="9">
+     <widget class="QSlider" name="volumeSlider">
+      <property name="minimumSize">
+       <size>
+        <width>80</width>
+        <height>0</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>80</width>
+        <height>16777215</height>
+       </size>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QSlider::groove:horizontal {
+border: 1px solid #74cbfc;
+background: #2b2b2b;
+height: 20px;
+border-radius: 4px;
+}
+
+QSlider::sub-page:horizontal {
+background: #2b2b2b;
+border: 1px solid red;
+height: 20px;
+border-radius: 4px;
+}
+
+QSlider::add-page:horizontal {
+background: #2b2b2b;
+border: 1px solid lime;
+height: 20px;
+border-radius: 4px;
+}
+
+QSlider::handle:horizontal {
+background: #4d4d4d;
+border: 1px solid #4d4d4d;
+width: 20px;
+margin-top: -2px;
+margin-bottom: -2px;
+border-radius: 4px;
+}
+
+QSlider::handle:horizontal:hover {
+background: #a8a8a8;
+border: 1px solid #a8a8a8;
+border-radius: 4px;
+}
+</string>
+      </property>
+      <property name="minimum">
+       <number>1</number>
+      </property>
+      <property name="maximum">
+       <number>10</number>
+      </property>
+      <property name="singleStep">
+       <number>1</number>
+      </property>
+      <property name="pageStep">
+       <number>1</number>
+      </property>
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="invertedControls">
+       <bool>false</bool>
+      </property>
+      <property name="tickPosition">
+       <enum>QSlider::TicksBothSides</enum>
+      </property>
+      <property name="tickInterval">
+       <number>1</number>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="7">
+     <widget class="QPushButton" name="fastforwardButton">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: -2px;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="text">
+       <string notr="true">⏩</string>
+      </property>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="likeButton">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="cursor">
+       <cursorShape>PointingHandCursor</cursorShape>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: -2px;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="text">
+       <string notr="true">🠭</string>
+      </property>
+     </widget>
+    </item>
+   </layout>
+  </widget>
+ </widget>
+ <resources/>
+ <connections/>
+</ui>

@@ -329,7 +329,7 @@ class Ui_ytQt(QWidget):
         if e.isAutoRepeat():
             return
         if str(e.key()) == '32':
-            self.playpause()
+            # self.playpause()
             self.fullscreentoggle()
         elif str(e.key()) == '16777235':
             if self.volumeslider.value() <= 90:
@@ -356,19 +356,29 @@ class Ui_ytQt(QWidget):
         self.mediaplayer.set_time(self.mediaplayer.get_time() - 5000)
         self.updateslider()
 
+    @QtCore.pyqtSlot("QWebEngineFullScreenRequest")
     def fullscreentoggle(self):
-        if self.frame.parent() == self.centralwidget:
+        print('a')
+        if str(self.frame.parent()) == str(self.centralwidget):
             print('setting frame to fullscreen view')
             self.frame.setParent(None)
             self.frame.showFullScreen()
-            self.hide()
-            self.setFocus()
-            #self.frame.show()
+            # self.hide()
+            # self.setFocus()
+            # self.frame.show()
         else:
             print('setting frame to regular view')
             #self.show()
-            self.frame.showNormal()
             self.frame.setParent(self.centralwidget)
+            self.frame.showNormal()
+
+
+        # if request.toggleOn():
+        #     self.browser.setParent(None)
+        #     self.browser.showFullScreen()
+        # else:
+        #     self.setCentralWidget(self.browser)
+        #     self.browser.showNormal()
 
     def playpause(self):
         if self.mediaplayer.is_playing():

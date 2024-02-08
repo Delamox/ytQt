@@ -83,7 +83,7 @@
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>140</y>
+      <y>130</y>
       <width>750</width>
       <height>36</height>
      </rect>
@@ -372,7 +372,7 @@ background-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;}
     <property name="geometry">
      <rect>
       <x>280</x>
-      <y>210</y>
+      <y>220</y>
       <width>750</width>
       <height>36</height>
      </rect>
