@@ -6,16 +6,19 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>1222</width>
-    <height>867</height>
+    <width>918</width>
+    <height>866</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string notr="true">ytQt search</string>
   </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(30, 33, 38);</string>
+  </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="0" column="4">
+    <item row="0" column="5">
      <widget class="QPushButton" name="searchButton">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
@@ -64,96 +67,198 @@ border-width: 3px}</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="1" colspan="4">
+    <item row="0" column="3" colspan="2">
+     <widget class="QLineEdit" name="searchBar">
+      <property name="minimumSize">
+       <size>
+        <width>0</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>16777215</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QLineEdit {
+color: #a8a8a8;
+background-color: #4d4d4d;
+border: 2px solid #36393e;
+border-radius: 20px;
+padding-right: 10px;
+padding-left: 10px;}
+QLineEdit:hover {
+border-color: #74cbfc;}
+QLineEdit:focus {
+border-radius: 5px;
+border-color: #e974fc;}</string>
+      </property>
+      <property name="frame">
+       <bool>true</bool>
+      </property>
+      <property name="placeholderText">
+       <string>Search YouTube...</string>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="1" colspan="5">
      <layout class="QGridLayout" name="baselayout">
       <property name="spacing">
        <number>0</number>
       </property>
-      <item row="7" column="1">
-       <widget class="QLabel" name="userLabel2">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>50</width>
-          <height>38</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>18</pointsize>
-         </font>
-        </property>
+      <item row="4" column="0" colspan="2">
+       <spacer name="midSpacer1">
         <property name="toolTip">
-         <string notr="true"/>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: #c0c0c0;
-padding-left: 5px;</string>
-        </property>
-        <property name="text">
-         <string notr="true">TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="25" column="0" colspan="2">
-       <spacer name="midSpacer5">
-        <property name="toolTip">
-         <string notr="true">Vertical Spacer 'verticalSpacer_6', 0 x 0</string>
+         <string notr="true">Vertical Spacer 'verticalSpacer_5', 20 x 5</string>
         </property>
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
         <property name="sizeHint" stdset="0">
          <size>
-          <width>0</width>
-          <height>0</height>
+          <width>20</width>
+          <height>10</height>
          </size>
         </property>
        </spacer>
       </item>
-      <item row="1" column="1">
-       <widget class="QLabel" name="titleLabel1">
+      <item row="24" column="1">
+       <spacer name="titleUserSpacer5">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>58</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="9" column="0" colspan="2">
+       <spacer name="midSpacer2">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="10" column="0" rowspan="5">
+       <widget class="QPushButton" name="thumbnailButton3">
         <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
           <horstretch>0</horstretch>
           <verstretch>0</verstretch>
          </sizepolicy>
         </property>
         <property name="minimumSize">
          <size>
-          <width>50</width>
-          <height>38</height>
+          <width>256</width>
+          <height>144</height>
          </size>
         </property>
-        <property name="font">
-         <font>
-          <pointsize>18</pointsize>
-          <weight>75</weight>
-          <italic>false</italic>
-          <bold>true</bold>
-          <underline>false</underline>
-          <strikeout>false</strikeout>
-         </font>
+        <property name="maximumSize">
+         <size>
+          <width>256</width>
+          <height>144</height>
+         </size>
         </property>
         <property name="toolTip">
          <string notr="true"/>
         </property>
         <property name="styleSheet">
-         <string notr="true">color: #ffffff;
-padding-left: 5px;</string>
+         <string notr="true">QPushButton:hover{
+border-radius: 12px;
+border-width: 3px;
+border-color: #74cbfc}
+QPushButton:pressed{
+border-width: 3px;
+border-color: #e974fc;}
+QPushButton{
+border-width: 1px;
+border-style: solid;
+border-radius: 25px;
+border-color: #1E2126;
+width: 144px;
+height: 256px;
+background-position: center;
+background-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;}</string>
         </property>
         <property name="text">
-         <string notr="true">TextLabel</string>
+         <string notr="true"/>
         </property>
        </widget>
       </item>
-      <item row="13" column="1">
-       <widget class="QLabel" name="userLabel3">
+      <item row="0" column="0" rowspan="4">
+       <widget class="QPushButton" name="thumbnailButton1">
+        <property name="enabled">
+         <bool>true</bool>
+        </property>
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>256</width>
+          <height>144</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>256</width>
+          <height>144</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string notr="true"/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton:hover{
+border-radius: 12px;
+border-width: 3px;
+border-color: #74cbfc}
+QPushButton:pressed{
+border-width: 3px;
+border-color: #e974fc;}
+QPushButton{
+border-width: 1px;
+border-style: solid;
+border-radius: 25px;
+border-color: #1E2126;
+width: 144px;
+height: 256px;
+background-position: center;
+background-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;}</string>
+        </property>
+        <property name="text">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+      <item row="23" column="1">
+       <widget class="QLabel" name="userLabel5">
         <property name="minimumSize">
          <size>
           <width>50</width>
@@ -215,61 +320,10 @@ QPushButton:pressed{
 border-width: 3px;
 border-color: #e974fc;}
 QPushButton{
-color: rgb(0, 0, 0);
 border-width: 1px;
 border-style: solid;
 border-radius: 25px;
-border-color: #2b2b2b;
-width: 144px;
-height: 256px;
-background-position: center;
-background-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;}</string>
-        </property>
-        <property name="text">
-         <string notr="true"/>
-        </property>
-       </widget>
-      </item>
-      <item row="0" column="0" rowspan="4">
-       <widget class="QPushButton" name="thumbnailButton1">
-        <property name="enabled">
-         <bool>true</bool>
-        </property>
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>256</width>
-          <height>144</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>256</width>
-          <height>144</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string notr="true"/>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton:hover{
-border-radius: 12px;
-border-width: 3px;
-border-color: #74cbfc}
-QPushButton:pressed{
-border-width: 3px;
-border-color: #e974fc;}
-QPushButton{
-color: rgb(0, 0, 0);
-border-width: 1px;
-border-style: solid;
-border-radius: 25px;
-border-color: #2b2b2b;
+border-color: #1E2126;
 width: 144px;
 height: 256px;
 background-position: center;
@@ -295,143 +349,6 @@ background-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;}</string>
          </size>
         </property>
        </spacer>
-      </item>
-      <item row="17" column="1">
-       <widget class="QLabel" name="titleLabel4">
-        <property name="minimumSize">
-         <size>
-          <width>50</width>
-          <height>38</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>38</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>18</pointsize>
-          <weight>75</weight>
-          <italic>false</italic>
-          <bold>true</bold>
-          <underline>false</underline>
-          <strikeout>false</strikeout>
-         </font>
-        </property>
-        <property name="toolTip">
-         <string notr="true"/>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: #ffffff;
-padding-left: 5px;</string>
-        </property>
-        <property name="text">
-         <string notr="true">TextLabel</string>
-        </property>
-       </widget>
-      </item>
-      <item row="4" column="0" colspan="2">
-       <spacer name="midSpacer1">
-        <property name="toolTip">
-         <string notr="true">Vertical Spacer 'verticalSpacer_5', 20 x 5</string>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>10</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="8" column="1">
-       <spacer name="titleUserSpacer2">
-        <property name="toolTip">
-         <string notr="true">Vertical Spacer 'verticalSpacer', 20 x 58</string>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>58</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="16" column="1">
-       <spacer name="thumbnailClearanceSpacer4">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>10</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="24" column="1">
-       <spacer name="titleUserSpacer5">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>58</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="23" column="1">
-       <widget class="QLabel" name="userLabel5">
-        <property name="minimumSize">
-         <size>
-          <width>50</width>
-          <height>38</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>16777215</width>
-          <height>38</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>18</pointsize>
-         </font>
-        </property>
-        <property name="toolTip">
-         <string notr="true"/>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: #c0c0c0;
-padding-left: 5px;</string>
-        </property>
-        <property name="text">
-         <string notr="true">TextLabel</string>
-        </property>
-       </widget>
       </item>
       <item row="5" column="0" rowspan="4">
        <widget class="QPushButton" name="thumbnailButton2">
@@ -459,11 +376,10 @@ QPushButton:pressed{
 border-width: 3px;
 border-color: #e974fc;}
 QPushButton{
-color: rgb(0, 0, 0);
 border-width: 1px;
 border-style: solid;
 border-radius: 25px;
-border-color: #2b2b2b;
+border-color: #1E2126;
 width: 144px;
 height: 256px;
 background-position: center;
@@ -474,8 +390,8 @@ background-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;}</string>
         </property>
        </widget>
       </item>
-      <item row="20" column="0" colspan="2">
-       <spacer name="midSpacer4">
+      <item row="15" column="0" colspan="2">
+       <spacer name="midSpacer3">
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -509,6 +425,134 @@ background-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;}</string>
         </property>
        </spacer>
       </item>
+      <item row="13" column="1">
+       <widget class="QLabel" name="userLabel3">
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string notr="true"/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #c0c0c0;
+padding-left: 5px;</string>
+        </property>
+        <property name="text">
+         <string notr="true">TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="19" column="1">
+       <spacer name="titleUserSpacer4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>58</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="7" column="1">
+       <widget class="QLabel" name="userLabel2">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string notr="true"/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #c0c0c0;
+padding-left: 5px;</string>
+        </property>
+        <property name="text">
+         <string notr="true">TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="8" column="1">
+       <spacer name="titleUserSpacer2">
+        <property name="toolTip">
+         <string notr="true">Vertical Spacer 'verticalSpacer', 20 x 58</string>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>58</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="2" column="1">
+       <widget class="QLabel" name="userLabel1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>18</pointsize>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string notr="true"/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #c0c0c0;
+padding-left: 5px;</string>
+        </property>
+        <property name="text">
+         <string notr="true">TextLabel</string>
+        </property>
+       </widget>
+      </item>
       <item row="18" column="1">
        <widget class="QLabel" name="userLabel4">
         <property name="minimumSize">
@@ -539,60 +583,6 @@ padding-left: 5px;</string>
          <string notr="true">TextLabel</string>
         </property>
        </widget>
-      </item>
-      <item row="5" column="1">
-       <spacer name="thumbnailClearanceSpacer2">
-        <property name="toolTip">
-         <string notr="true">Vertical Spacer 'verticalSpacer_4', 20 x 40</string>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>10</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="3" column="1">
-       <spacer name="titleUserSpacer1">
-        <property name="toolTip">
-         <string notr="true">Vertical Spacer 'titleUserSpacer1', 20 x 58</string>
-        </property>
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>58</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="14" column="1">
-       <spacer name="titleUserSpacer3">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>58</height>
-         </size>
-        </property>
-       </spacer>
       </item>
       <item row="6" column="1">
        <widget class="QLabel" name="titleLabel2">
@@ -666,100 +656,6 @@ padding-left: 5px;</string>
         </property>
        </widget>
       </item>
-      <item row="10" column="0" rowspan="5">
-       <widget class="QPushButton" name="thumbnailButton3">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>256</width>
-          <height>144</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>256</width>
-          <height>144</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string notr="true"/>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton:hover{
-border-radius: 12px;
-border-width: 3px;
-border-color: #74cbfc}
-QPushButton:pressed{
-border-width: 3px;
-border-color: #e974fc;}
-QPushButton{
-color: rgb(0, 0, 0);
-border-width: 1px;
-border-style: solid;
-border-radius: 25px;
-border-color: #2b2b2b;
-width: 144px;
-height: 256px;
-background-position: center;
-background-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;}</string>
-        </property>
-        <property name="text">
-         <string notr="true"/>
-        </property>
-       </widget>
-      </item>
-      <item row="16" column="0" rowspan="4">
-       <widget class="QPushButton" name="thumbnailButton4">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>256</width>
-          <height>144</height>
-         </size>
-        </property>
-        <property name="maximumSize">
-         <size>
-          <width>256</width>
-          <height>144</height>
-         </size>
-        </property>
-        <property name="toolTip">
-         <string notr="true"/>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">QPushButton:hover{
-border-radius: 12px;
-border-width: 3px;
-border-color: #74cbfc}
-QPushButton:pressed{
-border-width: 3px;
-border-color: #e974fc;}
-QPushButton{
-color: rgb(0, 0, 0);
-border-width: 1px;
-border-style: solid;
-border-radius: 25px;
-border-color: #2b2b2b;
-width: 144px;
-height: 256px;
-background-position: center;
-background-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;}</string>
-        </property>
-        <property name="text">
-         <string notr="true"/>
-        </property>
-       </widget>
-      </item>
       <item row="12" column="1">
        <widget class="QLabel" name="titleLabel3">
         <property name="minimumSize">
@@ -796,69 +692,6 @@ padding-left: 5px;</string>
         </property>
        </widget>
       </item>
-      <item row="19" column="1">
-       <spacer name="titleUserSpacer4">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>58</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="15" column="0" colspan="2">
-       <spacer name="midSpacer3">
-        <property name="orientation">
-         <enum>Qt::Vertical</enum>
-        </property>
-        <property name="sizeType">
-         <enum>QSizePolicy::Fixed</enum>
-        </property>
-        <property name="sizeHint" stdset="0">
-         <size>
-          <width>20</width>
-          <height>10</height>
-         </size>
-        </property>
-       </spacer>
-      </item>
-      <item row="2" column="1">
-       <widget class="QLabel" name="userLabel1">
-        <property name="sizePolicy">
-         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
-          <horstretch>0</horstretch>
-          <verstretch>0</verstretch>
-         </sizepolicy>
-        </property>
-        <property name="minimumSize">
-         <size>
-          <width>50</width>
-          <height>38</height>
-         </size>
-        </property>
-        <property name="font">
-         <font>
-          <pointsize>18</pointsize>
-         </font>
-        </property>
-        <property name="toolTip">
-         <string notr="true"/>
-        </property>
-        <property name="styleSheet">
-         <string notr="true">color: #c0c0c0;
-padding-left: 5px;</string>
-        </property>
-        <property name="text">
-         <string notr="true">TextLabel</string>
-        </property>
-       </widget>
-      </item>
       <item row="10" column="1">
        <spacer name="thumbnailClearanceSpacer3">
         <property name="orientation">
@@ -875,8 +708,11 @@ padding-left: 5px;</string>
         </property>
        </spacer>
       </item>
-      <item row="9" column="0" colspan="2">
-       <spacer name="midSpacer2">
+      <item row="5" column="1">
+       <spacer name="thumbnailClearanceSpacer2">
+        <property name="toolTip">
+         <string notr="true">Vertical Spacer 'verticalSpacer_4', 20 x 40</string>
+        </property>
         <property name="orientation">
          <enum>Qt::Vertical</enum>
         </property>
@@ -891,93 +727,205 @@ padding-left: 5px;</string>
         </property>
        </spacer>
       </item>
+      <item row="16" column="0" rowspan="4">
+       <widget class="QPushButton" name="thumbnailButton4">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>256</width>
+          <height>144</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>256</width>
+          <height>144</height>
+         </size>
+        </property>
+        <property name="toolTip">
+         <string notr="true"/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">QPushButton:hover{
+border-radius: 12px;
+border-width: 3px;
+border-color: #74cbfc}
+QPushButton:pressed{
+border-width: 3px;
+border-color: #e974fc;}
+QPushButton{
+border-width: 1px;
+border-style: solid;
+border-radius: 25px;
+border-color: #1E2126;
+width: 144px;
+height: 256px;
+background-position: center;
+background-image: url(&quot;&quot;) 0 0 0 0 stretch stretch;}</string>
+        </property>
+        <property name="text">
+         <string notr="true"/>
+        </property>
+       </widget>
+      </item>
+      <item row="1" column="1">
+       <widget class="QLabel" name="titleLabel1">
+        <property name="sizePolicy">
+         <sizepolicy hsizetype="Expanding" vsizetype="Fixed">
+          <horstretch>0</horstretch>
+          <verstretch>0</verstretch>
+         </sizepolicy>
+        </property>
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>18</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+          <underline>false</underline>
+          <strikeout>false</strikeout>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string notr="true"/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #ffffff;
+padding-left: 5px;</string>
+        </property>
+        <property name="text">
+         <string notr="true">TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="14" column="1">
+       <spacer name="titleUserSpacer3">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>58</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="20" column="0" colspan="2">
+       <spacer name="midSpacer4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="17" column="1">
+       <widget class="QLabel" name="titleLabel4">
+        <property name="minimumSize">
+         <size>
+          <width>50</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="maximumSize">
+         <size>
+          <width>16777215</width>
+          <height>38</height>
+         </size>
+        </property>
+        <property name="font">
+         <font>
+          <pointsize>18</pointsize>
+          <weight>75</weight>
+          <italic>false</italic>
+          <bold>true</bold>
+          <underline>false</underline>
+          <strikeout>false</strikeout>
+         </font>
+        </property>
+        <property name="toolTip">
+         <string notr="true"/>
+        </property>
+        <property name="styleSheet">
+         <string notr="true">color: #ffffff;
+padding-left: 5px;</string>
+        </property>
+        <property name="text">
+         <string notr="true">TextLabel</string>
+        </property>
+       </widget>
+      </item>
+      <item row="16" column="1">
+       <spacer name="thumbnailClearanceSpacer4">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>10</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="3" column="1">
+       <spacer name="titleUserSpacer1">
+        <property name="toolTip">
+         <string notr="true">Vertical Spacer 'titleUserSpacer1', 20 x 58</string>
+        </property>
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeType">
+         <enum>QSizePolicy::Fixed</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>58</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
+      <item row="25" column="0" colspan="2">
+       <spacer name="verticalSpacer">
+        <property name="orientation">
+         <enum>Qt::Vertical</enum>
+        </property>
+        <property name="sizeHint" stdset="0">
+         <size>
+          <width>20</width>
+          <height>40</height>
+         </size>
+        </property>
+       </spacer>
+      </item>
      </layout>
-    </item>
-    <item row="2" column="1">
-     <widget class="QPushButton" name="pushButton_2">
-      <property name="minimumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string notr="true"/>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-background-color: 4d4d4d;
-border: 2px solid black;
-border-color: #74cbfc;
-border-radius: 20px;
-text-align: center;
-padding-bottom: -6px;}
-QPushButton:hover {
-border-radius: 5px;}
-QPushButton:pressed {
-border-color: #e974fc;
-border-width: 3px}</string>
-      </property>
-      <property name="text">
-       <string notr="true">🠬</string>
-      </property>
-     </widget>
-    </item>
-    <item row="2" column="2">
-     <widget class="QPushButton" name="pushButton_3">
-      <property name="minimumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-        <weight>50</weight>
-        <bold>false</bold>
-       </font>
-      </property>
-      <property name="toolTip">
-       <string notr="true"/>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-background-color: 4d4d4d;
-border: 2px solid black;
-border-color: #74cbfc;
-border-radius: 20px;
-text-align: center;
-padding-bottom: -6px;}
-QPushButton:hover {
-border-radius: 5px;}
-QPushButton:pressed {
-border-color: #e974fc;
-border-width: 3px}</string>
-      </property>
-      <property name="text">
-       <string notr="true">🠮</string>
-      </property>
-     </widget>
     </item>
     <item row="0" column="1">
      <widget class="QPushButton" name="pushButton">
@@ -996,6 +944,10 @@ border-width: 3px}</string>
       <property name="font">
        <font>
         <pointsize>20</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+        <underline>false</underline>
        </font>
       </property>
       <property name="toolTip">
@@ -1020,42 +972,93 @@ border-width: 3px}</string>
       </property>
      </widget>
     </item>
-    <item row="0" column="2" colspan="2">
-     <widget class="QLineEdit" name="searchBar">
+    <item row="2" column="2">
+     <widget class="QPushButton" name="pushButton_3">
       <property name="minimumSize">
        <size>
-        <width>0</width>
+        <width>40</width>
         <height>40</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>16777215</width>
+        <width>40</width>
         <height>40</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+        <underline>false</underline>
+       </font>
       </property>
       <property name="toolTip">
        <string notr="true"/>
       </property>
       <property name="styleSheet">
-       <string notr="true">QLineEdit {
-color: #a8a8a8;
-background-color: #4d4d4d;
-border: 2px solid #36393e;
+       <string notr="true">QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
 border-radius: 20px;
-padding-right: 10px;
-padding-left: 10px;}
-QLineEdit:hover {
-border-color: #74cbfc;}
-QLineEdit:focus {
-border-radius: 5px;
-border-color: #e974fc;}</string>
+text-align: center;
+padding-bottom: -6px;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
       </property>
-      <property name="frame">
-       <bool>true</bool>
+      <property name="text">
+       <string notr="true">🠮</string>
       </property>
-      <property name="placeholderText">
-       <string>Search YouTube...</string>
+     </widget>
+    </item>
+    <item row="2" column="1">
+     <widget class="QPushButton" name="pushButton_2">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <pointsize>20</pointsize>
+        <weight>50</weight>
+        <italic>false</italic>
+        <bold>false</bold>
+        <underline>false</underline>
+       </font>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: -6px;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="text">
+       <string notr="true">🠬</string>
       </property>
      </widget>
     </item>

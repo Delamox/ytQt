@@ -6,12 +6,15 @@
    <rect>
     <x>0</x>
     <y>0</y>
-    <width>911</width>
-    <height>583</height>
+    <width>958</width>
+    <height>654</height>
    </rect>
   </property>
   <property name="windowTitle">
    <string notr="true">ytQt player</string>
+  </property>
+  <property name="styleSheet">
+   <string notr="true">background-color: rgb(30, 33, 38);</string>
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout">
@@ -30,6 +33,12 @@
     </item>
     <item row="2" column="6">
      <widget class="QPushButton" name="pauseButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -41,6 +50,12 @@
         <width>40</width>
         <height>40</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
@@ -72,6 +87,12 @@ border-width: 3px}</string>
     </item>
     <item row="2" column="5">
      <widget class="QPushButton" name="rewindButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -83,6 +104,12 @@ border-width: 3px}</string>
         <width>40</width>
         <height>40</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
@@ -127,6 +154,12 @@ border-width: 3px}</string>
     </item>
     <item row="2" column="10">
      <widget class="QPushButton" name="fullscreenButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -138,6 +171,12 @@ border-width: 3px}</string>
         <width>40</width>
         <height>40</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
@@ -169,6 +208,12 @@ border-width: 3px}</string>
     </item>
     <item row="2" column="2">
      <widget class="QPushButton" name="dislikeButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -180,6 +225,12 @@ border-width: 3px}</string>
         <width>40</width>
         <height>40</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
@@ -227,6 +278,12 @@ border-width: 3px}</string>
     </item>
     <item row="2" column="0">
      <widget class="QPushButton" name="commentButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -238,6 +295,12 @@ border-width: 3px}</string>
         <width>40</width>
         <height>40</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
@@ -269,6 +332,9 @@ border-width: 3px}</string>
     </item>
     <item row="1" column="0" colspan="11">
      <widget class="QSlider" name="videoSlider">
+      <property name="enabled">
+       <bool>true</bool>
+      </property>
       <property name="focusPolicy">
        <enum>Qt::NoFocus</enum>
       </property>
@@ -343,14 +409,14 @@ border-radius: 4px;
      <widget class="QSlider" name="volumeSlider">
       <property name="minimumSize">
        <size>
-        <width>80</width>
-        <height>0</height>
+        <width>90</width>
+        <height>40</height>
        </size>
       </property>
       <property name="maximumSize">
        <size>
-        <width>80</width>
-        <height>16777215</height>
+        <width>90</width>
+        <height>40</height>
        </size>
       </property>
       <property name="focusPolicy">
@@ -415,9 +481,6 @@ border-radius: 4px;
       <property name="invertedControls">
        <bool>false</bool>
       </property>
-      <property name="tickPosition">
-       <enum>QSlider::TicksBothSides</enum>
-      </property>
       <property name="tickInterval">
        <number>1</number>
       </property>
@@ -425,6 +488,12 @@ border-radius: 4px;
     </item>
     <item row="2" column="7">
      <widget class="QPushButton" name="fastforwardButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -436,6 +505,12 @@ border-radius: 4px;
         <width>40</width>
         <height>40</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
@@ -467,6 +542,12 @@ border-width: 3px}</string>
     </item>
     <item row="2" column="1">
      <widget class="QPushButton" name="likeButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -478,6 +559,12 @@ border-width: 3px}</string>
         <width>40</width>
         <height>40</height>
        </size>
+      </property>
+      <property name="font">
+       <font>
+        <weight>75</weight>
+        <bold>true</bold>
+       </font>
       </property>
       <property name="cursor">
        <cursorShape>PointingHandCursor</cursorShape>
