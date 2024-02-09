@@ -1,3 +1,19 @@
+#    ytQt, an alternative youtube frontend desktop application using python and Qt.
+#    Copyright (C) 2024  D.L. ten Bosch
+#
+#    This program is free software: you can redistribute it and/or modify
+#    it under the terms of the GNU General Public License as published by
+#    the Free Software Foundation, either version 3 of the License, or
+#    (at your option) any later version.
+#
+#    This program is distributed in the hope that it will be useful,
+#    but WITHOUT ANY WARRANTY; without even the implied warranty of
+#    MERCHANTABILITY or FITNESS FOR A PARTICULAR PURPOSE.  See the
+#    GNU General Public License for more details.
+#
+#    You should have received a copy of the GNU General Public License
+#    along with this program.  If not, see <https://www.gnu.org/licenses/>.
+
 import sys
 import base64
 import json
@@ -47,6 +63,8 @@ currentPage = 0
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
+
+        # initialize search ui
         super(Ui, self).__init__()
         uic.loadUi('assets/search.ui', self)
         self.initPythonCode()
@@ -92,7 +110,6 @@ class Ui(QtWidgets.QMainWindow):
         return
 
     def searchYoutubeFunction(self):
-        # init
         global seachResponseJSON
         global apiData
         self.searchBar.clearFocus()
@@ -112,7 +129,6 @@ class Ui(QtWidgets.QMainWindow):
         self.loadJSONFunction()
 
     def loadJSONFunction(self):
-        # init
         global currentPage
         global seachResponseJSON
         global title
@@ -171,13 +187,13 @@ class Ui(QtWidgets.QMainWindow):
         print('item json loaded')
     
     def openVideoFunction(self, videoIndex):
-        # init
         global kind
         global Id
         global seachResponseJSON
         global videoStreamURL
         mode = 'stream'
 
+        # extract video and launch player
         if kind[videoIndex] == 'youtube#video':
             print('opening type ' + str(kind[videoIndex]) + ' with url ' + 'https://youtube.com/watch?v=' + str(Id[videoIndex]))
             if mode == 'stream':
@@ -240,18 +256,24 @@ class Ui(QtWidgets.QMainWindow):
 
     def nextPageFunction(self):
         global currentPage
+
+        #switch to next page
         if currentPage < 4:
             currentPage = currentPage + 1
             self.loadJSONFunction()
 
     def prevPageFunction(self):
         global currentPage
+
+        # switch to previous page
         if currentPage > 0:
             currentPage = currentPage - 1
             self.loadJSONFunction()
 
 class player(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
+
+        # initialize video player
         super(player, self).__init__(parent)
         uic.loadUi('assets/player.ui', self)
         global videoStreamURL
@@ -259,6 +281,8 @@ class player(QtWidgets.QMainWindow):
 
     def startVideoStream(self):
         global vlcMediaPlayer
+
+        # start vlc instance
         self.vlcInstance = vlc.Instance(['--video-on-top', '--verbose=-1'])
         self.vlcMediaPlayer = self.vlcInstance.media_player_new()
         if platform.system() == "Linux":
@@ -270,15 +294,18 @@ class player(QtWidgets.QMainWindow):
         self.vlcMediaPlayer.set_media(self.media)
         self.vlcMediaPlayer.play()
 
+        # connect buttons
         self.fastforwardButton.clicked.connect(self.fastforward)
         self.rewindButton.clicked.connect(self.rewind)
         self.pauseButton.clicked.connect(self.pausePlay)
         self.fullscreenButton.clicked.connect(self.fullscreenToggle)
 
+        # connect sliders
         self.volumeSlider.setValue(int(self.vlcMediaPlayer.audio_get_volume()/10))
         self.videoSlider.sliderMoved.connect(self.setVideoProgress)
         self.volumeSlider.valueChanged.connect(self.setAudioLevel)
 
+        # start ui update timer
         self.timer = QtCore.QTimer()
         self.timer.setInterval(500)
         self.timer.timeout.connect(self.updateVideoSlider)
@@ -286,10 +313,14 @@ class player(QtWidgets.QMainWindow):
 
     def pausePlay(self):
         if self.vlcMediaPlayer.is_playing():
+
+            # pause player
             self.vlcMediaPlayer.pause()
             self.pauseButton.setText('⏵')
             self.is_paused = True
         else:
+
+            # start player
             self.vlcMediaPlayer.play()
             self.pauseButton.setText('⏸︎')
             self.is_paused = False
@@ -297,17 +328,24 @@ class player(QtWidgets.QMainWindow):
 
     def fullscreenToggle(self):
         if self.isFullScreen() == True:
+
+            # show normal
             self.showNormal()
             self.setStyleSheet("background-color: #1e2126;")
         else:
+
+            # show fullscreen
             self.showFullScreen()
             self.setStyleSheet("background-color: #000000;")
 
     def closeEvent(self, event):
+
+        # stop video player when player closes, temporary solution
         self.close()
         self.vlcMediaPlayer.stop()
         event.accept()
 
+    # slider stuff, too lazy to comment
     def fastforward(self):
         self.vlcMediaPlayer.set_time(self.vlcMediaPlayer.get_time() + 5000)
         self.updateVideoSlider()
@@ -326,28 +364,44 @@ class player(QtWidgets.QMainWindow):
         self.videoSlider.setValue(int(self.vlcMediaPlayer.get_position() * 1000))
 
     def keyPressEvent(self, e):
+        self.pausePlay()
+        print(e.key())
+        # ignore if held down
         if e.isAutoRepeat():
             return
-        if str(e.key()) == '32':
+
+        # pause 'spacebar'
+        if e.key() == '32':
             self.pausePlay()
-            # self.fullscreentoggle()
-        elif str(e.key()) == '16777235':
+
+
+        # fullscreen 'f'
+        elif e.key() == '56':
+            self.fullscreenToggle()
+
+        # volume + 'arrow_up'
+        elif e.key() == '38':
             if self.volumeSlider.value() <= 9:
                 self.volumeSlider.setValue(self.volumeSlider.value() + 1)
             else:
                 self.volumeSlider.setValue(10)
             self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value())
-        elif str(e.key()) == '16777237':
+
+        # volume - 'arrow_down'
+        elif e.key() == '40':
             if self.volumeSlider.value() >= 10:
                 self.volumeSlider.setValue(self.volumeSlider.value() - 1)
             else:
                 self.volumeSlider.setValue(0)
             self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value())
-        elif str(e.key()) == '16777236':
-            self.fastforward()
-        elif str(e.key()) == '16777234':
-            self.rewind()
 
+        # fastforward 'arrow_right'
+        elif e.key() == '39':
+            self.fastforward()
+
+        # rewind 'arrow_left'
+        elif e.key() == '37':
+            self.rewind()
 
 
 if __name__ == '__main__':
