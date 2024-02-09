@@ -38,6 +38,7 @@ global user
 global thumbnail
 global searchResponseJSON
 global videoStreamURL
+global vlcMediaPlayer
 channelId = [None, None, None, None, None]
 Id = [None, None, None, None, None]
 kind = [None, None, None, None, None]
@@ -189,7 +190,7 @@ class Ui(QtWidgets.QMainWindow):
                 player(self).show()
                 print('closing video stream')
 
-            # DOWNLOAD FEATURE DEPRECATED AND ARCHIVED
+            # DOWNLOAD FEATURE IS DEPRECATED AND ARCHIVED
             elif mode == 'download':
                 print('creating temp file')
                 temp = tempfile.NamedTemporaryFile(prefix='ytQtvideo', suffix='.mp4', delete=False)
@@ -257,6 +258,7 @@ class player(QtWidgets.QMainWindow):
         self.startVideoStream()
 
     def startVideoStream(self):
+        global vlcMediaPlayer
         self.vlcInstance = vlc.Instance(['--video-on-top', '--verbose=-1'])
         self.vlcMediaPlayer = self.vlcInstance.media_player_new()
         if platform.system() == "Linux":
@@ -265,16 +267,18 @@ class player(QtWidgets.QMainWindow):
             self.vlcMediaPlayer.set_hwnd(int(self.vlcContainerFrame.winId()))
         self.media_path = videoStreamURL
         self.media = self.vlcInstance.media_new(self.media_path)
-        self.media.get_mrl()
         self.vlcMediaPlayer.set_media(self.media)
         self.vlcMediaPlayer.play()
+
         self.fastforwardButton.clicked.connect(self.fastforward)
         self.rewindButton.clicked.connect(self.rewind)
         self.pauseButton.clicked.connect(self.pausePlay)
         self.fullscreenButton.clicked.connect(self.fullscreenToggle)
+
+        self.volumeSlider.setValue(int(self.vlcMediaPlayer.audio_get_volume()/10))
         self.videoSlider.sliderMoved.connect(self.setVideoProgress)
-        self.volumeSlider.setValue(self.vlcMediaPlayer.audio_get_volume())
         self.volumeSlider.valueChanged.connect(self.setAudioLevel)
+
         self.timer = QtCore.QTimer()
         self.timer.setInterval(500)
         self.timer.timeout.connect(self.updateVideoSlider)
@@ -294,8 +298,15 @@ class player(QtWidgets.QMainWindow):
     def fullscreenToggle(self):
         if self.isFullScreen() == True:
             self.showNormal()
+            self.setStyleSheet("background-color: #1e2126;")
         else:
             self.showFullScreen()
+            self.setStyleSheet("background-color: #000000;")
+
+    def closeEvent(self, event):
+        self.close()
+        self.vlcMediaPlayer.stop()
+        event.accept()
 
     def fastforward(self):
         self.vlcMediaPlayer.set_time(self.vlcMediaPlayer.get_time() + 5000)
@@ -310,7 +321,6 @@ class player(QtWidgets.QMainWindow):
 
     def setAudioLevel(self):
         self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value() * 10)
-        print(self.volumeSlider.value())
 
     def updateVideoSlider(self):
         self.videoSlider.setValue(int(self.vlcMediaPlayer.get_position() * 1000))
