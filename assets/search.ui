@@ -1088,19 +1088,19 @@ padding-left: 5px;</string>
        <string notr="true"/>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton {
-color: #ffffff;
+       <string notr="true">QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}
+QPushButton {
 background-color: 4d4d4d;
 border: 2px solid black;
 border-color: #74cbfc;
 border-radius: 20px;
 text-align: center;
-padding-bottom: 4px;}
-QPushButton:hover {
-border-radius: 5px;}
-QPushButton:pressed {
-border-color: #e974fc;
-border-width: 3px}</string>
+padding-bottom: 4px;
+color: #ffffff;}</string>
       </property>
       <property name="text">
        <string notr="true">🠬</string>
@@ -1160,19 +1160,19 @@ border-width: 3px}</string>
        <string notr="true"/>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton {
-color: #ffffff;
+       <string notr="true">QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}
+QPushButton {
 background-color: 4d4d4d;
 border: 2px solid black;
 border-color: #74cbfc;
 border-radius: 20px;
 text-align: center;
-padding-bottom: 4px;}
-QPushButton:hover {
-border-radius: 5px;}
-QPushButton:pressed {
-border-color: #e974fc;
-border-width: 3px}</string>
+padding-bottom: 4px;
+color: #ffffff;}</string>
       </property>
       <property name="text">
        <string notr="true">🠮</string>

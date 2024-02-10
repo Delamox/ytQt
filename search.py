@@ -48,6 +48,18 @@ baseThumbnailStyle = ("QPushButton:hover{\n"
                       "width: 144px;\n"
                       "height: 256px;\n"
                       "background-position: center;\n")
+baseButtonStyle = ("QPushButton:hover{\n"
+                   "border-radius: 5px;\n}"
+                   "QPushButton:pressed {\n"
+                   "border-color: #e974fc;\n"
+                   "border-width: 3px}\n"
+                   "QPushButton {\n"
+                   "background-color: 4d4d4d;\n"
+                   "border: 2px solid black;\n"
+                   "border-color: #74cbfc;\n"
+                   "border-radius: 20px;\n"
+                   "text-align: center;\n"
+                   "padding-bottom: 4px;\n")
 
 global title
 global user
@@ -55,6 +67,8 @@ global thumbnail
 global searchResponseJSON
 global videoStreamURL
 global vlcMediaPlayer
+global busy
+busy = False
 channelId = [None, None, None, None, None]
 Id = [None, None, None, None, None]
 kind = [None, None, None, None, None]
@@ -113,6 +127,7 @@ class Ui(QtWidgets.QMainWindow):
         global seachResponseJSON
         global apiData
         self.searchBar.clearFocus()
+        self.prevPageButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
 
         # set parameters, get json apiData from api
         userSearchQuery = self.searchBar.text()
@@ -183,8 +198,7 @@ class Ui(QtWidgets.QMainWindow):
             self.userObjectList[p].setText(user)
             self.titleObjectList[p].setToolTip(title)
             self.titleObjectList[p].setToolTipDuration(-1)
-
-        print('item json loaded')
+            print('item json loaded')
     
     def openVideoFunction(self, videoIndex):
         global kind
@@ -260,6 +274,10 @@ class Ui(QtWidgets.QMainWindow):
         #switch to next page
         if currentPage < 4:
             currentPage = currentPage + 1
+            if currentPage == 4:
+                self.nextPageButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
+            else:
+                self.prevPageButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
             self.loadJSONFunction()
 
     def prevPageFunction(self):
@@ -268,6 +286,10 @@ class Ui(QtWidgets.QMainWindow):
         # switch to previous page
         if currentPage > 0:
             currentPage = currentPage - 1
+            if currentPage == 0:
+                self.prevPageButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
+            else:
+                self.nextPageButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
             self.loadJSONFunction()
 
 class player(QtWidgets.QMainWindow):
@@ -364,23 +386,21 @@ class player(QtWidgets.QMainWindow):
         self.videoSlider.setValue(int(self.vlcMediaPlayer.get_position() * 1000))
 
     def keyPressEvent(self, e):
-        self.pausePlay()
-        print(e.key())
+
         # ignore if held down
         if e.isAutoRepeat():
             return
 
         # pause 'spacebar'
-        if e.key() == '32':
+        if e.key() == 32:
             self.pausePlay()
 
-
         # fullscreen 'f'
-        elif e.key() == '56':
+        elif e.key() == 56:
             self.fullscreenToggle()
 
         # volume + 'arrow_up'
-        elif e.key() == '38':
+        elif e.key() == 38:
             if self.volumeSlider.value() <= 9:
                 self.volumeSlider.setValue(self.volumeSlider.value() + 1)
             else:
@@ -388,7 +408,7 @@ class player(QtWidgets.QMainWindow):
             self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value())
 
         # volume - 'arrow_down'
-        elif e.key() == '40':
+        elif e.key() == 40:
             if self.volumeSlider.value() >= 10:
                 self.volumeSlider.setValue(self.volumeSlider.value() - 1)
             else:
@@ -396,11 +416,11 @@ class player(QtWidgets.QMainWindow):
             self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value())
 
         # fastforward 'arrow_right'
-        elif e.key() == '39':
+        elif e.key() == 39:
             self.fastforward()
 
         # rewind 'arrow_left'
-        elif e.key() == '37':
+        elif e.key() == 37:
             self.rewind()
 
 
