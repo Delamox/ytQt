@@ -1100,7 +1100,7 @@ border-color: #74cbfc;
 border-radius: 20px;
 text-align: center;
 padding-bottom: 4px;
-color: #ffffff;}</string>
+color: #404040;}</string>
       </property>
       <property name="text">
        <string notr="true">🠬</string>
@@ -1109,6 +1109,9 @@ color: #ffffff;}</string>
     </item>
     <item row="3" column="3">
      <widget class="QLabel" name="label">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
       <property name="minimumSize">
        <size>
         <width>40</width>
@@ -1172,7 +1175,7 @@ border-color: #74cbfc;
 border-radius: 20px;
 text-align: center;
 padding-bottom: 4px;
-color: #ffffff;}</string>
+color: #404040;}</string>
       </property>
       <property name="text">
        <string notr="true">🠮</string>

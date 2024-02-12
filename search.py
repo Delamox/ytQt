@@ -20,6 +20,7 @@ import json
 import os
 import platform
 import tempfile
+import pathlib
 from io import BytesIO
 from pathlib import Path
 
@@ -67,20 +68,27 @@ global thumbnail
 global searchResponseJSON
 global videoStreamURL
 global vlcMediaPlayer
-global busy
-busy = False
+global appPath
 channelId = [None, None, None, None, None]
 Id = [None, None, None, None, None]
 kind = [None, None, None, None, None]
 currentPage = 0
+searchResponseJSON = None
 
 
 class Ui(QtWidgets.QMainWindow):
     def __init__(self):
-
+        global appPath
         # initialize search ui
         super(Ui, self).__init__()
-        uic.loadUi('assets/search.ui', self)
+        try:
+            appPath = sys._MEIPASS
+        except Exception:
+            appPath = os.path.abspath('./assets')
+        print(appPath)
+        # Path.is_file(os.path.join(appPath, 'search.ui'))
+
+        uic.loadUi(os.path.join(appPath, 'search.ui'), self)
         self.initPythonCode()
         self.show()
 
@@ -124,10 +132,13 @@ class Ui(QtWidgets.QMainWindow):
         return
 
     def searchYoutubeFunction(self):
-        global seachResponseJSON
+        global searchResponseJSON
         global apiData
+        global currentPage
         self.searchBar.clearFocus()
+        currentPage = 0
         self.prevPageButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
+        self.nextPageButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
 
         # set parameters, get json apiData from api
         userSearchQuery = self.searchBar.text()
@@ -137,7 +148,7 @@ class Ui(QtWidgets.QMainWindow):
         # searchResponse = requests.get('https://files.catbox.moe/7j4a26.json')
 
         # read json from response
-        seachResponseJSON = json.loads(apiData.text)
+        searchResponseJSON = json.loads(apiData.text)
         print('search api data loaded')
 
         # call function to load json into UI
@@ -145,7 +156,7 @@ class Ui(QtWidgets.QMainWindow):
 
     def loadJSONFunction(self):
         global currentPage
-        global seachResponseJSON
+        global searchResponseJSON
         global title
         global user
         global thumbnail
@@ -161,25 +172,25 @@ class Ui(QtWidgets.QMainWindow):
             p = i - (currentPage * 5)
 
             # extract specific items from JSON
-            title = seachResponseJSON['items'][i]['snippet'].get('title')
-            user = seachResponseJSON['items'][i]['snippet'].get('channelTitle')
-            thumbnail = seachResponseJSON['items'][i]['snippet']['thumbnails']['medium'].get('url')
-            channelId[p] = seachResponseJSON['items'][i]['snippet'].get('channelId')
+            title = searchResponseJSON['items'][i]['snippet'].get('title')
+            user = searchResponseJSON['items'][i]['snippet'].get('channelTitle')
+            thumbnail = searchResponseJSON['items'][i]['snippet']['thumbnails']['medium'].get('url')
+            channelId[p] = searchResponseJSON['items'][i]['snippet'].get('channelId')
 
             # set kind and ID of video, yt has fuzzy consistency sadly
 
             # playlist item
-            if seachResponseJSON['items'][i].get('kind') == 'youtube#playlistItem':
+            if searchResponseJSON['items'][i].get('kind') == 'youtube#playlistItem':
                 kind[p] = 'youtube#video'
-                Id[p] = seachResponseJSON['items'][i]['snippet']['resourceId'].get('videoId')
+                Id[p] = searchResponseJSON['items'][i]['snippet']['resourceId'].get('videoId')
             # playlist
-            elif seachResponseJSON['items'][i]['id'].get('kind') == 'youtube#playlist':
-                kind[p] = seachResponseJSON['items'][i]['id'].get('kind')
-                Id[p] = seachResponseJSON['items'][i]['id'].get('playlistId')
+            elif searchResponseJSON['items'][i]['id'].get('kind') == 'youtube#playlist':
+                kind[p] = searchResponseJSON['items'][i]['id'].get('kind')
+                Id[p] = searchResponseJSON['items'][i]['id'].get('playlistId')
             # video
             else:
-                kind[p] = seachResponseJSON['items'][i]['id'].get('kind')
-                Id[p] = seachResponseJSON['items'][i]['id'].get('videoId')
+                kind[p] = searchResponseJSON['items'][i]['id'].get('kind')
+                Id[p] = searchResponseJSON['items'][i]['id'].get('videoId')
 
             # create temp file and inject sized image for storing thumbnail 'i'
             temp = tempfile.NamedTemporaryFile(prefix='ytQtthumbnail')
@@ -198,12 +209,12 @@ class Ui(QtWidgets.QMainWindow):
             self.userObjectList[p].setText(user)
             self.titleObjectList[p].setToolTip(title)
             self.titleObjectList[p].setToolTipDuration(-1)
-            print('item json loaded')
+            print('item json '+ str(p) +' loaded')
     
     def openVideoFunction(self, videoIndex):
         global kind
         global Id
-        global seachResponseJSON
+        global searchResponseJSON
         global videoStreamURL
         mode = 'stream'
 
@@ -242,8 +253,8 @@ class Ui(QtWidgets.QMainWindow):
             searchParams = {'part': 'contentDetails', 'key': key, "id": channelId[videoIndex]}
             print('requesting channel api data')
             apiData = requests.get(youtubeURLRoot + 'youtube/v3/channels', params=searchParams)
-            seachResponseJSON = json.loads(apiData.text)
-            playlistId = seachResponseJSON['items'][0]['contentDetails']['relatedPlaylists'].get('uploads')
+            searchResponseJSON = json.loads(apiData.text)
+            playlistId = searchResponseJSON['items'][0]['contentDetails']['relatedPlaylists'].get('uploads')
             print('channel uploads playlist id extracted')
 
             # get playlist items (set parameters, get json apiData from api)
@@ -252,7 +263,7 @@ class Ui(QtWidgets.QMainWindow):
             apiData = requests.get(youtubeURLRoot + 'youtube/v3/playlistItems', params=searchParams)
 
             # read JSON from response
-            seachResponseJSON = json.loads(apiData.text)
+            searchResponseJSON = json.loads(apiData.text)
             print('uploads api data loaded')
             self.loadJSONFunction()
 
@@ -264,13 +275,16 @@ class Ui(QtWidgets.QMainWindow):
             apiData = requests.get(youtubeURLRoot + 'youtube/v3/playlistItems', params=searchParams)
 
             # read JSON from response
-            seachResponseJSON = json.loads(apiData.text)
+            searchResponseJSON = json.loads(apiData.text)
             print('uploads api data loaded')
             self.loadJSONFunction()
 
     def nextPageFunction(self):
         global currentPage
-
+        global searchResponseJSON
+        if searchResponseJSON == None:
+            return
+        
         #switch to next page
         if currentPage < 4:
             currentPage = currentPage + 1
@@ -282,7 +296,10 @@ class Ui(QtWidgets.QMainWindow):
 
     def prevPageFunction(self):
         global currentPage
-
+        global searchResponseJSON
+        if searchResponseJSON == None:
+            return
+        
         # switch to previous page
         if currentPage > 0:
             currentPage = currentPage - 1
@@ -294,10 +311,9 @@ class Ui(QtWidgets.QMainWindow):
 
 class player(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
-
-        # initialize video player
+        global appPath
         super(player, self).__init__(parent)
-        uic.loadUi('assets/player.ui', self)
+        uic.loadUi(os.path.join(appPath, 'player.ui'), self)
         global videoStreamURL
         self.startVideoStream()
 
