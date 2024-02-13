@@ -29,65 +29,20 @@ from PyQt6 import QtCore, QtGui, QtWidgets, uic
 import vlc
 from pytube import YouTube
 
-# key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
-key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
-youtubeURLRoot = "https://youtube.googleapis.com/"
-baseThumbnailStyle = ("QPushButton:hover{\n"
-                      "border-radius: 12px;\n"
-                      "border-width: 2px;\n"
-                      "border-color: #74cbfc}\n"
-                      "QPushButton:pressed{\n"
-                      "border-width: 3px;\n"
-                      "border-color: #e974fc;}\n"
-                      "QPushButton{\n"
-                      "color: rgb(0, 0, 0);\n"
-                      "border-width: 1px;\n"
-                      "border-style: solid;\n"
-                      "border-radius: 25px;\n"
-                      "border-color: #1E2126;\n"
-                      "width: 144px;\n"
-                      "height: 256px;\n"
-                      "background-position: center;\n")
-baseButtonStyle = ("QPushButton:hover{\n"
-                   "border-radius: 5px;\n}"
-                   "QPushButton:pressed {\n"
-                   "border-color: #e974fc;\n"
-                   "border-width: 3px}\n"
-                   "QPushButton {\n"
-                   "background-color: 4d4d4d;\n"
-                   "border: 2px solid black;\n"
-                   "border-color: #74cbfc;\n"
-                   "border-radius: 20px;\n"
-                   "text-align: center;\n"
-                   "padding-bottom: 4px;\n")
-
-global title
-global user
-global thumbnail
-global searchResponseJSON
-global videoStreamURL
-global vlcMediaPlayer
-global appPath
-channelId = [None, None, None, None, None]
-Id = [None, None, None, None, None]
-kind = [None, None, None, None, None]
-currentPage = 0
-searchResponseJSON = None
-
-
-class Ui(QtWidgets.QMainWindow):
+class Search(QtWidgets.QMainWindow):
     def __init__(self):
-        global appPath
+
         # initialize search ui
-        super(Ui, self).__init__()
+        global appPath
+        super(Search, self).__init__()
         try:
             appPath = sys._MEIPASS
         except Exception:
             appPath = os.path.abspath('./assets')
         print(appPath)
-        # Path.is_file(os.path.join(appPath, 'search.ui'))
 
         uic.loadUi(os.path.join(appPath, 'search.ui'), self)
+        self.setWindowIcon(QtGui.QIcon('assets/ytQt.ico'))
         self.initPythonCode()
         self.show()
 
@@ -107,19 +62,14 @@ class Ui(QtWidgets.QMainWindow):
         self.searchBar.returnPressed.connect(self.searchYoutubeFunction)
         self.nextPageButton.clicked.connect(self.nextPageFunction)
         self.prevPageButton.clicked.connect(self.prevPageFunction)
+        self.resolutionButton.clicked.connect(self.switchResolution)
 
         # set the thumbnail background to init style
-        path = ''
-        self.thumbnailButton1.setStyleSheet(
-            baseThumbnailStyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-        self.thumbnailButton2.setStyleSheet(
-            baseThumbnailStyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-        self.thumbnailButton3.setStyleSheet(
-            baseThumbnailStyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-        self.thumbnailButton4.setStyleSheet(
-            baseThumbnailStyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
-        self.thumbnailButton5.setStyleSheet(
-            baseThumbnailStyle + f"background-image: url({path}) 0 0 0 0 stretch stretch;" + "}")
+        self.thumbnailButton1.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
+        self.thumbnailButton2.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
+        self.thumbnailButton3.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
+        self.thumbnailButton4.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
+        self.thumbnailButton5.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
 
         # link the thumbnail presses to the openVideoFunction with the index of the button
         self.thumbnailButton1.clicked.connect(lambda: self.openVideoFunction(0))
@@ -127,8 +77,18 @@ class Ui(QtWidgets.QMainWindow):
         self.thumbnailButton3.clicked.connect(lambda: self.openVideoFunction(2))
         self.thumbnailButton4.clicked.connect(lambda: self.openVideoFunction(3))
         self.thumbnailButton5.clicked.connect(lambda: self.openVideoFunction(4))
-
         return
+
+    def switchResolution(self):
+        global resolution
+
+        # switch resolution
+        if resolution == 'HD':
+            resolution = 'SD'
+            self.resolutionButton.setText('SD')
+        else:
+            resolution = 'HD'
+            self.resolutionButton.setText('HD')
 
     def searchYoutubeFunction(self):
         global searchResponseJSON
@@ -167,6 +127,9 @@ class Ui(QtWidgets.QMainWindow):
         print('loading item json')
         for i in range(0 + (currentPage * 5), 5 + (currentPage * 5)):
 
+            if i >= len(searchResponseJSON['items']):
+                print('no more items')
+                return
             # 'p' is the index of the item in the JSON, for every page, 5 is added. 'i' only loops from 1-5
             p = i - (currentPage * 5)
 
@@ -215,6 +178,7 @@ class Ui(QtWidgets.QMainWindow):
         global Id
         global searchResponseJSON
         global videoStreamURL
+        global resolution
         mode = 'stream'
 
         # extract video and launch player
@@ -223,12 +187,18 @@ class Ui(QtWidgets.QMainWindow):
             if mode == 'stream':
 
                 # get stream link
-                videoStreamURL = str(YouTube('https://youtube.com/watch?v=' + str(Id[videoIndex])).streams.get_highest_resolution().url)
+                if resolution == 'HD':
+                    videoStreamURL = str(YouTube('https://youtube.com/watch?v=' + str(Id[videoIndex])).streams.get_highest_resolution().url)
+                else:
+                    try:
+                        videoStreamURL = str(YouTube('https://youtube.com/watch?v=' + str(Id[videoIndex])).streams.get_lowest_resolution().url)
+                    except Exception as e:
+                        print(e)
+                        return
 
                 # launch video player
                 print('launching video player with video stream from url @ ' + videoStreamURL)
                 player(self).show()
-                print('closing video stream')
 
             # DOWNLOAD FEATURE IS DEPRECATED AND ARCHIVED
             elif mode == 'download':
@@ -313,6 +283,7 @@ class player(QtWidgets.QMainWindow):
         global appPath
         super(player, self).__init__(parent)
         uic.loadUi(os.path.join(appPath, 'player.ui'), self)
+        self.setWindowIcon(QtGui.QIcon('assets/ytQt.ico'))
         global videoStreamURL
         self.startVideoStream()
 
@@ -364,7 +335,7 @@ class player(QtWidgets.QMainWindow):
         self.updateVideoSlider()
 
     def fullscreenToggle(self):
-        if self.isFullScreen() == True:
+        if self.isFullScreen():
 
             # show normal
             self.showNormal()
@@ -382,22 +353,30 @@ class player(QtWidgets.QMainWindow):
         self.vlcMediaPlayer.stop()
         event.accept()
 
-    # slider stuff, too lazy to comment
     def fastforward(self):
+
+        # fast-forward 5s
         self.vlcMediaPlayer.set_time(self.vlcMediaPlayer.get_time() + 5000)
         self.updateVideoSlider()
 
     def rewind(self):
+
+        # rewind 5s
         self.vlcMediaPlayer.set_time(self.vlcMediaPlayer.get_time() - 5000)
         self.updateVideoSlider()
 
     def setVideoProgress(self):
+
+        # update the progress of the slider to the video
         self.vlcMediaPlayer.set_position(self.videoSlider.value() / 1000)
 
     def setAudioLevel(self):
+
+        # update vlc volume to slider value
         self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value() * 10)
 
     def updateVideoSlider(self):
+        # update vlc video progress to slider value
         self.videoSlider.setValue(int(self.vlcMediaPlayer.get_position() * 1000))
 
     def keyPressEvent(self, e):
@@ -438,8 +417,56 @@ class player(QtWidgets.QMainWindow):
         elif e.key() == 37:
             self.rewind()
 
+# key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
+key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
+youtubeURLRoot = "https://youtube.googleapis.com/"
+baseThumbnailStyle = ("QPushButton:hover{\n"
+                      "border-radius: 12px;\n"
+                      "border-width: 2px;\n"
+                      "border-color: #74cbfc}\n"
+                      "QPushButton:pressed{\n"
+                      "border-width: 3px;\n"
+                      "border-color: #e974fc;}\n"
+                      "QPushButton{\n"
+                      "color: rgb(0, 0, 0);\n"
+                      "border-width: 1px;\n"
+                      "border-style: solid;\n"
+                      "border-radius: 25px;\n"
+                      "border-color: #1E2126;\n"
+                      "width: 144px;\n"
+                      "height: 256px;\n"
+                      "background-position: center;\n")
+baseButtonStyle = ("QPushButton:hover{\n"
+                   "border-radius: 5px;\n}"
+                   "QPushButton:pressed {\n"
+                   "border-color: #e974fc;\n"
+                   "border-width: 3px}\n"
+                   "QPushButton {\n"
+                   "background-color: 4d4d4d;\n"
+                   "border: 2px solid black;\n"
+                   "border-color: #74cbfc;\n"
+                   "border-radius: 20px;\n"
+                   "text-align: center;\n"
+                   "padding-bottom: 4px;\n")
+
+global title
+global user
+global thumbnail
+global searchResponseJSON
+global videoStreamURL
+global vlcMediaPlayer
+global appPath
+global resolution
+resolution = 'HD'
+channelId = [None, None, None, None, None]
+Id = [None, None, None, None, None]
+kind = [None, None, None, None, None]
+currentPage = 0
+searchResponseJSON = None
 
 if __name__ == '__main__':
+
+    # initialization of the script
     app = QtWidgets.QApplication(sys.argv)
-    window = Ui()
+    window = Search()
     app.exec()
