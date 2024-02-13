@@ -3,8 +3,9 @@ Alternative youtube frontend using Python and Qt
 
 ## Installation
 ### Windows
+##### A large portion of virusscanners will false-positive this as a virus, more information on releases page.
 1) Download and install the latest vlc version: [VLC](https://www.videolan.org/vlc/). If already installed, make sure it is updated.
-2) Download [ytQt.exe](https://github.com/Delamox/ytQt/releases/download/v1.1b/ytQt.exe).
+2) Download the latest release: [ytQt installer](https://github.com/Delamox/ytQt/releases).
 ### GNU/Linux
 ##### WARNING: Make sure you are on x11 as Wayland does not support vlc embedded players at this moment.
 1) Install python and vlc using your favourite package manager.
