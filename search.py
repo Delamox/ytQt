@@ -20,7 +20,6 @@ import json
 import os
 import platform
 import tempfile
-import pathlib
 from io import BytesIO
 from pathlib import Path
 
