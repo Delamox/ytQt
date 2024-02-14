@@ -121,6 +121,7 @@ class Search(QtWidgets.QMainWindow):
         global searchResponseJSON
         global history
         global historyIndex
+
         if historyIndex < 1:
             return
         historyIndex = historyIndex - 1
@@ -341,6 +342,15 @@ class player(QtWidgets.QMainWindow):
 
     def startVideoStream(self):
         global vlcMediaPlayer
+        global appPath
+
+        self.pauseButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/pause.svg')))
+        self.fastforwardButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/ff.svg')))
+        self.rewindButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/rw.svg')))
+        self.likeButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/like.svg')))
+        self.dislikeButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/dislike.svg')))
+        self.commentButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/comments.svg')))
+        self.fullscreenButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/fullscreen.svg')))
 
         # start vlc instance
         self.vlcInstance = vlc.Instance(['--video-on-top', '--verbose=-1', '--repeat'])
@@ -376,13 +386,13 @@ class player(QtWidgets.QMainWindow):
 
             # pause player
             self.vlcMediaPlayer.pause()
-            self.pauseButton.setText('⏵')
+            self.pauseButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/play.svg')))
             self.is_paused = True
         else:
 
             # start player
             self.vlcMediaPlayer.play()
-            self.pauseButton.setText('⏸︎')
+            self.pauseButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/pause.svg')))
             self.is_paused = False
         self.updateVideoSlider()
 
@@ -392,11 +402,13 @@ class player(QtWidgets.QMainWindow):
             # show normal
             self.showNormal()
             self.setStyleSheet("background-color: #1e2126;")
+            self.fullscreenButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/fullscreen.svg')))
         else:
 
             # show fullscreen
             self.showFullScreen()
             self.setStyleSheet("background-color: #000000;")
+            self.fullscreenButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/fullscreenexit.svg')))
 
     def closeEvent(self, event):
 
@@ -470,8 +482,8 @@ class player(QtWidgets.QMainWindow):
             self.rewind()
 
 
-# key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
-key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
+key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
+# key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
 youtubeURLRoot = "https://youtube.googleapis.com/"
 baseThumbnailStyle = ("QPushButton:hover{\n"
                       "border-radius: 12px;\n"
