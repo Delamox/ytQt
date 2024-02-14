@@ -1,9 +1,12 @@
-# ytQt 🚧 INDEV 🚧
-Alternative youtube frontend using Python and Qt
+# ytQt beta
+
+A new way to watch youtube, focused, using an user-friendly Qt based GUI.
+
+_"The code is well-structured and organized, with clear separation of concerns and modular components."_ -VirusTotal
 
 ## Installation
 ### Windows
-##### A large portion of virusscanners will false-positive this as a virus, more information on releases page.
+##### A large portion of virus scanners will false-positive this as a virus, more information on releases page.
 1) Download and install the latest vlc version: [VLC](https://www.videolan.org/vlc/). If already installed, make sure it is updated.
 2) Download the latest release: [ytQt installer](https://github.com/Delamox/ytQt/releases).
 ### GNU/Linux
