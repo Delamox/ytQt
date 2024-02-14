@@ -14,21 +14,22 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
-import sys
 import base64
 import json
 import os
 import platform
+import sys
 import tempfile
 from io import BytesIO
 from pathlib import Path
 
 import requests
+import vlc
 from PIL import Image
 from PyQt6 import QtCore, QtGui, QtWidgets, uic
-import vlc
 from PyQt6.QtGui import QKeyEvent
 from pytube import YouTube
+
 
 class Search(QtWidgets.QMainWindow):
     def __init__(self):
@@ -130,7 +131,7 @@ class Search(QtWidgets.QMainWindow):
         global searchResponseJSON
         global history
         global historyIndex
-        if historyIndex >= len(history)-1:
+        if historyIndex >= len(history) - 1:
             return
         historyIndex = historyIndex + 1
         searchResponseJSON = history[historyIndex]
@@ -150,9 +151,8 @@ class Search(QtWidgets.QMainWindow):
         print('switching to page ' + str(currentPage))
 
         if append:
-
             # remove all array items after current item in history
-            del history[historyIndex + 1 : len(history)]
+            del history[historyIndex + 1: len(history)]
 
             # append json to history array
             history.append(searchResponseJSON)
@@ -165,7 +165,7 @@ class Search(QtWidgets.QMainWindow):
             self.prevResultButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
 
         if historyIndex > len(history) - 2:
-            self. nextResultButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
+            self.nextResultButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
         else:
             self.nextResultButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
 
@@ -217,8 +217,8 @@ class Search(QtWidgets.QMainWindow):
             self.userObjectList[p].setText(user)
             self.titleObjectList[p].setToolTip(title)
             self.titleObjectList[p].setToolTipDuration(-1)
-            print('item json '+ str(p) +' loaded')
-    
+            print('item json ' + str(p) + ' loaded')
+
     def openVideoFunction(self, videoIndex):
         global kind
         global Id
@@ -229,15 +229,18 @@ class Search(QtWidgets.QMainWindow):
 
         # extract video and launch player
         if kind[videoIndex] == 'youtube#video':
-            print('opening type ' + str(kind[videoIndex]) + ' with url ' + 'https://youtube.com/watch?v=' + str(Id[videoIndex]))
+            print('opening type ' + str(kind[videoIndex]) + ' with url ' + 'https://youtube.com/watch?v=' + str(
+                Id[videoIndex]))
             if mode == 'stream':
 
                 # get stream link
                 if resolution == 'HD':
-                    videoStreamURL = str(YouTube('https://youtube.com/watch?v=' + str(Id[videoIndex])).streams.get_highest_resolution().url)
+                    videoStreamURL = str(YouTube(
+                        'https://youtube.com/watch?v=' + str(Id[videoIndex])).streams.get_highest_resolution().url)
                 else:
                     try:
-                        videoStreamURL = str(YouTube('https://youtube.com/watch?v=' + str(Id[videoIndex])).streams.get_lowest_resolution().url)
+                        videoStreamURL = str(YouTube(
+                            'https://youtube.com/watch?v=' + str(Id[videoIndex])).streams.get_lowest_resolution().url)
                     except Exception as e:
                         print(e)
                         return
@@ -299,8 +302,8 @@ class Search(QtWidgets.QMainWindow):
         global searchResponseJSON
         if searchResponseJSON == None:
             return
-        
-        #switch to next page
+
+        # switch to next page
         if currentPage < 4:
             currentPage = currentPage + 1
             if currentPage == 4:
@@ -316,7 +319,7 @@ class Search(QtWidgets.QMainWindow):
         # return to prevent crash if there are no items
         if searchResponseJSON == None:
             return
-        
+
         # switch to previous page
         if currentPage > 0:
             currentPage = currentPage - 1
@@ -325,6 +328,7 @@ class Search(QtWidgets.QMainWindow):
             else:
                 self.nextPageButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
             self.loadJSONFunction(False)
+
 
 class player(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -357,7 +361,7 @@ class player(QtWidgets.QMainWindow):
         self.fullscreenButton.clicked.connect(self.fullscreenToggle)
 
         # connect sliders
-        self.volumeSlider.setValue(int(self.vlcMediaPlayer.audio_get_volume()/10))
+        self.volumeSlider.setValue(int(self.vlcMediaPlayer.audio_get_volume() / 10))
         self.videoSlider.sliderMoved.connect(self.setVideoProgress)
         self.volumeSlider.valueChanged.connect(self.setAudioLevel)
 
@@ -465,6 +469,7 @@ class player(QtWidgets.QMainWindow):
         elif event.key() == QtCore.Qt.Key.Key_Left:
             self.rewind()
 
+
 # key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
 key = 'AIzaSyCDqJTmI3gkjv7-KfWQzo1jqad1HoUqOQc'
 youtubeURLRoot = "https://youtube.googleapis.com/"
@@ -517,7 +522,6 @@ currentPage = 0
 searchResponseJSON = None
 
 if __name__ == '__main__':
-
     # initialization of the script
     app = QtWidgets.QApplication(sys.argv)
     window = Search()
