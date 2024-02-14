@@ -1,5 +1,0 @@
-requests==2.31.0
-PyQt6==6.6.1
-pillow==10.2.0
-pytube==15.0.0
-python-vlc==3.0.20123
