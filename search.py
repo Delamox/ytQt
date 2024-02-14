@@ -27,6 +27,7 @@ import requests
 from PIL import Image
 from PyQt6 import QtCore, QtGui, QtWidgets, uic
 import vlc
+from PyQt6.QtGui import QKeyEvent
 from pytube import YouTube
 
 class Search(QtWidgets.QMainWindow):
@@ -63,6 +64,8 @@ class Search(QtWidgets.QMainWindow):
         self.nextPageButton.clicked.connect(self.nextPageFunction)
         self.prevPageButton.clicked.connect(self.prevPageFunction)
         self.resolutionButton.clicked.connect(self.switchResolution)
+        self.prevResultButton.clicked.connect(self.prevResult)
+        self.nextResultButton.clicked.connect(self.nextResult)
 
         # set the thumbnail background to init style
         self.thumbnailButton1.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
@@ -111,9 +114,29 @@ class Search(QtWidgets.QMainWindow):
         print('search api data loaded')
 
         # call function to load json into UI
-        self.loadJSONFunction()
+        self.loadJSONFunction(True)
 
-    def loadJSONFunction(self):
+    def prevResult(self):
+        global searchResponseJSON
+        global history
+        global historyIndex
+        if historyIndex < 1:
+            return
+        historyIndex = historyIndex - 1
+        searchResponseJSON = history[historyIndex]
+        self.loadJSONFunction(False)
+
+    def nextResult(self):
+        global searchResponseJSON
+        global history
+        global historyIndex
+        if historyIndex >= len(history)-1:
+            return
+        historyIndex = historyIndex + 1
+        searchResponseJSON = history[historyIndex]
+        self.loadJSONFunction(False)
+
+    def loadJSONFunction(self, append):
         global currentPage
         global searchResponseJSON
         global title
@@ -121,7 +144,30 @@ class Search(QtWidgets.QMainWindow):
         global thumbnail
         global kind
         global Id
+        global history
+        global historyIndex
+        print('history ' + str(historyIndex + 1) + ' / ' + str(len(history)))
         print('switching to page ' + str(currentPage))
+
+        if append:
+
+            # remove all array items after current item in history
+            del history[historyIndex + 1 : len(history)]
+
+            # append json to history array
+            history.append(searchResponseJSON)
+            historyIndex = historyIndex + 1
+
+        # change navigation button style
+        if historyIndex < 1:
+            self.prevResultButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
+        else:
+            self.prevResultButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
+
+        if historyIndex > len(history) - 2:
+            self. nextResultButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
+        else:
+            self.nextResultButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
 
         # loop over videos and load respective JSON
         print('loading item json')
@@ -234,7 +280,7 @@ class Search(QtWidgets.QMainWindow):
             # read JSON from response
             searchResponseJSON = json.loads(apiData.text)
             print('uploads api data loaded')
-            self.loadJSONFunction()
+            self.loadJSONFunction(True)
 
         elif kind[videoIndex] == 'youtube#playlist':
 
@@ -246,7 +292,7 @@ class Search(QtWidgets.QMainWindow):
             # read JSON from response
             searchResponseJSON = json.loads(apiData.text)
             print('uploads api data loaded')
-            self.loadJSONFunction()
+            self.loadJSONFunction(True)
 
     def nextPageFunction(self):
         global currentPage
@@ -261,11 +307,13 @@ class Search(QtWidgets.QMainWindow):
                 self.nextPageButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
             else:
                 self.prevPageButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
-            self.loadJSONFunction()
+            self.loadJSONFunction(False)
 
     def prevPageFunction(self):
         global currentPage
         global searchResponseJSON
+
+        # return to prevent crash if there are no items
         if searchResponseJSON == None:
             return
         
@@ -276,7 +324,7 @@ class Search(QtWidgets.QMainWindow):
                 self.prevPageButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
             else:
                 self.nextPageButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
-            self.loadJSONFunction()
+            self.loadJSONFunction(False)
 
 class player(QtWidgets.QMainWindow):
     def __init__(self, parent=None):
@@ -291,7 +339,7 @@ class player(QtWidgets.QMainWindow):
         global vlcMediaPlayer
 
         # start vlc instance
-        self.vlcInstance = vlc.Instance(['--video-on-top', '--verbose=-1'])
+        self.vlcInstance = vlc.Instance(['--video-on-top', '--verbose=-1', '--repeat'])
         self.vlcMediaPlayer = self.vlcInstance.media_player_new()
         if platform.system() == "Linux":
             self.vlcMediaPlayer.set_xwindow(int(self.vlcContainerFrame.winId()))
@@ -379,22 +427,22 @@ class player(QtWidgets.QMainWindow):
         # update vlc video progress to slider value
         self.videoSlider.setValue(int(self.vlcMediaPlayer.get_position() * 1000))
 
-    def keyPressEvent(self, e):
+    def keyPressEvent(self, event: QKeyEvent):
 
         # ignore if held down
-        if e.isAutoRepeat():
+        if event.isAutoRepeat():
             return
 
         # pause 'spacebar'
-        if e.key() == 32:
+        if event.key() == QtCore.Qt.Key.Key_Space or event.key() == QtCore.Qt.Key.Key_MediaTogglePlayPause:
             self.pausePlay()
 
         # fullscreen 'f'
-        elif e.key() == 56:
+        elif event.key() == QtCore.Qt.Key.Key_F or event.key() == QtCore.Qt.Key.Key_F11:
             self.fullscreenToggle()
 
         # volume + 'arrow_up'
-        elif e.key() == 38:
+        elif event.key() == QtCore.Qt.Key.Key_Up:
             if self.volumeSlider.value() <= 9:
                 self.volumeSlider.setValue(self.volumeSlider.value() + 1)
             else:
@@ -402,19 +450,19 @@ class player(QtWidgets.QMainWindow):
             self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value())
 
         # volume - 'arrow_down'
-        elif e.key() == 40:
-            if self.volumeSlider.value() >= 10:
+        elif event.key() == QtCore.Qt.Key.Key_Down:
+            if self.volumeSlider.value() >= 1:
                 self.volumeSlider.setValue(self.volumeSlider.value() - 1)
             else:
                 self.volumeSlider.setValue(0)
             self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value())
 
         # fastforward 'arrow_right'
-        elif e.key() == 39:
+        elif event.key() == QtCore.Qt.Key.Key_Right:
             self.fastforward()
 
         # rewind 'arrow_left'
-        elif e.key() == 37:
+        elif event.key() == QtCore.Qt.Key.Key_Left:
             self.rewind()
 
 # key = 'AIzaSyDuWZalLquMoISDybPsuOYs75cAeAEtEzo'
@@ -447,7 +495,7 @@ baseButtonStyle = ("QPushButton:hover{\n"
                    "border-color: #74cbfc;\n"
                    "border-radius: 20px;\n"
                    "text-align: center;\n"
-                   "padding-bottom: 4px;\n")
+                   "padding-bottom: 0px;\n")
 
 global title
 global user
@@ -457,6 +505,10 @@ global videoStreamURL
 global vlcMediaPlayer
 global appPath
 global resolution
+global history
+global historyIndex
+history = []
+historyIndex = -1
 resolution = 'HD'
 channelId = [None, None, None, None, None]
 Id = [None, None, None, None, None]
