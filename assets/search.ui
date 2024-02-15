@@ -48,21 +48,8 @@
         <height>40</height>
        </size>
       </property>
-      <property name="font">
-       <font>
-        <family>Verdana</family>
-        <pointsize>20</pointsize>
-        <weight>50</weight>
-        <italic>false</italic>
-        <bold>false</bold>
-        <underline>false</underline>
-       </font>
-      </property>
       <property name="focusPolicy">
        <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="toolTip">
-       <string notr="true"/>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -72,15 +59,18 @@ border: 2px solid black;
 border-color: #74cbfc;
 border-radius: 20px;
 text-align: center;
-padding-bottom: 8px;}
+padding-bottom: 0px;}
 QPushButton:hover {
 border-radius: 5px;}
 QPushButton:pressed {
 border-color: #e974fc;
 border-width: 3px}</string>
       </property>
-      <property name="text">
-       <string notr="true">⌂</string>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -1112,13 +1102,6 @@ padding-left: 5px;</string>
         <height>40</height>
        </size>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton:hover {
 border-radius: 5px;}
@@ -1134,8 +1117,11 @@ text-align: center;
 padding-bottom: 0px;
 color: #404040;}</string>
       </property>
-      <property name="text">
-       <string notr="true">&gt;</string>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -1203,13 +1189,6 @@ color: #404040;}</string>
         <height>40</height>
        </size>
       </property>
-      <property name="font">
-       <font>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
       <property name="styleSheet">
        <string notr="true">QPushButton:hover {
 border-radius: 5px;}
@@ -1225,8 +1204,11 @@ text-align: center;
 padding-bottom: 0px;
 color: #404040;}</string>
       </property>
-      <property name="text">
-       <string notr="true">&lt;</string>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -1295,21 +1277,8 @@ border-width: 3px}</string>
         <height>40</height>
        </size>
       </property>
-      <property name="font">
-       <font>
-        <family>Verdana</family>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-        <underline>false</underline>
-       </font>
-      </property>
       <property name="focusPolicy">
        <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="toolTip">
-       <string notr="true"/>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton:hover {
@@ -1326,8 +1295,11 @@ text-align: center;
 padding-bottom: 0px;
 color: #404040;}</string>
       </property>
-      <property name="text">
-       <string notr="true">&lt;</string>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -1345,21 +1317,8 @@ color: #404040;}</string>
         <height>40</height>
        </size>
       </property>
-      <property name="font">
-       <font>
-        <family>Verdana</family>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <italic>false</italic>
-        <bold>true</bold>
-        <underline>false</underline>
-       </font>
-      </property>
       <property name="focusPolicy">
        <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="toolTip">
-       <string notr="true"/>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton:hover {
@@ -1376,8 +1335,11 @@ text-align: center;
 padding-bottom: 0px;
 color: #404040;}</string>
       </property>
-      <property name="text">
-       <string notr="true">&gt;</string>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
       </property>
      </widget>
     </item>

@@ -68,12 +68,17 @@ class Search(QtWidgets.QMainWindow):
         self.prevResultButton.clicked.connect(self.prevResult)
         self.nextResultButton.clicked.connect(self.nextResult)
 
-        # set the thumbnail background to init style
+        # set the thumbnail background to init style and load icons
         self.thumbnailButton1.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
         self.thumbnailButton2.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
         self.thumbnailButton3.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
         self.thumbnailButton4.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
         self.thumbnailButton5.setStyleSheet('background-color: #1E2126; border: 1px solid #1E2126')
+        self.nextPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightgray.svg')))
+        self.prevPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftgray.svg')))
+        self.nextResultButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightgray.svg')))
+        self.prevResultButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftgray.svg')))
+        self.homeButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/home.svg')))
 
         # link the thumbnail presses to the openVideoFunction with the index of the button
         self.thumbnailButton1.clicked.connect(lambda: self.openVideoFunction(0))
@@ -100,8 +105,8 @@ class Search(QtWidgets.QMainWindow):
         global currentPage
         self.searchBar.clearFocus()
         currentPage = 0
-        self.prevPageButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
-        self.nextPageButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
+        self.nextPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightwhite.svg')))
+        self.prevPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftgray.svg')))
 
         # set parameters, get json apiData from api
         userSearchQuery = self.searchBar.text()
@@ -161,14 +166,14 @@ class Search(QtWidgets.QMainWindow):
 
         # change navigation button style
         if historyIndex < 1:
-            self.prevResultButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
+            self.prevResultButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftgray.svg')))
         else:
-            self.prevResultButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
+            self.prevResultButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftwhite.svg')))
 
         if historyIndex > len(history) - 2:
-            self.nextResultButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
+            self.nextResultButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightgray.svg')))
         else:
-            self.nextResultButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
+            self.nextResultButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightwhite.svg')))
 
         # loop over videos and load respective JSON
         print('loading item json')
@@ -308,9 +313,10 @@ class Search(QtWidgets.QMainWindow):
         if currentPage < 4:
             currentPage = currentPage + 1
             if currentPage == 4:
-                self.nextPageButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
+                self.nextPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightgray.svg')))
+
             else:
-                self.prevPageButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
+                self.prevPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftwhite.svg')))
             self.loadJSONFunction(False)
 
     def prevPageFunction(self):
@@ -325,9 +331,9 @@ class Search(QtWidgets.QMainWindow):
         if currentPage > 0:
             currentPage = currentPage - 1
             if currentPage == 0:
-                self.prevPageButton.setStyleSheet(baseButtonStyle + "color: #404040};})\n")
+                self.prevPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightgray.svg')))
             else:
-                self.nextPageButton.setStyleSheet(baseButtonStyle + "color: #ffffff};})\n")
+                self.nextPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftwhite.svg')))
             self.loadJSONFunction(False)
 
 
@@ -501,18 +507,6 @@ baseThumbnailStyle = ("QPushButton:hover{\n"
                       "width: 144px;\n"
                       "height: 256px;\n"
                       "background-position: center;\n")
-baseButtonStyle = ("QPushButton:hover{\n"
-                   "border-radius: 5px;\n}"
-                   "QPushButton:pressed {\n"
-                   "border-color: #e974fc;\n"
-                   "border-width: 3px}\n"
-                   "QPushButton {\n"
-                   "background-color: 4d4d4d;\n"
-                   "border: 2px solid black;\n"
-                   "border-color: #74cbfc;\n"
-                   "border-radius: 20px;\n"
-                   "text-align: center;\n"
-                   "padding-bottom: 0px;\n")
 
 global title
 global user
