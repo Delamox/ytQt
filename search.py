@@ -331,9 +331,9 @@ class Search(QtWidgets.QMainWindow):
         if currentPage > 0:
             currentPage = currentPage - 1
             if currentPage == 0:
-                self.prevPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightgray.svg')))
+                self.prevPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftgray.svg')))
             else:
-                self.nextPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftwhite.svg')))
+                self.nextPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightwhite.svg')))
             self.loadJSONFunction(False)
 
 
@@ -469,7 +469,7 @@ class player(QtWidgets.QMainWindow):
                 self.volumeSlider.setValue(self.volumeSlider.value() + 1)
             else:
                 self.volumeSlider.setValue(10)
-            self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value())
+            self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value() * 10)
 
         # volume - 'arrow_down'
         elif event.key() == QtCore.Qt.Key.Key_Down:
@@ -477,7 +477,8 @@ class player(QtWidgets.QMainWindow):
                 self.volumeSlider.setValue(self.volumeSlider.value() - 1)
             else:
                 self.volumeSlider.setValue(0)
-            self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value())
+            print(self.volumeSlider.value())
+            self.vlcMediaPlayer.audio_set_volume(self.volumeSlider.value() * 10)
 
         # fastforward 'arrow_right'
         elif event.key() == QtCore.Qt.Key.Key_Right:
