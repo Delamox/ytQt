@@ -59,6 +59,13 @@ class Search(QtWidgets.QMainWindow):
         self.userObjectList = [
             self.userLabel1, self.userLabel2, self.userLabel3, self.userLabel4, self.userLabel5]
 
+        if os.path.exists(os.path.join(appPath, 'searchstyle.json')):
+            style = json.load(open(os.path.join(appPath, 'searchstyle.json')))
+            self.setStyleSheet(style.get('background'))
+            for i in range(0, 4):
+                print(i)
+                self.thumbnailObjectList[i].setStyleSheet(style.get('thumbnail'))
+
         # set up links
         self.searchButton.clicked.connect(self.searchYoutubeFunction)
         self.searchBar.returnPressed.connect(self.searchYoutubeFunction)
@@ -78,6 +85,7 @@ class Search(QtWidgets.QMainWindow):
         self.prevPageButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftgray.svg')))
         self.nextResultButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightgray.svg')))
         self.prevResultButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftgray.svg')))
+        self.searchButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/search.svg')))
         self.homeButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/home.svg')))
 
         # link the thumbnail presses to the openVideoFunction with the index of the button
@@ -94,10 +102,9 @@ class Search(QtWidgets.QMainWindow):
         # switch resolution
         if resolution == 'HD':
             resolution = 'SD'
-            self.resolutionButton.setText('SD')
         else:
             resolution = 'HD'
-            self.resolutionButton.setText('HD')
+        self.resolutionButton.setText(resolution)
 
     def searchYoutubeFunction(self):
         global searchResponseJSON
@@ -113,7 +120,7 @@ class Search(QtWidgets.QMainWindow):
         searchParams = {'part': 'snippet', 'key': key, "q": userSearchQuery, "maxResults": "25"}
         print('requesting search api data')
         apiData = requests.get(youtubeURLRoot + 'youtube/v3/search', params=searchParams)
-        # searchResponse = requests.get('https://files.catbox.moe/7j4a26.json')
+        # apiData = requests.get('https://files.catbox.moe/7j4a26.json')
 
         # read json from response
         searchResponseJSON = json.loads(apiData.text)

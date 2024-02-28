@@ -58,8 +58,7 @@ background-color: 4d4d4d;
 border: 2px solid black;
 border-color: #74cbfc;
 border-radius: 20px;
-text-align: center;
-padding-bottom: 0px;}
+text-align: center;}
 QPushButton:hover {
 border-radius: 5px;}
 QPushButton:pressed {
@@ -94,19 +93,8 @@ border-width: 3px}</string>
         <height>40</height>
        </size>
       </property>
-      <property name="font">
-       <font>
-        <family>Verdana</family>
-        <pointsize>20</pointsize>
-        <weight>75</weight>
-        <bold>true</bold>
-       </font>
-      </property>
       <property name="focusPolicy">
        <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="toolTip">
-       <string notr="true"/>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -123,8 +111,11 @@ QPushButton:pressed {
 border-color: #e974fc;
 border-width: 3px}</string>
       </property>
-      <property name="text">
-       <string notr="true">⌕</string>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
       </property>
      </widget>
     </item>
@@ -1190,19 +1181,18 @@ color: #404040;}</string>
        </size>
       </property>
       <property name="styleSheet">
-       <string notr="true">QPushButton:hover {
-border-radius: 5px;}
-QPushButton:pressed {
-border-color: #e974fc;
-border-width: 3px}
-QPushButton {
+       <string notr="true">QPushButton {
+color: #ffffff;
 background-color: 4d4d4d;
 border: 2px solid black;
 border-color: #74cbfc;
 border-radius: 20px;
-text-align: center;
-padding-bottom: 0px;
-color: #404040;}</string>
+text-align: center;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
       </property>
       <property name="iconSize">
        <size>
