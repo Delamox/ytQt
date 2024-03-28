@@ -18,8 +18,8 @@
   </property>
   <widget class="QWidget" name="centralwidget">
    <layout class="QGridLayout" name="gridLayout_2">
-    <item row="1" column="11">
-     <spacer name="rightClearanceSpacer">
+    <item row="1" column="0">
+     <spacer name="leftClearanceSpacer">
       <property name="orientation">
        <enum>Qt::Horizontal</enum>
       </property>
@@ -30,6 +30,22 @@
        <size>
         <width>10</width>
         <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="4" column="1">
+     <spacer name="bottomClearanceSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>10</height>
        </size>
       </property>
      </spacer>
@@ -73,8 +89,8 @@ border-width: 3px}</string>
       </property>
      </widget>
     </item>
-    <item row="1" column="10">
-     <widget class="QPushButton" name="searchButton">
+    <item row="3" column="1">
+     <widget class="QPushButton" name="resolutionButton">
       <property name="sizePolicy">
        <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
         <horstretch>0</horstretch>
@@ -93,8 +109,17 @@ border-width: 3px}</string>
         <height>40</height>
        </size>
       </property>
+      <property name="font">
+       <font>
+        <family>FreeSans</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
       <property name="focusPolicy">
        <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="toolTip">
+       <string notr="true"/>
       </property>
       <property name="styleSheet">
        <string notr="true">QPushButton {
@@ -103,39 +128,59 @@ background-color: 4d4d4d;
 border: 2px solid black;
 border-color: #74cbfc;
 border-radius: 20px;
-text-align: center;
-padding-bottom: 4px;}
+text-align: center;}
 QPushButton:hover {
 border-radius: 5px;}
 QPushButton:pressed {
 border-color: #e974fc;
 border-width: 3px}</string>
       </property>
+      <property name="text">
+       <string>HD</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="3">
+     <widget class="QPushButton" name="nextPageButton">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}
+QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: 0px;
+color: #404040;}</string>
+      </property>
       <property name="iconSize">
        <size>
-        <width>16</width>
-        <height>16</height>
+        <width>32</width>
+        <height>32</height>
        </size>
       </property>
      </widget>
     </item>
-    <item row="4" column="1">
-     <spacer name="bottomClearanceSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>10</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="2" column="1" colspan="10">
+    <item row="2" column="1" colspan="11">
      <layout class="QGridLayout" name="baselayout">
       <property name="spacing">
        <number>0</number>
@@ -162,7 +207,7 @@ border-width: 3px}</string>
       <item row="4" column="0" colspan="2">
        <spacer name="midSpacer1">
         <property name="toolTip">
-         <string notr="true">Vertical Spacer 'verticalSpacer_5', 20 x 5</string>
+         <string notr="true">Vertical Spacer 'midSpacer1', 20 x 10</string>
         </property>
         <property name="orientation">
          <enum>Qt::Vertical</enum>
@@ -1057,283 +1102,7 @@ padding-left: 5px;</string>
       </item>
      </layout>
     </item>
-    <item row="1" column="0">
-     <spacer name="leftClearanceSpacer">
-      <property name="orientation">
-       <enum>Qt::Horizontal</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>10</width>
-        <height>20</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="1" column="3">
-     <widget class="QPushButton" name="nextResultButton">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton:hover {
-border-radius: 5px;}
-QPushButton:pressed {
-border-color: #e974fc;
-border-width: 3px}
-QPushButton {
-background-color: 4d4d4d;
-border: 2px solid black;
-border-color: #74cbfc;
-border-radius: 20px;
-text-align: center;
-padding-bottom: 0px;
-color: #404040;}</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="0" column="1">
-     <spacer name="topClearanceSpacer">
-      <property name="orientation">
-       <enum>Qt::Vertical</enum>
-      </property>
-      <property name="sizeType">
-       <enum>QSizePolicy::Fixed</enum>
-      </property>
-      <property name="sizeHint" stdset="0">
-       <size>
-        <width>20</width>
-        <height>10</height>
-       </size>
-      </property>
-     </spacer>
-    </item>
-    <item row="3" column="10">
-     <widget class="QLabel" name="loadingIcon">
-      <property name="enabled">
-       <bool>false</bool>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="text">
-       <string/>
-      </property>
-      <property name="pixmap">
-       <pixmap>../../../Downloads/ZKZg.gif</pixmap>
-      </property>
-      <property name="scaledContents">
-       <bool>true</bool>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="2">
-     <widget class="QPushButton" name="prevResultButton">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-color: #ffffff;
-background-color: 4d4d4d;
-border: 2px solid black;
-border-color: #74cbfc;
-border-radius: 20px;
-text-align: center;}
-QPushButton:hover {
-border-radius: 5px;}
-QPushButton:pressed {
-border-color: #e974fc;
-border-width: 3px}</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="1">
-     <widget class="QPushButton" name="resolutionButton">
-      <property name="sizePolicy">
-       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
-        <horstretch>0</horstretch>
-        <verstretch>0</verstretch>
-       </sizepolicy>
-      </property>
-      <property name="minimumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="font">
-       <font>
-        <family>Verdana</family>
-        <pointsize>12</pointsize>
-       </font>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="toolTip">
-       <string notr="true"/>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton {
-color: #ffffff;
-background-color: 4d4d4d;
-border: 2px solid black;
-border-color: #74cbfc;
-border-radius: 20px;
-text-align: center;}
-QPushButton:hover {
-border-radius: 5px;}
-QPushButton:pressed {
-border-color: #e974fc;
-border-width: 3px}</string>
-      </property>
-      <property name="text">
-       <string>HD</string>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="2">
-     <widget class="QPushButton" name="prevPageButton">
-      <property name="minimumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton:hover {
-border-radius: 5px;}
-QPushButton:pressed {
-border-color: #e974fc;
-border-width: 3px}
-QPushButton {
-background-color: 4d4d4d;
-border: 2px solid black;
-border-color: #74cbfc;
-border-radius: 20px;
-text-align: center;
-padding-bottom: 0px;
-color: #404040;}</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="3" column="3">
-     <widget class="QPushButton" name="nextPageButton">
-      <property name="minimumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="maximumSize">
-       <size>
-        <width>40</width>
-        <height>40</height>
-       </size>
-      </property>
-      <property name="focusPolicy">
-       <enum>Qt::NoFocus</enum>
-      </property>
-      <property name="styleSheet">
-       <string notr="true">QPushButton:hover {
-border-radius: 5px;}
-QPushButton:pressed {
-border-color: #e974fc;
-border-width: 3px}
-QPushButton {
-background-color: 4d4d4d;
-border: 2px solid black;
-border-color: #74cbfc;
-border-radius: 20px;
-text-align: center;
-padding-bottom: 0px;
-color: #404040;}</string>
-      </property>
-      <property name="iconSize">
-       <size>
-        <width>32</width>
-        <height>32</height>
-       </size>
-      </property>
-     </widget>
-    </item>
-    <item row="1" column="4" colspan="6">
+    <item row="1" column="4" colspan="7">
      <widget class="QLineEdit" name="searchBar">
       <property name="minimumSize">
        <size>
@@ -1388,6 +1157,279 @@ border-color: #e974fc;}</string>
       </property>
       <property name="placeholderText">
        <string>Search YouTube...</string>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="2">
+     <widget class="QPushButton" name="prevPageButton">
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}
+QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: 0px;
+color: #404040;}</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="3">
+     <widget class="QPushButton" name="nextResultButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}
+QPushButton {
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: 0px;
+color: #404040;}</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="1" column="2">
+     <widget class="QPushButton" name="prevResultButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+color: #ffffff;
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>32</width>
+        <height>32</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="0" column="1">
+     <spacer name="topClearanceSpacer">
+      <property name="orientation">
+       <enum>Qt::Vertical</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>20</width>
+        <height>10</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="13">
+     <spacer name="rightClearanceSpacer">
+      <property name="orientation">
+       <enum>Qt::Horizontal</enum>
+      </property>
+      <property name="sizeType">
+       <enum>QSizePolicy::Fixed</enum>
+      </property>
+      <property name="sizeHint" stdset="0">
+       <size>
+        <width>10</width>
+        <height>20</height>
+       </size>
+      </property>
+     </spacer>
+    </item>
+    <item row="1" column="11">
+     <widget class="QPushButton" name="searchButton">
+      <property name="sizePolicy">
+       <sizepolicy hsizetype="Fixed" vsizetype="Fixed">
+        <horstretch>0</horstretch>
+        <verstretch>0</verstretch>
+       </sizepolicy>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+color: #ffffff;
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;
+padding-bottom: 4px;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="iconSize">
+       <size>
+        <width>16</width>
+        <height>16</height>
+       </size>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="11">
+     <widget class="QLabel" name="loadingIcon">
+      <property name="enabled">
+       <bool>false</bool>
+      </property>
+      <property name="minimumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>40</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="text">
+       <string/>
+      </property>
+      <property name="pixmap">
+       <pixmap>../../../Downloads/ZKZg.gif</pixmap>
+      </property>
+      <property name="scaledContents">
+       <bool>true</bool>
+      </property>
+     </widget>
+    </item>
+    <item row="3" column="10">
+     <widget class="QPushButton" name="subscribeButton">
+      <property name="minimumSize">
+       <size>
+        <width>140</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="maximumSize">
+       <size>
+        <width>140</width>
+        <height>40</height>
+       </size>
+      </property>
+      <property name="font">
+       <font>
+        <family>FreeSans</family>
+        <pointsize>12</pointsize>
+       </font>
+      </property>
+      <property name="focusPolicy">
+       <enum>Qt::NoFocus</enum>
+      </property>
+      <property name="styleSheet">
+       <string notr="true">QPushButton {
+color: #ffffff;
+background-color: 4d4d4d;
+border: 2px solid black;
+border-color: #74cbfc;
+border-radius: 20px;
+text-align: center;}
+QPushButton:hover {
+border-radius: 5px;}
+QPushButton:pressed {
+border-color: #e974fc;
+border-width: 3px}</string>
+      </property>
+      <property name="text">
+       <string>SUBSCRIBE</string>
       </property>
      </widget>
     </item>

@@ -14,6 +14,8 @@
 #    You should have received a copy of the GNU General Public License
 #    along with this program.  If not, see <https://www.gnu.org/licenses/>.
 
+# two weeks UNIX = 604800
+
 import base64
 import json
 import os
@@ -59,12 +61,12 @@ class Search(QtWidgets.QMainWindow):
         self.userObjectList = [
             self.userLabel1, self.userLabel2, self.userLabel3, self.userLabel4, self.userLabel5]
 
-        if os.path.exists(os.path.join(appPath, 'searchstyle.json')):
-            style = json.load(open(os.path.join(appPath, 'searchstyle.json')))
-            self.setStyleSheet(style.get('background'))
-            for i in range(0, 4):
-                print(i)
-                self.thumbnailObjectList[i].setStyleSheet(style.get('thumbnail'))
+        # if os.path.exists(os.path.join(appPath, 'searchstyle.json')):
+        #     style = json.load(open(os.path.join(appPath, 'searchstyle.json')))
+        #     self.setStyleSheet(style.get('background'))
+        #     for i in range(0, 4):
+        #         print(i)
+        #         self.thumbnailObjectList[i].setStyleSheet(style.get('thumbnail'))
 
         # set up links
         self.searchButton.clicked.connect(self.searchYoutubeFunction)
@@ -87,6 +89,8 @@ class Search(QtWidgets.QMainWindow):
         self.prevResultButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowleftgray.svg')))
         self.searchButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/search.svg')))
         self.homeButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/home.svg')))
+        self.subscribeButton.hide()
+        self.subscribeButton.clicked.connect(self.subscribeFunction)
 
         # link the thumbnail presses to the openVideoFunction with the index of the button
         self.thumbnailButton1.clicked.connect(lambda: self.openVideoFunction(0))
@@ -95,6 +99,10 @@ class Search(QtWidgets.QMainWindow):
         self.thumbnailButton4.clicked.connect(lambda: self.openVideoFunction(3))
         self.thumbnailButton5.clicked.connect(lambda: self.openVideoFunction(4))
         return
+
+    def subscribeFunction(self):
+        global searchResponseJSON
+        print(searchResponseJSON['items'][0]['snippet'].get('channelId'))
 
     def switchResolution(self):
         global resolution
@@ -182,13 +190,18 @@ class Search(QtWidgets.QMainWindow):
         else:
             self.nextResultButton.setIcon(QtGui.QIcon(os.path.join(appPath, 'icons/arrowrightwhite.svg')))
 
+        if searchResponseJSON.get('kind') == 'youtube#channel':
+            self.subscribeButton.show()
+        else:
+            self.subscribeButton.hide()
+
         # loop over videos and load respective JSON
         print('loading item json')
         for i in range(0 + (currentPage * 5), 5 + (currentPage * 5)):
-
             if i >= len(searchResponseJSON['items']):
                 print('no more items')
                 return
+
             # 'p' is the index of the item in the JSON, for every page, 5 is added. 'i' only loops from 1-5
             p = i - (currentPage * 5)
 
@@ -230,7 +243,6 @@ class Search(QtWidgets.QMainWindow):
             self.userObjectList[p].setText(user)
             self.titleObjectList[p].setToolTip(title)
             self.titleObjectList[p].setToolTipDuration(-1)
-            print('item json ' + str(p) + ' loaded')
 
     def openVideoFunction(self, videoIndex):
         global kind
@@ -293,8 +305,9 @@ class Search(QtWidgets.QMainWindow):
             print('requesting uploads playlist api data')
             apiData = requests.get(youtubeURLRoot + 'youtube/v3/playlistItems', params=searchParams)
 
-            # read JSON from response
+            # read JSON from response, change back to channel header
             searchResponseJSON = json.loads(apiData.text)
+            searchResponseJSON.update({'kind': 'youtube#channel'})
             print('uploads api data loaded')
             self.loadJSONFunction(True)
 
